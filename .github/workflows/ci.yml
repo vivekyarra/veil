@@ -1,8 +1,13 @@
 name: verify
 on: [push, pull_request]
+permissions:
+  contents: read
+concurrency:
+  group: verify-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   detector:
-    runs-on: windows-latest
+    runs-on: windows-2022
     steps:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v6
@@ -15,7 +20,8 @@ jobs:
       - run: uv run --project detector python scripts/check-crumbs.py
       - run: uvx deptry==0.25.1 detector/veil_detector --config detector/pyproject.toml
   app:
-    runs-on: windows-latest
+    runs-on: windows-2022
+    timeout-minutes: 30
     defaults:
       run:
         working-directory: app
@@ -45,7 +51,7 @@ jobs:
   plugin:
     strategy:
       matrix:
-        os: [windows-latest, macos-latest]
+        os: [windows-2022, macos-latest]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
@@ -53,13 +59,14 @@ jobs:
       - run: cmake --build plugin/build --config Release
       - run: ctest --test-dir plugin/build -C Release --no-tests=error --output-on-failure
   benchmark:
-    runs-on: windows-latest
+    runs-on: windows-2022
+    timeout-minutes: 120
     steps:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v6
       - run: uv sync --project detector --python 3.11
       - run: uv run --project detector playwright install chromium
-      - run: uv run --project detector python bench/generate.py --count 300 --output bench/data-ci
+      - run: uv run --project detector python bench/generate.py --count 3000 --output bench/data-ci
       - run: uv run --project detector python bench/evaluate.py --data bench/data-ci --output docs/benchmark-ci --workers 2
       - uses: actions/upload-artifact@v4
         if: always()
@@ -71,13 +78,16 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - os: windows-latest
+          - os: windows-2022
             preset: windows-x64
             directory: build_x64
           - os: macos-latest
             preset: macos
             directory: build_macos
     runs-on: ${{ matrix.os }}
+    timeout-minutes: 60
+    env:
+      CSC_IDENTITY_AUTO_DISCOVERY: 'false'
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -88,6 +98,7 @@ jobs:
       - run: cmake --preset ${{ matrix.preset }} -DVEIL_BUILD_OBS=ON
         working-directory: plugin
       - run: cmake --build plugin/${{ matrix.directory }} --config Release
+      - run: ctest --test-dir plugin/${{ matrix.directory }} -C Release --no-tests=error --output-on-failure
       - run: cmake --install plugin/${{ matrix.directory }} --config Release --prefix plugin/dist
       - run: npm ci --prefix app
       - run: uv run --project detector pyinstaller --noconfirm --name veil-detector --onedir --collect-all rapidocr_onnxruntime --collect-all veil_detector --collect-all uvicorn --collect-all websockets --paths detector --distpath detector/dist --workpath detector/build detector/launcher.py
