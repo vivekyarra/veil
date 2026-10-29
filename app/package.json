@@ -1,6 +1,6 @@
 {
   "name": "veil-desktop",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "type": "module",
   "main": "dist-electron/main.js",
@@ -50,11 +50,13 @@
     "appId": "dev.veil.desktop",
     "productName": "VEIL",
     "directories": {
-      "output": "release"
+      "output": "release",
+      "buildResources": "assets"
     },
     "files": [
       "dist/**/*",
-      "dist-electron/**/*"
+      "dist-electron/**/*",
+      "assets/**/*"
     ],
     "extraResources": [
       {
@@ -68,18 +70,34 @@
       {
         "from": "../plugin/data",
         "to": "plugin-data"
+      },
+      {
+        "from": "../LICENSE",
+        "to": "licenses/LICENSE-app.txt"
+      },
+      {
+        "from": "../plugin/UPSTREAM-LICENSE",
+        "to": "licenses/LICENSE-plugin.txt"
       }
     ],
     "win": {
       "target": "nsis",
-      "signAndEditExecutable": false
+      "signAndEditExecutable": false,
+      "icon": "assets/icon.ico"
     },
     "mac": {
       "target": "dmg",
-      "category": "public.app-category.video"
+      "category": "public.app-category.video",
+      "icon": "assets/icon.icns"
     },
     "npmRebuild": false,
-    "electronDist": "node_modules/electron/dist"
+    "electronDist": "node_modules/electron/dist",
+    "artifactName": "VEIL-${version}-${os}-${arch}.${ext}",
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true
+    }
   },
   "description": "Local stream privacy and incident response",
   "author": "VEIL contributors",

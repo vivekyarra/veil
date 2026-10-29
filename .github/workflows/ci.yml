@@ -102,7 +102,17 @@ jobs:
       - run: cmake --install plugin/${{ matrix.directory }} --config Release --prefix plugin/dist
       - run: npm ci --prefix app
       - run: uv run --project detector pyinstaller --noconfirm --name veil-detector --onedir --collect-all rapidocr_onnxruntime --collect-all veil_detector --collect-all uvicorn --collect-all websockets --paths detector --distpath detector/dist --workpath detector/build detector/launcher.py
+      - run: uv run --project detector python scripts/collect-licenses.py
       - run: npm run package --prefix app
+      - name: Verify packaged Windows application
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $env:VEIL_E2E_EXECUTABLE = Join-Path $PWD 'app/release/win-unpacked/VEIL.exe'
+          npm run test:e2e --prefix app
+          if ($LASTEXITCODE) { throw 'Packaged application E2E failed' }
+          node scripts/release-audit.mjs
+          if ($LASTEXITCODE) { throw 'Packaged artifact verification failed' }
       - uses: actions/upload-artifact@v4
         with:
           name: unsigned-${{ matrix.os }}-installers
@@ -110,3 +120,6 @@ jobs:
             app/release/*.exe
             app/release/*.dmg
             plugin/dist/**
+            docs/release-manifest.json
+            docs/e2e-evidence.json
+            docs/accessibility.json
