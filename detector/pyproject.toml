@@ -36,6 +36,7 @@ testpaths = ["tests"]
 
 [tool.deptry.package_module_name_map]
 Pillow = ["PIL"]
+opencv-python = ["cv2"]
 pyobjc-framework-Quartz = ["Quartz"]
 
 [tool.deptry.per_rule_ignores]

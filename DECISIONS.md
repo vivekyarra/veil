@@ -30,3 +30,5 @@
 - GitHub's current windows-latest image exposes VS18, while the pinned OBS preset and SQLite toolchain expect VS2022. Pin supported windows-2022 runners. Keep Release CTest assertions enabled so tests execute, rather than disappear under NDEBUG.
 - Public Twitch Client ID configuration is stored separately from tokens. Changing it stops EventSub, cancels in-flight device polling and clears old tokens. Cancelled device responses cannot save a late token.
 
+- Remote CI confirmed Electron45's npm package has no automatic lifecycle download in its lock metadata. Add the app's explicit postinstall invoking Electron's official checksum-verifying install.js. Missing Electron binaries caused both E2E launch and package corruption errors; do not skip those checks. deptry's isolated environment needs the explicit opencv-python -> cv2 import mapping.
+

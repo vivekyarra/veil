@@ -5,6 +5,7 @@
   "type": "module",
   "main": "dist-electron/main.js",
   "scripts": {
+    "postinstall": "node node_modules/electron/install.js",
     "dev": "vite --host 127.0.0.1",
     "build": "tsc --noEmit && vite build && tsc -p tsconfig.electron.json && node ../scripts/copy-assets.mjs",
     "test": "vitest run",
