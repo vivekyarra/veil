@@ -888,6 +888,7 @@ source = { editable = "." }
 dependencies = [
     { name = "fastapi" },
     { name = "numpy" },
+    { name = "opencv-python" },
     { name = "phonenumbers" },
     { name = "pillow" },
     { name = "pydantic" },
@@ -914,6 +915,7 @@ dev = [
 requires-dist = [
     { name = "fastapi", specifier = "==0.115.12" },
     { name = "numpy", specifier = "==2.2.5" },
+    { name = "opencv-python", specifier = "==5.0.0.93" },
     { name = "phonenumbers", specifier = "==9.0.5" },
     { name = "pillow", specifier = "==11.2.1" },
     { name = "pydantic", specifier = "==2.11.4" },

@@ -4,6 +4,8 @@ from dataclasses import dataclass
 from typing import Any
 import numpy as np
 from numpy.typing import NDArray
+from .numeric_rescue import proposals, overlap
+from .recognizers import luhn
 
 
 @dataclass
@@ -36,4 +38,43 @@ class OCR:
             right, bottom = min(1, max(xs) / width), min(1, max(ys) / height)
             if right > x and bottom > y:
                 lines.append(Line(text, (x, y, right - x, bottom - y), float(confidence)))
+        recognizer = getattr(self.engine, "text_rec", None)
+        if recognizer is not None:
+            pending = []
+            for proposal in proposals(image):
+                nearby = [
+                    line
+                    for line in lines
+                    if overlap(
+                        proposal,
+                        (
+                            line.rect[0] * width,
+                            line.rect[1] * height,
+                            (line.rect[0] + line.rect[2]) * width,
+                            (line.rect[1] + line.rect[3]) * height,
+                        ),
+                    )
+                    >= 0.35
+                ]
+                if nearby and not any(
+                    13 <= sum(c.isascii() and c.isdigit() for c in line.text) <= 19
+                    and not luhn(line.text)
+                    for line in nearby
+                ):
+                    continue
+                pending.append(proposal)
+            if pending:
+                readings, _ = recognizer(
+                    [image[y:bottom, x:right, ::-1].copy() for x, y, right, bottom in pending]
+                )
+                for (text, confidence), (x, y, right, bottom) in zip(readings, pending):
+                    digits = text.replace(" ", "").replace("-", "")
+                    if confidence >= 0.5 and digits.isascii() and digits.isdigit() and luhn(digits):
+                        lines.append(
+                            Line(
+                                text,
+                                (x / width, y / height, (right - x) / width, (bottom - y) / height),
+                                float(confidence),
+                            )
+                        )
         return lines
