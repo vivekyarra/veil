@@ -84,6 +84,7 @@ export class TwitchAuth {
         device_code: device.device_code,
         grant_type: "urn:ietf:params:oauth:grant-type:device_code",
       });
+      if (signal?.aborted) throw new Error("Device authorization cancelled");
       if (response.ok) {
         const tokens = {
           ...((await response.json()) as Omit<Tokens, "obtained_at">),

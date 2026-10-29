@@ -115,6 +115,7 @@ function snapshot() {
     detectorProcess: detector?.diagnostic(),
     lifecycle: { startupStage, startupFault, quitting, shutdownReason },
     twitch: twitchReady,
+    twitchClientId: auth?.clientId ?? "",
     eventsub: eventsub?.connected ?? false,
     vault: vault?.list() ?? [],
     hasPin: vault?.hasPin() ?? false,
@@ -385,6 +386,21 @@ function installHandlers(): void {
                 ? 0
                 : 1,
           );
+        } else if (op === "twitch-client") {
+          const clientId = text(data.id, 128).trim();
+          if (!/^[a-zA-Z0-9]{5,128}$/.test(clientId))
+            throw new Error(
+              "Enter the public Client ID from Twitch application settings",
+            );
+          authCancel?.abort();
+          eventsub?.stop();
+          twitchReady = false;
+          device = undefined;
+          const persistence = tokenPersistence(store, safeStorage);
+          persistence.clear();
+          store.set("twitchClientId", clientId);
+          auth = new TwitchAuth(clientId, persistence);
+          notify();
         } else if (op === "auth-begin") {
           device = await auth.begin();
           authCancel?.abort();
@@ -706,7 +722,10 @@ async function start(): Promise<void> {
   detector = new Supervisor(credential.token, `http://127.0.0.1:${localPort}`);
   vault = new Vault(store, safeStorage);
   obs = new ObsClient(store);
-  let clientId = process.env.TWITCH_CLIENT_ID ?? "";
+  let clientId =
+    store.get<string>("twitchClientId", "") ||
+    process.env.TWITCH_CLIENT_ID ||
+    "";
   const envPath = join(root, ".env");
   if (!clientId && existsSync(envPath)) {
     const source = readFileSync(envPath, "utf8");

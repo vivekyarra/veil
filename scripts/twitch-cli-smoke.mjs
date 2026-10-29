@@ -25,7 +25,8 @@ const status = [], subscriptions = [];
 const origin = `http://127.0.0.1:${port}`;
 const transport = async (url, options) => {
   const response = await fetch(url, options);
-  subscriptions.push({ type: JSON.parse(options.body).type, status: response.status });
+  const error = response.ok ? undefined : (await response.clone().json()).message;
+  subscriptions.push({ type: JSON.parse(options.body).type, status: response.status, error });
   return response;
 };
 const helix = new Helix({ clientId: 'synthetic-client', access: async () => 'synthetic-token' }, '123', origin, transport);

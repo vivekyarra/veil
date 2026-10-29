@@ -22,6 +22,7 @@ export interface State {
   obs: boolean;
   detector: boolean;
   twitch: boolean;
+  twitchClientId: string;
   eventsub: boolean;
   vault: { id: string; category: Category; optedIn: boolean }[];
   hasPin: boolean;

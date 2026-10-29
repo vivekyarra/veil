@@ -44,6 +44,7 @@ const initial: State = {
   obs: false,
   detector: false,
   twitch: false,
+  twitchClientId: "",
   eventsub: false,
   vault: [],
   hasPin: false,
@@ -1257,9 +1258,24 @@ function App() {
                 <span className="step-label">02 / TWITCH</span>
                 <h3>Connect your channel</h3>
                 <p className="subtle">
-                  Requires a registered public Twitch client in .env. Missing
-                  credentials never block rehearsal.
+                  Register a Public application in the Twitch developer console.
+                  Its Client ID is public; VEIL never asks for a client secret.
+                  Missing credentials never block rehearsal.
                 </p>
+                <label>
+                  Public Twitch Client ID
+                  <input
+                    key={state.twitchClientId}
+                    defaultValue={state.twitchClientId}
+                    onBlur={(event) => {
+                      if (event.target.value.trim() !== state.twitchClientId)
+                        void run("twitch-client", {
+                          id: event.target.value.trim(),
+                        });
+                    }}
+                    autoComplete="off"
+                  />
+                </label>
                 <button
                   className="primary"
                   onClick={() => void run("auth-begin")}
