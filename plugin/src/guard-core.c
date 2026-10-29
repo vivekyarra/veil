@@ -31,6 +31,9 @@ void veil_result(struct veil_core *c, uint64_t frame, uint64_t last,
     if (c->pending[i].sampled == frame) {
       c->pending[i].answered = true;
       first = c->pending[i].first;
+      if (!c->has_result || frame > c->confirmed_until)
+        c->confirmed_until = frame;
+      c->has_result = true;
     }
   }
   size_t kept = 0;
@@ -57,7 +60,10 @@ bool veil_hold(struct veil_core *c, uint64_t frame, uint64_t now,
       }
     }
   }
-  return pending && profile == VEIL_PARANOID;
+  // Busy workers cannot register every sample. Unknown output must remain
+  // covered even after the last pending sample's bounded frame interval.
+  return profile == VEIL_PARANOID &&
+         (pending || !c->has_result || frame > c->confirmed_until);
 }
 size_t veil_lookup(const struct veil_core *c, uint64_t frame,
                    struct veil_box *out, size_t capacity) {

@@ -35,7 +35,7 @@ const kinds = [
 ];
 export function defaultSettings(): Settings {
   return {
-    profile: "balanced",
+    profile: "paranoid",
     delay: 750,
     sampleFps: 4,
     theme: "dark",

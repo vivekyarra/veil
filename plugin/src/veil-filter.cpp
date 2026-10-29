@@ -30,7 +30,7 @@ struct guard {
   gs_stagesurf_t *stage = nullptr;
   uint32_t width = 0, height = 0, sample_w = 0, sample_h = 0, delay = 750,
            fps = 60, sample_fps = 4;
-  enum veil_profile profile = VEIL_BALANCED;
+  enum veil_profile profile = VEIL_PARANOID;
   bool enabled = true, test = false;
   uint64_t frame = 0, last_time = 0, last_sample = 0;
   veil_core core{};
@@ -54,7 +54,7 @@ static void clear_graphics(guard *g) {
 }
 static void defaults(obs_data_t *s) {
   obs_data_set_default_bool(s, "enabled", true);
-  obs_data_set_default_int(s, "profile", VEIL_BALANCED);
+  obs_data_set_default_int(s, "profile", VEIL_PARANOID);
   obs_data_set_default_int(s, "delay_ms", 750);
   obs_data_set_default_int(s, "sample_fps", 4);
   obs_data_set_default_int(s, "mask_color", 0xff141019);

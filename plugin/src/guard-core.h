@@ -25,8 +25,8 @@ struct veil_core {
   size_t mask_count;
   struct veil_pending pending[VEIL_MAX_PENDING];
   size_t pending_count;
-  uint64_t previous_sample, late_results;
-  bool has_sample;
+  uint64_t previous_sample, late_results, confirmed_until;
+  bool has_sample, has_result;
 };
 size_t veil_ring_capacity(uint32_t delay_ms, uint32_t fps);
 size_t veil_ring_index(uint64_t frame, size_t capacity);

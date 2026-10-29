@@ -36,7 +36,7 @@ class DetectionResult(BaseModel):
 
 
 class Policy(BaseModel):
-    profile: Literal["off", "balanced", "paranoid"] = "balanced"
+    profile: Literal["off", "balanced", "paranoid"] = "paranoid"
     hold_ms: int = Field(default=1500, ge=0, le=10000)
     thresholds: dict[str, float] = Field(default_factory=dict)
     enabled: list[Kind] = Field(

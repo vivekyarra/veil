@@ -16,7 +16,7 @@ type Page = (typeof sections)[number];
 const initial: State = {
   rehearsal: true,
   settings: {
-    profile: "balanced",
+    profile: "paranoid",
     delay: 750,
     sampleFps: 4,
     theme: "dark",
@@ -386,7 +386,8 @@ function App() {
                   </div>
                   <p>Lookahead delay</p>
                   <span className="fine-print">
-                    Balanced can expose late frames.
+                    Paranoid covers unverified frames; slow inference can keep
+                    output covered. Balanced can expose late frames.
                     <br />
                     Pre-flight checks the measured budget.
                   </span>

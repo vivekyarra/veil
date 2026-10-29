@@ -5,7 +5,7 @@ it("settings validation is atomic and category profiles stay isolated", () => {
   expect(() =>
     patchSettings(original, { profile: "paranoid", delay: 200 }),
   ).toThrow();
-  expect(original.profile).toBe("balanced");
+  expect(original.profile).toBe("paranoid");
   const a = patchSettings(original, {
     gameId: "123",
     ignoreZones: [{ x: 0.1, y: 0.1, w: 0.2, h: 0.2 }],
