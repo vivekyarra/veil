@@ -24,3 +24,9 @@
 - Playwright Electron clean shutdown must detach the Node inspector through desktop.close(); app.quit alone can leave debugger attachment blocking process exit. Clean audio rollback is asserted after real process termination.
 - Screenpipe's pii-image-redactor is CC BY-NC 4.0 and is not bundled. The OBS-linked plugin follows GPL-2.0-or-later; retain official template notices separately from the MIT app/detector.
 
+- 30 October publication: user requested at least eight branches and at most15 commits. Empty GitHub repository was verified before mutation. Original14 local commits are retained in archive/original-build; public history starts at a clean source snapshot and adds scoped work branches. No remote history is overwritten.
+- Version0.2 changes the default to Paranoid. A confirmed-sample watermark now covers unsampled output during a busy/unavailable detector; latency is still measured rather than implied by the default750ms delay. Balanced remains explicit opt-in.
+- Supplemental horizontal text proposals retry only missing/suspect numeric lines; accepted readings retain confidence, ASCII-digit and Luhn checks. No checksum repair or benchmark gate relaxation is used. Full rerun retains frozen source and predictions.
+- GitHub's current windows-latest image exposes VS18, while the pinned OBS preset and SQLite toolchain expect VS2022. Pin supported windows-2022 runners. Keep Release CTest assertions enabled so tests execute, rather than disappear under NDEBUG.
+- Public Twitch Client ID configuration is stored separately from tokens. Changing it stops EventSub, cancels in-flight device polling and clears old tokens. Cancelled device responses cannot save a late token.
+

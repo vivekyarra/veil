@@ -1,6 +1,6 @@
 # VEIL
 
-Local OBS screen masking, private Twitch chat matching, and incident response. **Experimental prototype: default-delay protection is not validated on this CPU.**
+Local OBS screen masking, private Twitch chat matching, and incident response. **Version 0.2 defaults to Paranoid: unverified frames stay covered, including detector stalls. Slow inference can keep output covered.**
 
 ![Desktop with synthetic data](docs/screenshots/dashboard.png)
 
@@ -14,11 +14,13 @@ The Windows DLL loaded in real OBS 31.1.1 and passed synthetic solid-mask, outsi
 
 Local unsigned development installers are generated in `app/release/`; binaries are not committed.
 
+Platform builds and packaged Windows E2E run in [GitHub Actions](https://github.com/vivekyarra/veil/actions). Download the versioned Windows installer or macOS DMG and matching native plugin artifact from a successful run. See [platform plugin installation](plugin/README.md). These unsigned builds require manual installation; do not interpret CI as a real streaming-PC performance guarantee.
+
 1. Install OBS with obs-websocket v5 enabled and a password. Use its local WebSocket address.
 2. Copy `plugin/dist/veil-guard.dll` into OBS's `obs-plugins/64bit/`. Copy `plugin/data/locale/` into `data/obs-plugins/veil-guard/locale/`. Restart OBS.
 3. Start VEIL, open Onboarding, connect OBS and select scenes. Apply the filter/delay configuration. The app supplies the authenticated local detector token file to the filter.
 4. Add synthetic Never Show terms and run Pre-flight and Rehearsal. Inspect actual OBS output before streaming. Balanced can expose late results; Paranoid covers late/unavailable results. A passing configuration check does not override measured latency.
-5. For live account features register a public Twitch application, set the `TWITCH_CLIENT_ID` environment variable before launching VEIL, and initiate device authorization in the app. Source development also reads the repository's `.env` (copy `.env.example`); installed builds read `.env` beside `app.asar` in the installation's `resources/` directory. Offline rehearsal does not need Twitch credentials.
+5. For live account features register a **Public** Twitch application, enter its public Client ID in VEIL's Onboarding page, then start device authorization. No Client Secret is requested. `TWITCH_CLIENT_ID` or the repository's `.env` is also supported for development. Offline rehearsal does not need Twitch credentials.
 
 Audio offsets are saved before changing them and restored at clean exit or next OBS connection after a crash. Avoid independently changing offsets while VEIL owns them.
 

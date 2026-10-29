@@ -1,6 +1,6 @@
 # VEIL — submission draft
 
-Not submitted. Verify current official rules, eligibility and deadline before use. The build has outstanding acceptance gates.
+Not submitted. Official event requirements were checked on 30 October 2026 IST; see [readiness checklist](hackathon-readiness.md). Live account authorization and the final public YouTube URL are still required. Repository: https://github.com/vivekyarra/veil.
 
 ## Inspiration
 
@@ -9,6 +9,8 @@ A screen leak can spread through chat and remain in clips. Shared moderation ter
 ## What it does
 
 An Electron app coordinates a native OBS filter and local OCR detector. Delayed source frames receive solid masks; Balanced permits late frames and Paranoid covers them. An encrypted Never Show vault feeds local matching. Twitch integrations support deletion, repeat-offender handling, markers, optional Shield Mode and clip review. Panic creates a metadata incident journal. Pre-flight and offline Rehearsal expose configuration and failure modes.
+
+Version 0.2 defaults to Paranoid. It also covers output newer than the last confirmed sample during worker stalls. This closes a fail-closed correctness gap, but slow CPU inference can keep output covered; it does not establish the original 750 ms GPU latency target. Public Client ID setup is available directly in onboarding.
 
 ## How we built it with Codex
 
