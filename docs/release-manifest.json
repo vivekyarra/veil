@@ -1,0 +1,33 @@
+{
+  "measured_at": "2026-10-29T19:08:39.670Z",
+  "source_reference": "87212184a97f6130001d44bf4093bf663b989572",
+  "files": [
+    {
+      "path": "app/release/VEIL Setup 0.1.0.exe",
+      "bytes": 213370184,
+      "sha256": "0a3c741fb81fd4e854463f3e24a61f36aca82b0593798d3e3ec6ed759d9ff141"
+    },
+    {
+      "path": "app/release/win-unpacked/resources/app.asar",
+      "bytes": 7357057,
+      "sha256": "9a1b2d9aba51353e2f66c4f7efdbf5ea7409172706257f7a4a297927625f66b4"
+    },
+    {
+      "path": "detector/dist/veil-detector/veil-detector.exe",
+      "bytes": 14778706,
+      "sha256": "4fbbad0dc153378a7cc5d11f5e044d77f0b337aab670bc6035af1ff249095092"
+    },
+    {
+      "path": "plugin/dist/veil-guard.dll",
+      "bytes": 3600506,
+      "sha256": "0266ed44956e40ec16295a3534e9cb5153cd68fe070bab15400d2edf61a05959"
+    }
+  ],
+  "packaged_code_matches": true,
+  "packaged_runtime_matches": true,
+  "packaged_e2e_passed": true,
+  "signed": false,
+  "installer_installation_on_clean_machine_verified": false,
+  "native_dll_note": "Runtime proof predates formatting-only native source pass; binary hash unchanged",
+  "release_acceptance": "Blocked by card recall, reference-GPU timing, live/platform/clean-machine gates; see acceptance.md"
+}

@@ -1,0 +1,101 @@
+name: verify
+on: [push, pull_request]
+jobs:
+  detector:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - run: uv sync --project detector --python 3.11
+      - run: uv run --project detector ruff check detector
+      - run: uv run --project detector ruff format --check detector
+      - run: uvx clang-format==23.1.3 --dry-run --Werror plugin/src/guard-core.c plugin/src/guard-core.h plugin/src/detector-client.cpp plugin/src/detector-client.h plugin/src/veil-filter.cpp plugin/tests/test-core.c
+      - run: uv run --project detector mypy --config-file detector/pyproject.toml detector/veil_detector
+      - run: uv run --project detector pytest detector/tests --cov=veil_detector --cov-fail-under=85
+      - run: uv run --project detector python scripts/check-crumbs.py
+      - run: uvx deptry==0.25.1 detector/veil_detector --config detector/pyproject.toml
+  app:
+    runs-on: windows-latest
+    defaults:
+      run:
+        working-directory: app
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run format:check
+      - run: npx --yes ts-prune@0.10.3 -p tsconfig.json -e
+      - run: npm run test:coverage -- --coverage.thresholds.lines=80
+      - run: npm run build
+      - uses: astral-sh/setup-uv@v6
+      - run: uv sync --project ../detector --python 3.11
+      - run: npm run test:e2e
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: electron-evidence
+          path: |
+            docs/e2e-evidence.json
+            docs/accessibility.json
+  plugin:
+    strategy:
+      matrix:
+        os: [windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: cmake -S plugin -B plugin/build
+      - run: cmake --build plugin/build --config Release
+      - run: ctest --test-dir plugin/build -C Release --no-tests=error --output-on-failure
+  benchmark:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - run: uv sync --project detector --python 3.11
+      - run: uv run --project detector playwright install chromium
+      - run: uv run --project detector python bench/generate.py --count 300 --output bench/data-ci
+      - run: uv run --project detector python bench/evaluate.py --data bench/data-ci --output docs/benchmark-ci --workers 2
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: benchmark-evidence
+          path: docs/benchmark-ci*
+  native-package:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            preset: windows-x64
+            directory: build_x64
+          - os: macos-latest
+            preset: macos
+            directory: build_macos
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - uses: astral-sh/setup-uv@v6
+      - run: uv sync --project detector --python 3.11
+      - run: cmake --preset ${{ matrix.preset }} -DVEIL_BUILD_OBS=ON
+        working-directory: plugin
+      - run: cmake --build plugin/${{ matrix.directory }} --config Release
+      - run: cmake --install plugin/${{ matrix.directory }} --config Release --prefix plugin/dist
+      - run: npm ci --prefix app
+      - run: uv run --project detector pyinstaller --noconfirm --name veil-detector --onedir --collect-all rapidocr_onnxruntime --collect-all veil_detector --collect-all uvicorn --collect-all websockets --paths detector --distpath detector/dist --workpath detector/build detector/launcher.py
+      - run: npm run package --prefix app
+      - uses: actions/upload-artifact@v4
+        with:
+          name: unsigned-${{ matrix.os }}-installers
+          path: |
+            app/release/*.exe
+            app/release/*.dmg
+            plugin/dist/**

@@ -1,0 +1,18 @@
+{
+  "obs": "31.1.1 portable Windows x64",
+  "plugin_loaded": true,
+  "source": "generated synthetic JPEG only",
+  "test_pattern_capture_executed": true,
+  "paranoid_detector_unavailable_capture_executed": true,
+  "frame_pixel_validation": "See native pixel validation output",
+  "renderTotalFrames": 3510,
+  "renderSkippedFrames": 0,
+  "scope": "Smoke only; no stream, no reference-GPU throughput or real OCR timing proof",
+  "pixel_validation": {
+    "test_pattern_solid": true,
+    "test_pattern_covers_rectangle": true,
+    "paranoid_solid": true,
+    "unfiltered_has_content": true,
+    "outside_mask_preserved": true
+  }
+}

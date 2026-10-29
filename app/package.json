@@ -1,0 +1,87 @@
+{
+  "name": "veil-desktop",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "dist-electron/main.js",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "tsc --noEmit && vite build && tsc -p tsconfig.electron.json && node ../scripts/copy-assets.mjs",
+    "test": "vitest run",
+    "test:integration": "vitest run tests/integration.test.ts",
+    "format": "prettier --write electron src tests",
+    "lint": "eslint electron src tests && tsc --noEmit",
+    "package": "npm run build && electron-builder",
+    "start": "electron .",
+    "test:e2e": "node tests/e2e.mjs",
+    "test:coverage": "vitest run --coverage",
+    "format:check": "prettier --check electron src tests"
+  },
+  "dependencies": {
+    "better-sqlite3": "13.0.3",
+    "obs-websocket-js": "5.0.6",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "ws": "8.18.1",
+    "zustand": "5.0.3"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.14.0",
+    "@eslint/js": "9.25.1",
+    "@types/better-sqlite3": "7.6.13",
+    "@types/node": "22.15.3",
+    "@types/react": "18.3.20",
+    "@types/react-dom": "18.3.6",
+    "@types/ws": "8.18.1",
+    "@vitest/coverage-v8": "3.1.2",
+    "electron": "45.1.0",
+    "electron-builder": "26.0.12",
+    "eslint": "9.25.1",
+    "eslint-plugin-react-hooks": "5.2.0",
+    "fastify": "5.3.2",
+    "playwright": "1.64.1",
+    "prettier": "3.5.3",
+    "typescript": "5.8.3",
+    "typescript-eslint": "8.31.1",
+    "vite": "6.3.4",
+    "vitest": "3.1.2"
+  },
+  "build": {
+    "appId": "dev.veil.desktop",
+    "productName": "VEIL",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "dist-electron/**/*"
+    ],
+    "extraResources": [
+      {
+        "from": "../detector/dist/veil-detector",
+        "to": "detector"
+      },
+      {
+        "from": "../plugin/dist",
+        "to": "plugins"
+      },
+      {
+        "from": "../plugin/data",
+        "to": "plugin-data"
+      }
+    ],
+    "win": {
+      "target": "nsis",
+      "signAndEditExecutable": false
+    },
+    "mac": {
+      "target": "dmg",
+      "category": "public.app-category.video"
+    },
+    "npmRebuild": false,
+    "electronDist": "node_modules/electron/dist"
+  },
+  "description": "Local stream privacy and incident response",
+  "author": "VEIL contributors",
+  "license": "MIT"
+}

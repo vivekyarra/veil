@@ -1,0 +1,72 @@
+[
+  {
+    "theme": "dark",
+    "page": "Dashboard",
+    "violations": []
+  },
+  {
+    "theme": "dark",
+    "page": "Never Show",
+    "violations": []
+  },
+  {
+    "theme": "dark",
+    "page": "Incidents",
+    "violations": []
+  },
+  {
+    "theme": "dark",
+    "page": "Pre-flight",
+    "violations": []
+  },
+  {
+    "theme": "dark",
+    "page": "Rehearsal",
+    "violations": []
+  },
+  {
+    "theme": "dark",
+    "page": "Settings",
+    "violations": []
+  },
+  {
+    "theme": "dark",
+    "page": "Onboarding",
+    "violations": []
+  },
+  {
+    "theme": "light",
+    "page": "Dashboard",
+    "violations": []
+  },
+  {
+    "theme": "light",
+    "page": "Never Show",
+    "violations": []
+  },
+  {
+    "theme": "light",
+    "page": "Incidents",
+    "violations": []
+  },
+  {
+    "theme": "light",
+    "page": "Pre-flight",
+    "violations": []
+  },
+  {
+    "theme": "light",
+    "page": "Rehearsal",
+    "violations": []
+  },
+  {
+    "theme": "light",
+    "page": "Settings",
+    "violations": []
+  },
+  {
+    "theme": "light",
+    "page": "Onboarding",
+    "violations": []
+  }
+]

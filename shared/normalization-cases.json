@@ -1,0 +1,1042 @@
+[
+  {
+    "term": "123 Main St",
+    "message": "1 2 3 m4in st",
+    "match": true
+  },
+  {
+    "term": "123 Main St",
+    "message": "hey 1 2 3 m4in st today",
+    "match": true
+  },
+  {
+    "term": "123 Main St",
+    "message": "<emote>1 2 3 m4in st</emote>",
+    "match": true
+  },
+  {
+    "term": "123 Main St",
+    "message": "---1 2 3 m4in st!!!",
+    "match": true
+  },
+  {
+    "term": "123 Main St",
+    "message": "​1 2 3 m4in st​",
+    "match": true
+  },
+  {
+    "term": "123 Main St",
+    "message": "  1 2 3 m4in st ",
+    "match": true
+  },
+  {
+    "term": "123 Main St",
+    "message": "notice: 1 2 3 m4in st.",
+    "match": true
+  },
+  {
+    "term": "123 Main St",
+    "message": "chat 1 2 3 m4in st chat",
+    "match": true
+  },
+  {
+    "term": "alice",
+    "message": "аlісе",
+    "match": true
+  },
+  {
+    "term": "alice",
+    "message": "hey аlісе today",
+    "match": true
+  },
+  {
+    "term": "alice",
+    "message": "<emote>аlісе</emote>",
+    "match": true
+  },
+  {
+    "term": "alice",
+    "message": "---аlісе!!!",
+    "match": true
+  },
+  {
+    "term": "alice",
+    "message": "​аlісе​",
+    "match": true
+  },
+  {
+    "term": "alice",
+    "message": "  аlісе ",
+    "match": true
+  },
+  {
+    "term": "alice",
+    "message": "notice: аlісе.",
+    "match": true
+  },
+  {
+    "term": "alice",
+    "message": "chat аlісе chat",
+    "match": true
+  },
+  {
+    "term": "sunflower",
+    "message": "sunflwoer",
+    "match": true
+  },
+  {
+    "term": "sunflower",
+    "message": "hey sunflwoer today",
+    "match": true
+  },
+  {
+    "term": "sunflower",
+    "message": "<emote>sunflwoer</emote>",
+    "match": true
+  },
+  {
+    "term": "sunflower",
+    "message": "---sunflwoer!!!",
+    "match": true
+  },
+  {
+    "term": "sunflower",
+    "message": "​sunflwoer​",
+    "match": true
+  },
+  {
+    "term": "sunflower",
+    "message": "  sunflwoer ",
+    "match": true
+  },
+  {
+    "term": "sunflower",
+    "message": "notice: sunflwoer.",
+    "match": true
+  },
+  {
+    "term": "sunflower",
+    "message": "chat sunflwoer chat",
+    "match": true
+  },
+  {
+    "term": "5550100",
+    "message": "555-0100",
+    "match": true
+  },
+  {
+    "term": "5550100",
+    "message": "hey 555-0100 today",
+    "match": true
+  },
+  {
+    "term": "5550100",
+    "message": "<emote>555-0100</emote>",
+    "match": true
+  },
+  {
+    "term": "5550100",
+    "message": "---555-0100!!!",
+    "match": true
+  },
+  {
+    "term": "5550100",
+    "message": "​555-0100​",
+    "match": true
+  },
+  {
+    "term": "5550100",
+    "message": "  555-0100 ",
+    "match": true
+  },
+  {
+    "term": "5550100",
+    "message": "notice: 555-0100.",
+    "match": true
+  },
+  {
+    "term": "5550100",
+    "message": "chat 555-0100 chat",
+    "match": true
+  },
+  {
+    "term": "abc",
+    "message": "axc",
+    "match": false
+  },
+  {
+    "term": "abc",
+    "message": "hey axc today",
+    "match": false
+  },
+  {
+    "term": "abc",
+    "message": "<emote>axc</emote>",
+    "match": false
+  },
+  {
+    "term": "abc",
+    "message": "---axc!!!",
+    "match": false
+  },
+  {
+    "term": "abc",
+    "message": "​axc​",
+    "match": false
+  },
+  {
+    "term": "abc",
+    "message": "  axc ",
+    "match": false
+  },
+  {
+    "term": "abc",
+    "message": "notice: axc.",
+    "match": false
+  },
+  {
+    "term": "abc",
+    "message": "chat axc chat",
+    "match": false
+  },
+  {
+    "term": "sunflower",
+    "message": "sxfloqer",
+    "match": false
+  },
+  {
+    "term": "sunflower",
+    "message": "hey sxfloqer today",
+    "match": false
+  },
+  {
+    "term": "sunflower",
+    "message": "<emote>sxfloqer</emote>",
+    "match": false
+  },
+  {
+    "term": "sunflower",
+    "message": "---sxfloqer!!!",
+    "match": false
+  },
+  {
+    "term": "sunflower",
+    "message": "​sxfloqer​",
+    "match": false
+  },
+  {
+    "term": "sunflower",
+    "message": "  sxfloqer ",
+    "match": false
+  },
+  {
+    "term": "sunflower",
+    "message": "notice: sxfloqer.",
+    "match": false
+  },
+  {
+    "term": "sunflower",
+    "message": "chat sxfloqer chat",
+    "match": false
+  },
+  {
+    "term": "",
+    "message": "hello",
+    "match": false
+  },
+  {
+    "term": "",
+    "message": "hey hello today",
+    "match": false
+  },
+  {
+    "term": "",
+    "message": "<emote>hello</emote>",
+    "match": false
+  },
+  {
+    "term": "",
+    "message": "---hello!!!",
+    "match": false
+  },
+  {
+    "term": "",
+    "message": "​hello​",
+    "match": false
+  },
+  {
+    "term": "",
+    "message": "  hello ",
+    "match": false
+  },
+  {
+    "term": "",
+    "message": "notice: hello.",
+    "match": false
+  },
+  {
+    "term": "",
+    "message": "chat hello chat",
+    "match": false
+  },
+  {
+    "term": "alice",
+    "message": "ＡＬＩＣＥ",
+    "match": true
+  },
+  {
+    "term": "alice",
+    "message": "hey ＡＬＩＣＥ today",
+    "match": true
+  },
+  {
+    "term": "alice",
+    "message": "<emote>ＡＬＩＣＥ</emote>",
+    "match": true
+  },
+  {
+    "term": "alice",
+    "message": "---ＡＬＩＣＥ!!!",
+    "match": true
+  },
+  {
+    "term": "alice",
+    "message": "​ＡＬＩＣＥ​",
+    "match": true
+  },
+  {
+    "term": "alice",
+    "message": "  ＡＬＩＣＥ ",
+    "match": true
+  },
+  {
+    "term": "alice",
+    "message": "notice: ＡＬＩＣＥ.",
+    "match": true
+  },
+  {
+    "term": "alice",
+    "message": "chat ＡＬＩＣＥ chat",
+    "match": true
+  },
+  {
+    "term": "private",
+    "message": "pri​vate",
+    "match": true
+  },
+  {
+    "term": "private",
+    "message": "hey pri​vate today",
+    "match": true
+  },
+  {
+    "term": "private",
+    "message": "<emote>pri​vate</emote>",
+    "match": true
+  },
+  {
+    "term": "private",
+    "message": "---pri​vate!!!",
+    "match": true
+  },
+  {
+    "term": "private",
+    "message": "​pri​vate​",
+    "match": true
+  },
+  {
+    "term": "private",
+    "message": "  pri​vate ",
+    "match": true
+  },
+  {
+    "term": "private",
+    "message": "notice: pri​vate.",
+    "match": true
+  },
+  {
+    "term": "private",
+    "message": "chat pri​vate chat",
+    "match": true
+  },
+  {
+    "term": "secrets",
+    "message": "s3cr3ts",
+    "match": true
+  },
+  {
+    "term": "secrets",
+    "message": "hey s3cr3ts today",
+    "match": true
+  },
+  {
+    "term": "secrets",
+    "message": "<emote>s3cr3ts</emote>",
+    "match": true
+  },
+  {
+    "term": "secrets",
+    "message": "---s3cr3ts!!!",
+    "match": true
+  },
+  {
+    "term": "secrets",
+    "message": "​s3cr3ts​",
+    "match": true
+  },
+  {
+    "term": "secrets",
+    "message": "  s3cr3ts ",
+    "match": true
+  },
+  {
+    "term": "secrets",
+    "message": "notice: s3cr3ts.",
+    "match": true
+  },
+  {
+    "term": "secrets",
+    "message": "chat s3cr3ts chat",
+    "match": true
+  },
+  {
+    "term": "alice",
+    "message": "АLІСЕ",
+    "match": true
+  },
+  {
+    "term": "alice",
+    "message": "hey АLІСЕ today",
+    "match": true
+  },
+  {
+    "term": "alice",
+    "message": "<emote>АLІСЕ</emote>",
+    "match": true
+  },
+  {
+    "term": "alice",
+    "message": "---АLІСЕ!!!",
+    "match": true
+  },
+  {
+    "term": "alice",
+    "message": "​АLІСЕ​",
+    "match": true
+  },
+  {
+    "term": "alice",
+    "message": "  АLІСЕ ",
+    "match": true
+  },
+  {
+    "term": "alice",
+    "message": "notice: АLІСЕ.",
+    "match": true
+  },
+  {
+    "term": "alice",
+    "message": "chat АLІСЕ chat",
+    "match": true
+  },
+  {
+    "term": "synthetic",
+    "message": "s⁠ynthetic",
+    "match": true
+  },
+  {
+    "term": "synthetic",
+    "message": "hey s⁠ynthetic today",
+    "match": true
+  },
+  {
+    "term": "synthetic",
+    "message": "<emote>s⁠ynthetic</emote>",
+    "match": true
+  },
+  {
+    "term": "synthetic",
+    "message": "---s⁠ynthetic!!!",
+    "match": true
+  },
+  {
+    "term": "synthetic",
+    "message": "​s⁠ynthetic​",
+    "match": true
+  },
+  {
+    "term": "synthetic",
+    "message": "  s⁠ynthetic ",
+    "match": true
+  },
+  {
+    "term": "synthetic",
+    "message": "notice: s⁠ynthetic.",
+    "match": true
+  },
+  {
+    "term": "synthetic",
+    "message": "chat s⁠ynthetic chat",
+    "match": true
+  },
+  {
+    "term": "école synthétique",
+    "message": "école synthétique",
+    "match": true
+  },
+  {
+    "term": "école synthétique",
+    "message": "hey école synthétique today",
+    "match": true
+  },
+  {
+    "term": "école synthétique",
+    "message": "<emote>école synthétique</emote>",
+    "match": true
+  },
+  {
+    "term": "école synthétique",
+    "message": "---école synthétique!!!",
+    "match": true
+  },
+  {
+    "term": "école synthétique",
+    "message": "​école synthétique​",
+    "match": true
+  },
+  {
+    "term": "école synthétique",
+    "message": "  école synthétique ",
+    "match": true
+  },
+  {
+    "term": "école synthétique",
+    "message": "notice: école synthétique.",
+    "match": true
+  },
+  {
+    "term": "école synthétique",
+    "message": "chat école synthétique chat",
+    "match": true
+  },
+  {
+    "term": "देवपरीक्षा",
+    "message": "देवपरीक्षा",
+    "match": true
+  },
+  {
+    "term": "देवपरीक्षा",
+    "message": "hey देवपरीक्षा today",
+    "match": true
+  },
+  {
+    "term": "देवपरीक्षा",
+    "message": "<emote>देवपरीक्षा</emote>",
+    "match": true
+  },
+  {
+    "term": "देवपरीक्षा",
+    "message": "---देवपरीक्षा!!!",
+    "match": true
+  },
+  {
+    "term": "देवपरीक्षा",
+    "message": "​देवपरीक्षा​",
+    "match": true
+  },
+  {
+    "term": "देवपरीक्षा",
+    "message": "  देवपरीक्षा ",
+    "match": true
+  },
+  {
+    "term": "देवपरीक्षा",
+    "message": "notice: देवपरीक्षा.",
+    "match": true
+  },
+  {
+    "term": "देवपरीक्षा",
+    "message": "chat देवपरीक्षा chat",
+    "match": true
+  },
+  {
+    "term": "架空学院甲",
+    "message": "架空学院甲",
+    "match": true
+  },
+  {
+    "term": "架空学院甲",
+    "message": "hey 架空学院甲 today",
+    "match": true
+  },
+  {
+    "term": "架空学院甲",
+    "message": "<emote>架空学院甲</emote>",
+    "match": true
+  },
+  {
+    "term": "架空学院甲",
+    "message": "---架空学院甲!!!",
+    "match": true
+  },
+  {
+    "term": "架空学院甲",
+    "message": "​架空学院甲​",
+    "match": true
+  },
+  {
+    "term": "架空学院甲",
+    "message": "  架空学院甲 ",
+    "match": true
+  },
+  {
+    "term": "架空学院甲",
+    "message": "notice: 架空学院甲.",
+    "match": true
+  },
+  {
+    "term": "架空学院甲",
+    "message": "chat 架空学院甲 chat",
+    "match": true
+  },
+  {
+    "term": "架空学院甲",
+    "message": "架空学院乙",
+    "match": false
+  },
+  {
+    "term": "架空学院甲",
+    "message": "hey 架空学院乙 today",
+    "match": false
+  },
+  {
+    "term": "架空学院甲",
+    "message": "<emote>架空学院乙</emote>",
+    "match": false
+  },
+  {
+    "term": "架空学院甲",
+    "message": "---架空学院乙!!!",
+    "match": false
+  },
+  {
+    "term": "架空学院甲",
+    "message": "​架空学院乙​",
+    "match": false
+  },
+  {
+    "term": "架空学院甲",
+    "message": "  架空学院乙 ",
+    "match": false
+  },
+  {
+    "term": "架空学院甲",
+    "message": "notice: 架空学院乙.",
+    "match": false
+  },
+  {
+    "term": "架空学院甲",
+    "message": "chat 架空学院乙 chat",
+    "match": false
+  },
+  {
+    "term": "𐐀𐐁𐐂𐐃𐐄",
+    "message": "𐐀𐐁𐐂𐐃𐐅",
+    "match": false
+  },
+  {
+    "term": "𐐀𐐁𐐂𐐃𐐄",
+    "message": "hey 𐐀𐐁𐐂𐐃𐐅 today",
+    "match": false
+  },
+  {
+    "term": "𐐀𐐁𐐂𐐃𐐄",
+    "message": "<emote>𐐀𐐁𐐂𐐃𐐅</emote>",
+    "match": false
+  },
+  {
+    "term": "𐐀𐐁𐐂𐐃𐐄",
+    "message": "---𐐀𐐁𐐂𐐃𐐅!!!",
+    "match": false
+  },
+  {
+    "term": "𐐀𐐁𐐂𐐃𐐄",
+    "message": "​𐐀𐐁𐐂𐐃𐐅​",
+    "match": false
+  },
+  {
+    "term": "𐐀𐐁𐐂𐐃𐐄",
+    "message": "  𐐀𐐁𐐂𐐃𐐅 ",
+    "match": false
+  },
+  {
+    "term": "𐐀𐐁𐐂𐐃𐐄",
+    "message": "notice: 𐐀𐐁𐐂𐐃𐐅.",
+    "match": false
+  },
+  {
+    "term": "𐐀𐐁𐐂𐐃𐐄",
+    "message": "chat 𐐀𐐁𐐂𐐃𐐅 chat",
+    "match": false
+  },
+  {
+    "term": "abcdef",
+    "message": "abcedf",
+    "match": true
+  },
+  {
+    "term": "abcdef",
+    "message": "hey abcedf today",
+    "match": true
+  },
+  {
+    "term": "abcdef",
+    "message": "<emote>abcedf</emote>",
+    "match": true
+  },
+  {
+    "term": "abcdef",
+    "message": "---abcedf!!!",
+    "match": true
+  },
+  {
+    "term": "abcdef",
+    "message": "​abcedf​",
+    "match": true
+  },
+  {
+    "term": "abcdef",
+    "message": "  abcedf ",
+    "match": true
+  },
+  {
+    "term": "abcdef",
+    "message": "notice: abcedf.",
+    "match": true
+  },
+  {
+    "term": "abcdef",
+    "message": "chat abcedf chat",
+    "match": true
+  },
+  {
+    "term": "abcdef",
+    "message": "abcxef",
+    "match": true
+  },
+  {
+    "term": "abcdef",
+    "message": "hey abcxef today",
+    "match": true
+  },
+  {
+    "term": "abcdef",
+    "message": "<emote>abcxef</emote>",
+    "match": true
+  },
+  {
+    "term": "abcdef",
+    "message": "---abcxef!!!",
+    "match": true
+  },
+  {
+    "term": "abcdef",
+    "message": "​abcxef​",
+    "match": true
+  },
+  {
+    "term": "abcdef",
+    "message": "  abcxef ",
+    "match": true
+  },
+  {
+    "term": "abcdef",
+    "message": "notice: abcxef.",
+    "match": true
+  },
+  {
+    "term": "abcdef",
+    "message": "chat abcxef chat",
+    "match": true
+  },
+  {
+    "term": "abcdef",
+    "message": "abcef",
+    "match": true
+  },
+  {
+    "term": "abcdef",
+    "message": "hey abcef today",
+    "match": true
+  },
+  {
+    "term": "abcdef",
+    "message": "<emote>abcef</emote>",
+    "match": true
+  },
+  {
+    "term": "abcdef",
+    "message": "---abcef!!!",
+    "match": true
+  },
+  {
+    "term": "abcdef",
+    "message": "​abcef​",
+    "match": true
+  },
+  {
+    "term": "abcdef",
+    "message": "  abcef ",
+    "match": true
+  },
+  {
+    "term": "abcdef",
+    "message": "notice: abcef.",
+    "match": true
+  },
+  {
+    "term": "abcdef",
+    "message": "chat abcef chat",
+    "match": true
+  },
+  {
+    "term": "abcdef",
+    "message": "abcxdef",
+    "match": true
+  },
+  {
+    "term": "abcdef",
+    "message": "hey abcxdef today",
+    "match": true
+  },
+  {
+    "term": "abcdef",
+    "message": "<emote>abcxdef</emote>",
+    "match": true
+  },
+  {
+    "term": "abcdef",
+    "message": "---abcxdef!!!",
+    "match": true
+  },
+  {
+    "term": "abcdef",
+    "message": "​abcxdef​",
+    "match": true
+  },
+  {
+    "term": "abcdef",
+    "message": "  abcxdef ",
+    "match": true
+  },
+  {
+    "term": "abcdef",
+    "message": "notice: abcxdef.",
+    "match": true
+  },
+  {
+    "term": "abcdef",
+    "message": "chat abcxdef chat",
+    "match": true
+  },
+  {
+    "term": "abcdef",
+    "message": "abxxef",
+    "match": false
+  },
+  {
+    "term": "abcdef",
+    "message": "hey abxxef today",
+    "match": false
+  },
+  {
+    "term": "abcdef",
+    "message": "<emote>abxxef</emote>",
+    "match": false
+  },
+  {
+    "term": "abcdef",
+    "message": "---abxxef!!!",
+    "match": false
+  },
+  {
+    "term": "abcdef",
+    "message": "​abxxef​",
+    "match": false
+  },
+  {
+    "term": "abcdef",
+    "message": "  abxxef ",
+    "match": false
+  },
+  {
+    "term": "abcdef",
+    "message": "notice: abxxef.",
+    "match": false
+  },
+  {
+    "term": "abcdef",
+    "message": "chat abxxef chat",
+    "match": false
+  },
+  {
+    "term": "5550100",
+    "message": "555 0101",
+    "match": false
+  },
+  {
+    "term": "5550100",
+    "message": "hey 555 0101 today",
+    "match": false
+  },
+  {
+    "term": "5550100",
+    "message": "<emote>555 0101</emote>",
+    "match": false
+  },
+  {
+    "term": "5550100",
+    "message": "---555 0101!!!",
+    "match": false
+  },
+  {
+    "term": "5550100",
+    "message": "​555 0101​",
+    "match": false
+  },
+  {
+    "term": "5550100",
+    "message": "  555 0101 ",
+    "match": false
+  },
+  {
+    "term": "5550100",
+    "message": "notice: 555 0101.",
+    "match": false
+  },
+  {
+    "term": "5550100",
+    "message": "chat 555 0101 chat",
+    "match": false
+  },
+  {
+    "term": "mainst",
+    "message": "ｍａｉｎｓｔ",
+    "match": true
+  },
+  {
+    "term": "mainst",
+    "message": "hey ｍａｉｎｓｔ today",
+    "match": true
+  },
+  {
+    "term": "mainst",
+    "message": "<emote>ｍａｉｎｓｔ</emote>",
+    "match": true
+  },
+  {
+    "term": "mainst",
+    "message": "---ｍａｉｎｓｔ!!!",
+    "match": true
+  },
+  {
+    "term": "mainst",
+    "message": "​ｍａｉｎｓｔ​",
+    "match": true
+  },
+  {
+    "term": "mainst",
+    "message": "  ｍａｉｎｓｔ ",
+    "match": true
+  },
+  {
+    "term": "mainst",
+    "message": "notice: ｍａｉｎｓｔ.",
+    "match": true
+  },
+  {
+    "term": "mainst",
+    "message": "chat ｍａｉｎｓｔ chat",
+    "match": true
+  },
+  {
+    "term": "a b",
+    "message": "a‍b",
+    "match": true
+  },
+  {
+    "term": "a b",
+    "message": "hey a‍b today",
+    "match": true
+  },
+  {
+    "term": "a b",
+    "message": "<emote>a‍b</emote>",
+    "match": true
+  },
+  {
+    "term": "a b",
+    "message": "---a‍b!!!",
+    "match": true
+  },
+  {
+    "term": "a b",
+    "message": "​a‍b​",
+    "match": true
+  },
+  {
+    "term": "a b",
+    "message": "  a‍b ",
+    "match": true
+  },
+  {
+    "term": "a b",
+    "message": "notice: a‍b.",
+    "match": true
+  },
+  {
+    "term": "a b",
+    "message": "chat a‍b chat",
+    "match": true
+  },
+  {
+    "term": "5550100",
+    "message": "٥٥٥٠١٠٠",
+    "match": true
+  },
+  {
+    "term": "5550100",
+    "message": "hey ٥٥٥٠١٠٠ today",
+    "match": true
+  },
+  {
+    "term": "5550100",
+    "message": "<emote>٥٥٥٠١٠٠</emote>",
+    "match": true
+  },
+  {
+    "term": "5550100",
+    "message": "---٥٥٥٠١٠٠!!!",
+    "match": true
+  },
+  {
+    "term": "5550100",
+    "message": "​٥٥٥٠١٠٠​",
+    "match": true
+  },
+  {
+    "term": "5550100",
+    "message": "  ٥٥٥٠١٠٠ ",
+    "match": true
+  },
+  {
+    "term": "5550100",
+    "message": "notice: ٥٥٥٠١٠٠.",
+    "match": true
+  },
+  {
+    "term": "5550100",
+    "message": "chat ٥٥٥٠١٠٠ chat",
+    "match": true
+  }
+]

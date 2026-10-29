@@ -1,0 +1,47 @@
+{
+  "executed": true,
+  "packaged": true,
+  "platform": "win32",
+  "checks": [
+    "real Electron renderer",
+    "OBS v5 loopback onboarding",
+    "audio offset apply",
+    "vault add/PIN/reveal/delete",
+    "panic and default-no approval",
+    "incident detail",
+    "actual OCR rehearsal",
+    "Markdown and actual PDF export",
+    "source-by-source OCR and pixel-verified masked pre-flight thumbnail",
+    "planted-text process-log scan",
+    "seven routes in both themes: automated WCAG A/AA audit",
+    "approval keyboard focus stays inside modal",
+    "metadata diagnostics export excludes planted text and tokens"
+  ],
+  "rehearsal_native_obs_output_verified": false,
+  "scenarioMeasurements": [
+    {
+      "kind": "dm",
+      "processed_ms": 3788.8922999991337,
+      "late": true,
+      "masked": false,
+      "fullHold": false
+    },
+    {
+      "kind": "terminal",
+      "processed_ms": 5521.382699997048,
+      "late": true,
+      "masked": false,
+      "fullHold": false
+    },
+    {
+      "kind": "form",
+      "processed_ms": 3597.606100011035,
+      "late": true,
+      "masked": false,
+      "fullHold": false
+    }
+  ],
+  "passed": true,
+  "clean_exit_audio_restored": true,
+  "completed_at": "2026-10-29T19:06:37.611Z"
+}

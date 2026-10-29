@@ -1,0 +1,7 @@
+{
+  "elapsed_observed_seconds": 338.6,
+  "scope": "isolated synthetic OCR probe; no GPU performance claim",
+  "runtime": "onnxruntime-directml 1.23.0",
+  "hardware": "Intel Iris Xe",
+  "status": "initialization did not complete"
+}

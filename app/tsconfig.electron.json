@@ -1,0 +1,1 @@
+{"extends":"./tsconfig.json","compilerOptions":{"noEmit":false,"outDir":"dist-electron","rootDir":"electron","module":"NodeNext","moduleResolution":"NodeNext"},"include":["electron"],"exclude":["tests","src"]}

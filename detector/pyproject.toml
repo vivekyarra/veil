@@ -1,0 +1,31 @@
+[project]
+name = "veil-detector"
+version = "0.1.0"
+requires-python = ">=3.11,<3.13"
+dependencies = ["fastapi==0.115.12", "uvicorn==0.34.2", "websockets==15.0.1", "pydantic==2.11.4", "rapidocr-onnxruntime==1.4.4", "numpy==2.2.5", "Pillow==11.2.1", "phonenumbers==9.0.5", "rapidfuzz==3.13.0", "pyobjc-framework-Quartz==11.0; sys_platform == 'darwin'"]
+
+[dependency-groups]
+dev = ["pytest==8.3.5", "pytest-cov==6.1.1", "httpx==0.28.1", "ruff==0.11.8", "mypy==1.15.0", "Faker==37.1.0", "playwright==1.51.0", "pyinstaller==6.13.0"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.ruff]
+line-length = 100
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.deptry.package_module_name_map]
+Pillow = ["PIL"]
+pyobjc-framework-Quartz = ["Quartz"]
+
+[tool.deptry.per_rule_ignores]
+# Uvicorn discovers its WebSocket backend dynamically; the wire smoke requires it.
+DEP002 = ["websockets"]
