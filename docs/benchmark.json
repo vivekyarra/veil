@@ -9,10 +9,10 @@
   "workers": 2,
   "onnxruntime": "1.31.1",
   "rapidocr": "1.4.4",
-  "processor": "AMD64 Family 25 Model 1 Stepping 1, AuthenticAMD",
+  "processor": "Intel64 Family 6 Model 207 Stepping 2, GenuineIntel",
   "platform": "Windows-10-10.0.20348-SP0",
   "screens": 3000,
-  "completed_at_utc": "2026-10-30T02:43:07.243526+00:00",
+  "completed_at_utc": "2026-10-30T14:25:05.148638+00:00",
   "provider": "CPU ONNX, 2 threads per OCR worker, 2 concurrent workers",
   "metrics": {
     "email": {
@@ -67,14 +67,14 @@
   "negative_screens": 428,
   "negative_screen_fpr": 0.004672897196261682,
   "latency_ms": {
-    "p50": 1349.53755000015,
-    "p95": 1815.2044899999505,
-    "p99": 2087.103629999842
+    "p50": 1347.7617500001315,
+    "p95": 2132.4581949998665,
+    "p99": 2490.781044000032
   },
   "gates_passed": true,
   "matching": "One-to-one boxes at IoU >= 0.30, visible DOM intersection. Duplicate boxes and wrong-kind predictions count as false positives.",
-  "predictions_file": "benchmark-ci.predictions-20132d5cc341c69c.jsonl",
-  "predictions_sha256": "faca27ffebf6470a794f35d83f182b90479c4e21d50c9e25921bb7ab6f9558e4",
+  "predictions_file": "benchmark-ci.predictions-5f5872f1e8e0c88b.jsonl",
+  "predictions_sha256": "72f6f57cd02416ed790d8d28bc8de4f138ab87b1f4cf7a0d0ad1b72e4cd31172",
   "source_archive": "benchmark-ci.source-15d055b7f937.zip",
   "limits": "Synthetic screenshots only. Concurrent inference excludes queue wait; resumed samples retain measured timestamps. Not a real-stream or reference-GPU guarantee."
 }

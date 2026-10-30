@@ -9,9 +9,15 @@ const root = resolve(import.meta.dirname, '..');
 const require = createRequire(resolve(root, 'app/package.json'));
 const { extractFile } = require('@electron/asar');
 const { version } = JSON.parse(readFileSync(resolve(root, 'app/package.json'), 'utf8'));
-const installer = readdirSync(resolve(root, 'app/release')).find(file => file.includes(version) && file.endsWith('.exe'));
+const mac = process.platform === 'darwin';
+const installer = readdirSync(resolve(root, 'app/release')).find(file => file.includes(version) && file.endsWith(mac ? '.dmg' : '.exe'));
 assert.ok(installer, 'Versioned installer is missing');
-const plugin = existsSync(resolve(root, 'plugin/dist/veil-guard.dll')) ? 'plugin/dist/veil-guard.dll' : 'plugin/dist/obs-plugins/64bit/veil-guard.dll';
+const macDirectory = mac ? readdirSync(resolve(root, 'app/release')).find(dir => existsSync(resolve(root, 'app/release', dir, 'VEIL.app/Contents/Resources/app.asar'))) : undefined;
+if (mac) assert.ok(macDirectory, 'Packaged macOS application is missing');
+const resources = mac ? `app/release/${macDirectory}/VEIL.app/Contents/Resources` : 'app/release/win-unpacked/resources';
+const detectorName = mac ? 'veil-detector' : 'veil-detector.exe';
+const plugin = mac ? 'plugin/dist/veil-guard.plugin/Contents/MacOS/veil-guard' :
+  existsSync(resolve(root, 'plugin/dist/obs-plugins/64bit/veil-guard.dll')) ? 'plugin/dist/obs-plugins/64bit/veil-guard.dll' : 'plugin/dist/veil-guard.dll';
 const hash = bytes => createHash('sha256').update(bytes).digest('hex');
 async function fingerprint(path) {
   const digest = createHash('sha256');
@@ -20,25 +26,27 @@ async function fingerprint(path) {
 }
 const files = await Promise.all([
   'app/release/' + installer,
-  'app/release/win-unpacked/resources/app.asar',
-  'detector/dist/veil-detector/veil-detector.exe',
+  resources + '/app.asar',
+  'detector/dist/veil-detector/' + detectorName,
   plugin,
 ].map(fingerprint));
 const asar = resolve(root, files[1].path);
 for (const path of ['dist-electron/main.js', 'dist/index.html'])
   assert.equal(hash(extractFile(asar, path)), hash(readFileSync(resolve(root, 'app', path))), 'Packaged source mismatch: ' + path);
 for (const [original, packaged] of [
-  ['detector/dist/veil-detector/veil-detector.exe', 'app/release/win-unpacked/resources/detector/veil-detector.exe'],
-  [plugin, 'app/release/win-unpacked/resources/plugins/' + plugin.slice('plugin/dist/'.length)],
+  ['detector/dist/veil-detector/' + detectorName, resources + '/detector/' + detectorName],
+  [plugin, resources + '/plugins/' + plugin.slice('plugin/dist/'.length)],
 ]) assert.equal((await fingerprint(original)).sha256, (await fingerprint(packaged)).sha256, 'Packaged runtime mismatch');
 const e2e = JSON.parse(readFileSync(resolve(root, 'docs/e2e-evidence.json'), 'utf8'));
 assert.ok(e2e.passed && e2e.packaged && e2e.clean_exit_audio_restored);
+assert.equal(e2e.platform, process.platform, 'Packaged E2E platform mismatch');
 writeFileSync(resolve(root, 'docs/release-manifest.json'), JSON.stringify({
   measured_at: new Date().toISOString(),
+  platform: process.platform,
   source_reference: execFileSync('git', ['rev-parse', 'HEAD'], { cwd: root, encoding: 'utf8' }).trim(),
   files, packaged_code_matches: true, packaged_runtime_matches: true,
   packaged_e2e_passed: true, signed: false,
   installer_installation_on_clean_machine_verified: false,
-  native_dll_note: 'Native OBS runtime proof is separate from compilation and packaging; see native-obs-smoke.json',
-  release_acceptance: 'Blocked by card recall, reference-GPU timing, live/platform/clean-machine gates; see acceptance.md',
+  native_filter_note: 'Native OBS runtime proof is separate from desktop packaging; see native-obs-smoke.json and live-twitch-smoke.json',
+  release_acceptance: 'Hackathon preview; see acceptance.md for measured gates and unresolved hardware limits.',
 }, null, 2));

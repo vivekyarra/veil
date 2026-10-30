@@ -1,8 +1,13 @@
 {
   "installed": true,
-  "installer_sha256": "2670e19dcbd6250469a155deefcf26234c581e129bfe9be7746fa66c3441c145",
-  "source_commit": "f64232da23a907e98bb2529a46148860f1c74834",
-  "elapsed_seconds": 29.085327099994174,
-  "target": "workspace-isolated install",
+  "installer_sha256": "c171dda4cfbe88eddf772e99d8ca80679402dd90542e2841eee6bf8a3b876717",
+  "source_commit": "43d61bd2279c877bb8416b58781091971075a4b3",
+  "elapsed_seconds": 72.10538560000714,
+  "target": "new isolated per-user installation on C drive",
+  "installed_payload_hashes_match_ci": [
+    "resources/app.asar",
+    "resources/detector/veil-detector.exe",
+    "resources/plugins/obs-plugins/64bit/veil-guard.dll"
+  ],
   "clean_consumer_windows_machine": false
 }

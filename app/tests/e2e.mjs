@@ -43,6 +43,18 @@ const planted = "Synthetic E2E Academy";
 try {
   const page = await desktop.firstWindow();
   page.setDefaultTimeout(30000);
+  const documentationScreenshot = async (path) => {
+    // Keep documentation captures visible on desktops that throttle occluded
+    // windows. Functional assertions and measured latency budgets stay intact.
+    await (
+      await desktop.browserWindow(page)
+    ).evaluate((window) => {
+      if (window.isMinimized()) window.restore();
+      window.show();
+      window.focus();
+    });
+    await page.screenshot({ path, timeout: 60000 });
+  };
   await page
     .getByRole("heading", { name: "Keep your private life off-stream." })
     .waitFor();
@@ -109,9 +121,9 @@ try {
   );
   await page.evaluate(() => window.veil.command("settings", { theme: "dark" }));
   await page.getByRole("button", { name: "Dashboard", exact: true }).click();
-  await page.screenshot({
-    path: join(workspace, "docs/screenshots/dashboard.png"),
-  });
+  await documentationScreenshot(
+    join(workspace, "docs/screenshots/dashboard.png"),
+  );
   await page.getByRole("button", { name: "Onboarding", exact: true }).click();
   checkpoint("onboarding opened");
   await page.getByLabel("Local WebSocket URL").fill(obs.url);
@@ -152,9 +164,9 @@ try {
   await page.getByRole("button", { name: /Incidents/ }).click();
   await page.getByRole("button", { name: /#1/ }).click();
   await page.getByRole("heading", { name: "Incident #1" }).waitFor();
-  await page.screenshot({
-    path: join(workspace, "docs/screenshots/incident.png"),
-  });
+  await documentationScreenshot(
+    join(workspace, "docs/screenshots/incident.png"),
+  );
   const exports = {
     md: join(data, "report.md"),
     pdf: join(data, "report.pdf"),

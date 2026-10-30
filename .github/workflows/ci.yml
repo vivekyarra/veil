@@ -113,6 +113,14 @@ jobs:
           if ($LASTEXITCODE) { throw 'Packaged application E2E failed' }
           node scripts/release-audit.mjs
           if ($LASTEXITCODE) { throw 'Packaged artifact verification failed' }
+      - name: Verify packaged macOS application
+        if: runner.os == 'macOS'
+        shell: bash
+        run: |
+          export VEIL_E2E_EXECUTABLE="$(uv run --project detector python -c 'from pathlib import Path; print(next(Path("app/release").glob("*/VEIL.app/Contents/MacOS/VEIL")).resolve())')"
+          test -f "$VEIL_E2E_EXECUTABLE"
+          npm run test:e2e --prefix app
+          node scripts/release-audit.mjs
       - uses: actions/upload-artifact@v4
         with:
           name: unsigned-${{ matrix.os }}-installers

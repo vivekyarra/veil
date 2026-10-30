@@ -1,6 +1,6 @@
 {
   "executed": true,
-  "packaged": false,
+  "packaged": true,
   "platform": "win32",
   "checks": [
     "real Electron renderer",
@@ -21,21 +21,21 @@
   "scenarioMeasurements": [
     {
       "kind": "dm",
-      "processed_ms": 5462.392200017348,
+      "processed_ms": 3047.3819999897387,
       "late": true,
       "masked": true,
       "fullHold": true
     },
     {
       "kind": "terminal",
-      "processed_ms": 6845.754300011322,
+      "processed_ms": 3741.3616999983788,
       "late": true,
       "masked": true,
       "fullHold": true
     },
     {
       "kind": "form",
-      "processed_ms": 4944.507100008195,
+      "processed_ms": 2991.291000013007,
       "late": true,
       "masked": true,
       "fullHold": true
@@ -43,5 +43,5 @@
   ],
   "passed": true,
   "clean_exit_audio_restored": true,
-  "completed_at": "2026-10-30T13:39:57.695Z"
+  "completed_at": "2026-10-30T14:31:07.882Z"
 }
