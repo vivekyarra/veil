@@ -1335,11 +1335,13 @@ function App() {
                 </label>
                 <button
                   className="primary"
+                  disabled={busy}
                   onClick={async () => {
-                    await run("obs-connect", {
+                    const connected = await run("obs-connect", {
                       url: obsUrl,
                       password: obsPassword,
                     });
+                    if (connected === undefined) return;
                     setObsPassword("");
                     const value = await run("obs-scenes");
                     if (Array.isArray(value)) {

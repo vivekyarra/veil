@@ -126,8 +126,22 @@ try {
   );
   await page.getByRole("button", { name: "Onboarding", exact: true }).click();
   checkpoint("onboarding opened");
-  await page.getByLabel("Local WebSocket URL").fill(obs.url);
+  await page.getByLabel("Local WebSocket URL").fill("ws://example.com:4455");
   await page.getByLabel("OBS password").fill("synthetic");
+  await page.getByRole("button", { name: "Connect & inspect OBS" }).click();
+  await page.waitForFunction(
+    () =>
+      document.querySelector("[role=status]")?.textContent ===
+      "OBS must use a local WebSocket",
+  );
+  assert.equal(await page.getByLabel("OBS password").inputValue(), "synthetic");
+  assert.equal(
+    await page
+      .getByRole("button", { name: "Add filters & sync audio" })
+      .isDisabled(),
+    true,
+  );
+  await page.getByLabel("Local WebSocket URL").fill(obs.url);
   await page.getByRole("button", { name: "Connect & inspect OBS" }).click();
   checkpoint("connect clicked");
   await page.getByRole("checkbox", { name: "Live", exact: true }).check();
@@ -265,6 +279,7 @@ try {
         checks: [
           "real Electron renderer",
           "OBS v5 loopback onboarding",
+          "OBS failure retains its actionable error and retry succeeds",
           "audio offset apply",
           "vault add/PIN/reveal/delete",
           "panic and default-no approval",

@@ -5,6 +5,7 @@
   "checks": [
     "real Electron renderer",
     "OBS v5 loopback onboarding",
+    "OBS failure retains its actionable error and retry succeeds",
     "audio offset apply",
     "vault add/PIN/reveal/delete",
     "panic and default-no approval",
@@ -21,21 +22,21 @@
   "scenarioMeasurements": [
     {
       "kind": "dm",
-      "processed_ms": 3438.405299995793,
+      "processed_ms": 3422.0841000205837,
       "late": true,
       "masked": true,
       "fullHold": true
     },
     {
       "kind": "terminal",
-      "processed_ms": 4204.666100005852,
+      "processed_ms": 4260.56699999026,
       "late": true,
       "masked": true,
       "fullHold": true
     },
     {
       "kind": "form",
-      "processed_ms": 2905.8343000069726,
+      "processed_ms": 2752.036499994574,
       "late": true,
       "masked": true,
       "fullHold": true
@@ -43,5 +44,5 @@
   ],
   "passed": true,
   "clean_exit_audio_restored": true,
-  "completed_at": "2026-10-30T17:27:35.419Z"
+  "completed_at": "2026-10-30T18:48:49.213Z"
 }
