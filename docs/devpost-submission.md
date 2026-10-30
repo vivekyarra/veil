@@ -1,6 +1,6 @@
 # VEIL — submission draft
 
-Not submitted. Official event requirements were checked on 30 October 2026 IST; see [readiness checklist](hackathon-readiness.md). Live account authorization and the final public YouTube URL are still required. Repository: https://github.com/vivekyarra/veil.
+Not submitted. Official event requirements were checked on 30 October 2026 IST; see [readiness checklist](hackathon-readiness.md). Live account authorization is complete; the final public YouTube URL is still required. Repository: https://github.com/vivekyarra/veil.
 
 ## Inspiration
 
@@ -18,9 +18,9 @@ One main Codex chat followed a milestone specification, shared normalization cas
 
 ## Challenges and accomplishments
 
-Frame alignment, skipped samples, late results, audio rollback, Unicode obfuscation and excluding private text from diagnostics required explicit tests. The full 3,000-image synthetic run measured recall: email 99.77%, cards 96.97%, secrets 99.30%, vault 100%, phones 99.77%, addresses 99.77%; negative FPR 0.47%. Card recall fails the required 97% gate. Concurrent CPU p50/p99 were 8.78/26.52 seconds excluding queue wait. These controlled layouts do not prove real-world recall or safe default-delay streaming.
+Frame alignment, skipped samples, late results, audio rollback, Unicode obfuscation and excluding private text from diagnostics required explicit tests. The latest full 3,000-image synthetic run measured recall: email 99.77%, cards 99.77%, secrets 99.30%, vault 100%, phones 99.77%, addresses 99.77%; negative FPR 0.47%. All unchanged recall/FPR gates pass. Two concurrent CPU workers measured p50/p99 of 1.33/2.05 seconds excluding queue wait. These controlled layouts do not prove real-world recall or safe default-delay streaming. The earlier failing run remains available for comparison.
 
-The Windows filter loaded in OBS and passed synthetic mask/Paranoid checks. Thirty deduplicated synthetic chat messages were deleted below one second p95 against local contracts. Actual Electron onboarding, vault, panic, OCR rehearsal, masked source previews, PDF export and clean rollback pass. These are local results; live Twitch, reference GPU, sustained rendering, macOS and clean-machine acceptance remain pending.
+The Windows filter loaded in OBS and passed synthetic mask/Paranoid checks. Thirty deduplicated synthetic chat messages were deleted below one second p95 against local contracts. Actual Electron onboarding, vault, panic, OCR rehearsal, masked source previews, PDF export and clean rollback pass. Real Twitch OAuth and EventSub connected on yarravivek. Windows and macOS packages passed CI, including packaged Windows E2E. Reference GPU, sustained rendering, clean-machine acceptance and individual live moderation effects remain separate validation limits.
 
 ## Privacy, prior art and next steps
 
@@ -28,8 +28,8 @@ OCR is local; vault AES-GCM keys use OS-protected storage. Default reports omit 
 
 Related work includes obs-pii-redactor, ScreenLeak and browser redaction extensions. VEIL combines their prevention problem with private chat matching and incident response. It uses RapidOCR, ONNX Runtime, libobs and official plugin scaffolding. Screenpipe's noncommercial redactor is not bundled.
 
-Next: improve card recognition, validate GPU execution/output timing, execute platform CI and real test streams, and review accessibility/privacy independently. IRL and audio leak detection are outside this prototype.
+Next: validate reference-GPU execution/output timing and sustained streams, and review accessibility/privacy independently. IRL and audio leak detection are outside this prototype.
 
 ## Submission tasks
 
-Add the published repository and public demo URLs after human publication. Confirm claims against current evidence, verify live account actions and event requirements, then submit manually. No public push, video upload or submission has been performed by the agent.
+The source and eight work branches are published. Add the public YouTube demo URL after upload, confirm claims against current evidence and event requirements, then submit manually. No Devpost submission has been performed by the agent.

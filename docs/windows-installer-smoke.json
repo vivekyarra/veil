@@ -1,0 +1,8 @@
+{
+  "installed": true,
+  "installer_sha256": "2670e19dcbd6250469a155deefcf26234c581e129bfe9be7746fa66c3441c145",
+  "source_commit": "f64232da23a907e98bb2529a46148860f1c74834",
+  "elapsed_seconds": 29.085327099994174,
+  "target": "workspace-isolated install",
+  "clean_consumer_windows_machine": false
+}

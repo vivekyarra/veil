@@ -16,6 +16,7 @@ bench/data-*/
 plugin/template/
 *.log
 runtime/
+artifacts/
 *.exe
 *.dll
 plugin/.deps/

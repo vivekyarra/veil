@@ -57,7 +57,9 @@ def create_app(token: str, pipeline: Pipeline | None = None) -> FastAPI:
     @app.get("/v1/health")
     async def health(authorization: str | None = Header(default=None)) -> dict[str, object]:
         authorize(authorization)
-        values = detector.latencies
+        # Native, pre-flight and rehearsal captures use isolated stream IDs.
+        # Health must measure those streams, not only the rarely-used default.
+        values = [latency for stream in streams.values() for latency in stream.latencies]
         return {
             "status": "ok",
             "model_loaded": detector.ocr.engine is not None,

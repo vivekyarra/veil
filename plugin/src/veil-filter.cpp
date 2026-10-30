@@ -193,7 +193,6 @@ static void render(void *data, gs_effect_t *) {
         for (auto &s : g->ring)
           if (s.valid && s.id == g->core.previous_sample + 1)
             first_time = s.timestamp;
-      veil_sample(&g->core, g->frame, first_time, uint64_t(g->delay) * 1000000);
       g->last_sample = now;
       if (!g->worker.valid() && !g->token.empty()) {
         gs_texrender_reset(g->sample);
@@ -214,6 +213,10 @@ static void render(void *data, gs_effect_t *) {
               std::memcpy(pixels.data() + size_t(y) * g->sample_w * 4,
                           mapped + size_t(y) * stride, size_t(g->sample_w) * 4);
             gs_stagesurface_unmap(g->stage);
+            // Register only captures actually submitted to the worker. Busy
+            // ticks have no request to answer; the next capture spans them.
+            veil_sample(&g->core, g->frame, first_time,
+                        uint64_t(g->delay) * 1000000);
             g->working_frame = g->frame;
             g->worker = std::async(
                 std::launch::async, veil_request, std::move(pixels),

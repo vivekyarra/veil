@@ -115,6 +115,26 @@ def test_box_validation() -> None:
         Box(x=0.9, y=0, w=0.2, h=0.1)
 
 
+def test_health_reports_custom_capture_stream_latency(monkeypatch: pytest.MonkeyPatch) -> None:
+    pipeline = Pipeline()
+    monkeypatch.setattr(pipeline.ocr, "read", lambda _: [])
+    token = "x" * 64
+    client = TestClient(create_app(token, pipeline))
+    blob = io.BytesIO()
+    Image.new("RGB", (32, 32)).save(blob, format="PNG")
+    headers = {
+        "Authorization": "Bearer " + token,
+        "X-Veil-Frame": json.dumps(
+            {"frame_id": 0, "timestamp_ns": 0, "stream_id": "native-capture"}
+        ),
+    }
+    result = client.post("/v1/frames", headers=headers, content=blob.getvalue())
+    assert result.status_code == 200
+    health = client.get("/v1/health", headers={"Authorization": "Bearer " + token}).json()
+    assert health["p99_ms"] == pytest.approx(result.json()["processed_ms"])
+    assert health["p50_ms"] is not None
+
+
 def test_adjacent_complete_lines_do_not_duplicate_masks(monkeypatch: pytest.MonkeyPatch) -> None:
     pipeline = Pipeline()
     monkeypatch.setattr(

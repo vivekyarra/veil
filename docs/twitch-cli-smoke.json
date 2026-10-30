@@ -5,7 +5,8 @@
   "subscriptions": [
     {
       "type": "channel.chat.message",
-      "status": 400
+      "status": 400,
+      "error": "The combination of values in the type and version fields is not valid"
     },
     {
       "type": "stream.online",

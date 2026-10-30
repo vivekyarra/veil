@@ -1,19 +1,19 @@
 {
-  "source_sha256": "dba8dbc6c66b1fdda5289296e6503441abb25a97ad691764a9e12f0116e8338b",
+  "source_sha256": "d1879bf037073d422895fb8f73bb1a89f17352f097374c851310f261ede0a2f1",
   "manifest_sha256": "ce177ab562f108d52b03676e664023bce54eb52bf8b4513d25842cd48b8bfaed",
   "model_sha256": {
     "ch_PP-OCRv4_det_infer.onnx": "d2a7720d45a54257208b1e13e36a8479894cb74155a5efe29462512d42f49da9",
     "ch_PP-OCRv4_rec_infer.onnx": "48fc40f24f6d2a207a2b1091d3437eb3cc3eb6b676dc3ef9c37384005483683b",
     "ch_ppocr_mobile_v2.0_cls_infer.onnx": "e47acedf663230f8863ff1ab0e64dd2d82b838fceb5957146dab185a89d6215c"
   },
-  "workers": 4,
+  "workers": 2,
   "onnxruntime": "1.31.1",
   "rapidocr": "1.4.4",
-  "processor": "Intel64 Family 6 Model 186 Stepping 3, GenuineIntel",
-  "platform": "Windows-10-10.0.26300-SP0",
+  "processor": "AMD64 Family 25 Model 1 Stepping 1, AuthenticAMD",
+  "platform": "Windows-10-10.0.20348-SP0",
   "screens": 3000,
-  "completed_at_utc": "2026-10-29T18:00:01.776353+00:00",
-  "provider": "CPU ONNX, 2 threads per OCR worker, 4 concurrent workers",
+  "completed_at_utc": "2026-10-29T20:41:14.814360+00:00",
+  "provider": "CPU ONNX, 2 threads per OCR worker, 2 concurrent workers",
   "metrics": {
     "email": {
       "screens": 429,
@@ -21,15 +21,15 @@
       "false_positive_boxes": 0,
       "precision": 1.0,
       "recall": 0.9976689976689976,
-      "mean_iou": 0.6728346114162344
+      "mean_iou": 0.6728261918241838
     },
     "card": {
       "screens": 429,
-      "true_positives": 416,
+      "true_positives": 428,
       "false_positive_boxes": 0,
       "precision": 1.0,
-      "recall": 0.9696969696969697,
-      "mean_iou": 0.7248610405524515
+      "recall": 0.9976689976689976,
+      "mean_iou": 0.7213097288805355
     },
     "secret": {
       "screens": 429,
@@ -37,7 +37,7 @@
       "false_positive_boxes": 0,
       "precision": 1.0,
       "recall": 0.993006993006993,
-      "mean_iou": 0.6459435951751763
+      "mean_iou": 0.6462007948551287
     },
     "vault": {
       "screens": 429,
@@ -45,7 +45,7 @@
       "false_positive_boxes": 0,
       "precision": 1.0,
       "recall": 1.0,
-      "mean_iou": 0.6399134420467967
+      "mean_iou": 0.6398286681789803
     },
     "phone": {
       "screens": 428,
@@ -53,7 +53,7 @@
       "false_positive_boxes": 22,
       "precision": 0.9510022271714922,
       "recall": 0.9976635514018691,
-      "mean_iou": 0.7144960961914805
+      "mean_iou": 0.7146015443897421
     },
     "address": {
       "screens": 428,
@@ -61,20 +61,20 @@
       "false_positive_boxes": 0,
       "precision": 1.0,
       "recall": 0.9976635514018691,
-      "mean_iou": 0.6880070367414018
+      "mean_iou": 0.6883040351469655
     }
   },
   "negative_screens": 428,
   "negative_screen_fpr": 0.004672897196261682,
   "latency_ms": {
-    "p50": 8781.823749995965,
-    "p95": 17708.016774997668,
-    "p99": 26520.27111199044
+    "p50": 1331.4557500002593,
+    "p95": 1798.1889599996975,
+    "p99": 2050.5872019999897
   },
-  "gates_passed": false,
+  "gates_passed": true,
   "matching": "One-to-one boxes at IoU >= 0.30, visible DOM intersection. Duplicate boxes and wrong-kind predictions count as false positives.",
-  "predictions_file": "benchmark-full.predictions-19dfe2851ce9d22b.jsonl",
-  "predictions_sha256": "3b8d5ccb266b8cd3a3fd51a038603d4690fe4344606aa3b5111a80bc693f6278",
-  "source_archive": "benchmark-full.source-dba8dbc6c66b.zip",
+  "predictions_file": "benchmark-ci.predictions-01a59b3c923a9f09.jsonl",
+  "predictions_sha256": "6cd044955e6b1b98452106d7bafc17edfb4b7234cdb36b9dda4a61fad1bbd126",
+  "source_archive": "benchmark-ci.source-d1879bf03707.zip",
   "limits": "Synthetic screenshots only. Concurrent inference excludes queue wait; resumed samples retain measured timestamps. Not a real-stream or reference-GPU guarantee."
 }

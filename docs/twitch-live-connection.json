@@ -1,0 +1,14 @@
+{
+  "checked_at_utc": "2026-10-29T20:44:53Z",
+  "account": "yarravivek",
+  "application": "VEIL Stream Guard",
+  "client_type": "Public",
+  "authorization": "user approved the listed permissions at action time",
+  "real_app_snapshot": {
+    "twitch": true,
+    "eventsub": true,
+    "detector": true
+  },
+  "scope_of_evidence": "Real device-grant sign-in and connected EventSub subscriptions; individual moderation effects and livestream delivery require separate evidence.",
+  "credentials_included": false
+}

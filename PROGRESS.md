@@ -66,5 +66,13 @@ Final polish checks: all seven pages in both themes have zero automated axe WCAG
 
 Packaged Windows VEIL.exe passes the complete real Electron E2E using its bundled frozen detector: actual OCR, all14 page/theme accessibility scans, source mask pixels, vault, panic, approval focus, metadata diagnostics, Markdown/PDF and clean audio rollback. app.asar main/index hashes match the compiled tested build. Frozen detector independently passes authenticated HTTP, event WebSocket and synthetic-email OCR; measured15.31s cold frame is not a latency guarantee. Final NSIS compression is finishing; clean-machine installer execution remains unverified.
 
-Final Windows NSIS build completed successfully. Installer is unsigned (Authenticode NotSigned). Release audit compares packaged main/index and detector/plugin binaries against the tested outputs and records SHA-256 hashes in docs/release-manifest.json. No real streaming sources were opened, no live Twitch actions were performed, and nothing was publicly pushed or submitted. M12/M13 remain partially accepted because remote/platform/human and performance gates are outstanding.
+Final Windows NSIS build completed successfully. Installer is unsigned (Authenticode NotSigned). Release audit compares packaged main/index and detector/plugin binaries against the tested outputs and records SHA-256 hashes in docs/release-manifest.json. At this checkpoint no live Twitch actions or public push had occurred.
+
+## Release 0.2 verification — 30 October IST
+
+Eight work branches are published with nine public commits before this follow-up. All seven jobs in GitHub Actions run 40944948887 pass, including the full 3,000-image benchmark, both native platforms, both installers and packaged Windows E2E. Numeric-span recovery retains confidence and Luhn checks: cards now 428/429 (99.77%); all original recall/FPR gates pass. CI CPU p50/p99 1.33/2.05 seconds excludes queue wait and does not validate the 750 ms default or reference GPU. The old failing run remains historical evidence. Windows installer executed in 29.09 seconds on this existing machine, not a clean OS.
+
+Real yarravivek device-grant authorization and EventSub connected after explicit user approval of the listed scopes. OBS is connected to the controlled workspace scene; the public live capture and final video remain in preparation. No Devpost entry has been submitted.
+
+Follow-up fixes aggregate latency from named detector streams for health/preflight and register native pending samples only when a capture is actually submitted. Busy ticks cannot create requests that never answer. Paranoid continues to cover output beyond the last confirmed sample. Regression checks cover the busy-worker gap and named-stream health; Python suite 280 passing, 91.54% coverage. Intel GPU probes did not complete; shipping remains CPU fallback with honest timing limits.
 

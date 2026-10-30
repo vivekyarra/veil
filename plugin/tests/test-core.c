@@ -25,6 +25,17 @@ int main(void) {
   assert(veil_hold(&c, 16, 900000000, VEIL_PARANOID));
   assert(veil_hold(&c, 1000, 900000000, VEIL_PARANOID));
   assert(!veil_hold(&c, 1000, 900000000, VEIL_BALANCED));
+  // Busy capture ticks do not create phantom requests. The next submitted
+  // sample covers the gap, while output stays held until its result arrives.
+  struct veil_core busy = {0};
+  veil_sample(&busy, 0, 0, 750000000);
+  veil_result(&busy, 0, 90, NULL, 0);
+  assert(veil_hold(&busy, 30, 1000000000, VEIL_PARANOID));
+  assert(veil_sample(&busy, 60, 16666667, 750000000) == 1);
+  veil_result(&busy, 60, 150, &box, 1);
+  assert(!veil_hold(&busy, 30, 2000000000, VEIL_PARANOID));
+  assert(veil_lookup(&busy, 30, out, 8) == 1);
+  assert(veil_hold(&busy, 61, 2000000000, VEIL_PARANOID));
   struct veil_core disconnected = {0};
   assert(veil_hold(&disconnected, 0, 900000000, VEIL_PARANOID));
   assert(veil_lookup(&c, 0, out, 8) == 0);
