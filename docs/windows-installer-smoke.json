@@ -1,8 +1,8 @@
 {
   "installed": true,
-  "installer_sha256": "c171dda4cfbe88eddf772e99d8ca80679402dd90542e2841eee6bf8a3b876717",
-  "source_commit": "43d61bd2279c877bb8416b58781091971075a4b3",
-  "elapsed_seconds": 72.10538560000714,
+  "installer_sha256": "719338977736cd292879603cafd33dc863c201a5abc3f6e76f5200bf9b3734d3",
+  "source_commit": "e2763be7991840516a58958b26ecb4427d595c30",
+  "elapsed_seconds": 106.01392150000902,
   "target": "new isolated per-user installation on C drive",
   "installed_payload_hashes_match_ci": [
     "resources/app.asar",

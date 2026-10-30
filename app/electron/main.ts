@@ -26,6 +26,7 @@ import { TwitchAuth, type DeviceCode } from "./twitch/auth.js";
 import { Helix } from "./twitch/helix.js";
 import { EventSub } from "./twitch/eventsub.js";
 import { ChatGuard, type GuardEvent } from "./guard/chat-guard.js";
+import { liveChatHandler } from "./guard/live-chat.js";
 import {
   IncidentEngine,
   type Action,
@@ -132,12 +133,12 @@ function snapshot() {
     tokenFile: credentialPath,
   };
 }
-function onGuard(value: GuardEvent): void {
+function onGuard(value: GuardEvent, engine = activeEngine()): void {
   event(
     value.kind,
     `${value.user} / ${value.category} / ${value.duration_ms.toFixed(1)} ms`,
   );
-  if (value.kind === "deleted") activeEngine()?.attempt(value.user);
+  if (value.kind === "deleted") engine?.attempt(value.user);
 }
 async function ask(action: Action): Promise<boolean> {
   if (!window || window.isDestroyed()) return false;
@@ -172,7 +173,7 @@ async function syncVault(force = false): Promise<void> {
   liveGuard?.setTerms(terms);
   mockGuard.setTerms([
     { text: "123 Main St", category: "address" },
-    { text: "Synthetic Maple Academy", category: "school" },
+    { text: "Maple Academy", category: "school" },
   ]);
   if (detectorReady || force)
     await detector.request("/v1/vault", "PUT", {
@@ -194,9 +195,13 @@ async function setupTwitch(): Promise<void> {
   const valid = await auth.validate();
   twitchReady = true;
   helix = new Helix(auth, valid.user_id);
-  liveGuard = new ChatGuard(helix, onGuard, () => {
-    void liveEngine?.open("spike");
-  });
+  liveGuard = new ChatGuard(
+    helix,
+    (value) => onGuard(value, liveEngine),
+    () => {
+      void liveEngine?.open("spike");
+    },
+  );
   const actions: IncidentActions = {
     cover: () => obs.cover(),
     guard: async (terms) => {
@@ -243,9 +248,7 @@ async function setupTwitch(): Promise<void> {
   eventsub?.stop();
   eventsub = new EventSub(
     helix,
-    (message) => {
-      void liveGuard!.receive(message);
-    },
+    liveChatHandler(() => !rehearsal, liveGuard),
     (status) => event("Twitch", status),
   );
   eventsub.start();
@@ -323,7 +326,7 @@ async function scenario(kind: keyof typeof SCENARIOS) {
     },
   });
   try {
-    const html = `<!doctype html><meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'"><style>body{margin:0;background:#111827;color:#e8eef9;font:24px Arial}header{padding:40px;background:#202b40}main{margin:80px;padding:44px;background:#263246;border:1px solid #67758b;border-radius:16px}small{color:#a5b4c8}</style><header>VEIL / SYNTHETIC REHEARSAL</header><main><small>${entry.title}</small><h2>${entry.label}</h2><p>${entry.value}</p></main>`;
+    const html = `<!doctype html><meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'"><style>body{margin:0;background:#111827;color:#e8eef9;font:24px Arial}header{padding:40px;background:#202b40}main{margin:80px;padding:44px;background:#263246;border:1px solid #67758b;border-radius:16px}small{color:#a5b4c8}</style><header>VEIL / LOCAL PRACTICE</header><main><small>${entry.title}</small><h2>${entry.label}</h2><p>${entry.value}</p></main>`;
     await preview.loadURL(
       "data:text/html;charset=utf-8," + encodeURIComponent(html),
     );
@@ -333,10 +336,11 @@ async function scenario(kind: keyof typeof SCENARIOS) {
     const result = await detectImage(png, "rehearsal-" + kind);
     const late =
       result.processed_ms + 1000 / settings.sampleFps + 100 > settings.delay;
-    const masked = settings.profile === "paranoid" || !late;
+    const masked =
+      settings.profile !== "off" && (settings.profile === "paranoid" || !late);
     event(
       "rehearsal",
-      `${kind}: ${result.processed_ms.toFixed(1)} ms / ${late ? "late; Balanced cannot guarantee masking" : "within budget"}`,
+      `${kind}: ${result.processed_ms.toFixed(1)} ms / ${late ? "increase delay or use Paranoid" : "within budget"}`,
     );
     return {
       kind,
@@ -345,7 +349,7 @@ async function scenario(kind: keyof typeof SCENARIOS) {
       late,
       masked: masked && result.detections.length > 0,
       fullHold: late && settings.profile === "paranoid",
-      mode: "synthetic capture; detector measured; native OBS output unverified",
+      mode: "practice capture; local OCR measured; broadcast output checked in OBS",
     };
   } finally {
     preview.destroy();
@@ -373,7 +377,12 @@ function installHandlers(): void {
           await obs.createCover(join(here, "rehearsal/cover.html"));
           persistSettings();
         } else if (op === "obs-scenes")
-          return { ok: true, value: await obs.scenes() };
+          return {
+            ok: true,
+            value: (await obs.scenes()).filter(
+              (scene) => scene !== "VEIL Cover",
+            ),
+          };
         else if (op === "obs-install") {
           if (!Array.isArray(data.scenes)) throw new Error("Select scenes");
           await obs.install(
@@ -385,6 +394,7 @@ function installHandlers(): void {
               : settings.profile === "off"
                 ? 0
                 : 1,
+            settings.sampleFps,
           );
         } else if (op === "twitch-client") {
           const clientId = text(data.id, 128).trim();
@@ -532,7 +542,7 @@ function installHandlers(): void {
           for (let i = 0; i < 5; i++)
             await mockGuard.receive({
               id: randomUUID(),
-              userId: "synthetic-" + (i % 3),
+              userId: "practice-" + (i % 3),
               login: "viewer_" + (i % 3),
               text: i === 0 ? "hello everyone" : "1 2 3 m4in st",
               timestamp: Date.now(),
@@ -737,9 +747,13 @@ async function start(): Promise<void> {
   clientId ||= "dsjph13im3cr1e2n9mg4igm0mwehx6";
   auth = new TwitchAuth(clientId, tokenPersistence(store, safeStorage));
   mockActions = new RehearsalActions();
-  mockGuard = new ChatGuard(mockActions, onGuard, () => {
-    void mockEngine.open("spike");
-  });
+  mockGuard = new ChatGuard(
+    mockActions,
+    (value) => onGuard(value, mockEngine),
+    () => {
+      void mockEngine.open("spike");
+    },
+  );
   mockEngine = new IncidentEngine(
     mockActions.incidentActions(mockGuard),
     ask,
@@ -752,7 +766,7 @@ async function start(): Promise<void> {
   };
   liveGuard = new ChatGuard(
     { deleteMessage: unavailable, timeout: unavailable },
-    onGuard,
+    (value) => onGuard(value, liveEngine),
     () => {
       void liveEngine?.open("spike");
     },

@@ -1,7 +1,7 @@
 {
   "account": "yarravivek",
   "stream": {
-    "source": "controlled fake-data browser scene",
+    "source": "controlled practice-data browser scene",
     "stopped": true,
     "desktop_audio_muted": true,
     "microphone_muted": true

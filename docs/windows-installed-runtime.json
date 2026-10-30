@@ -1,0 +1,16 @@
+{
+  "source_commit": "e2763be7991840516a58958b26ecb4427d595c30",
+  "installed_app_launched": true,
+  "embedded_detector_ready": true,
+  "public_twitch_app_preconfigured": true,
+  "actual_ocr": {
+    "scenario": "controlled practice-data DM",
+    "detections": 3,
+    "processed_ms": 5037.201500002993,
+    "masked": true,
+    "fullHold": true,
+    "evidence_scope": "practice capture; local OCR measured; broadcast output checked in OBS"
+  },
+  "environment": "Existing Windows host, isolated installation/profile; not a clean-machine test",
+  "clean_shutdown": true
+}

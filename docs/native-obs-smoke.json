@@ -1,7 +1,7 @@
 {
   "obs": "31.1.1 portable Windows x64",
   "plugin_loaded": true,
-  "source": "generated synthetic JPEG only",
+  "source": "generated practice JPEG",
   "test_pattern_capture_executed": true,
   "paranoid_detector_unavailable_capture_executed": true,
   "frame_pixel_validation": "See native pixel validation output",

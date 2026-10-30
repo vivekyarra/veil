@@ -119,7 +119,22 @@ export async function obsMock() {
           filterEnabled: true,
           filterSettings: data.filterSettings,
         });
-      else if (type === "GetInputList")
+      else if (
+        type === "SetSourceFilterSettings" ||
+        type === "SetSourceFilterEnabled"
+      ) {
+        const filter = filters[String(data.sourceName)]?.find(
+          (item) => item.filterName === data.filterName,
+        );
+        if (!filter) success = false;
+        else if (type === "SetSourceFilterEnabled")
+          filter.filterEnabled = data.filterEnabled;
+        else
+          filter.filterSettings = {
+            ...(filter.filterSettings as Record<string, unknown>),
+            ...(data.filterSettings as Record<string, unknown>),
+          };
+      } else if (type === "GetInputList")
         result = {
           inputs: Object.keys(offsets).map((inputName) => ({
             inputName,
@@ -152,14 +167,7 @@ export async function obsMock() {
         program = String(data.sceneName);
       else if (type === "GetCurrentProgramScene")
         result = { currentProgramSceneName: program };
-      else if (
-        ![
-          "CreateInput",
-          "SetInputSettings",
-          "SetSourceFilterSettings",
-          "SetSourceFilterEnabled",
-        ].includes(type)
-      )
+      else if (!["CreateInput", "SetInputSettings"].includes(type))
         success = false;
       socket.send(
         JSON.stringify({

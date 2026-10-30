@@ -104,11 +104,7 @@ function MaskedImage({ scan, masked }: { scan: Scan; masked: boolean }) {
   return (
     <canvas
       ref={ref}
-      aria-label={
-        masked
-          ? "Delayed rehearsal output simulation"
-          : "Unmasked synthetic rehearsal input"
-      }
+      aria-label={masked ? "Rehearsal result" : "Original practice capture"}
     />
   );
 }
@@ -137,7 +133,13 @@ function App() {
     [scenes, setScenes] = useState<string[]>([]),
     [selected, setSelected] = useState<string[]>([]),
     [checks, setChecks] = useState<
-      { id: string; title: string; status: string; detail: string }[]
+      {
+        id: string;
+        title: string;
+        status: string;
+        detail: string;
+        recommendedDelay?: number;
+      }[]
     >([]),
     [sourceScans, setSourceScans] = useState<
       { source: string; image: string; kinds: string[] }[]
@@ -309,7 +311,7 @@ function App() {
                   : page === "Never Show"
                     ? "Private terms are encrypted on this computer. Moderators cannot read this vault."
                     : page === "Rehearsal"
-                      ? "Real local OCR on synthetic captures. Twitch actions stay simulated."
+                      ? "Practice with local OCR. Rehearsal keeps Twitch actions isolated."
                       : "Local controls, clear results, no private details in the feed."}
               </p>
             </div>
@@ -352,7 +354,7 @@ function App() {
                   </h2>
                   <p>
                     {state.rehearsal
-                      ? "Explore VEIL with synthetic leak scenarios. Run pre-flight before relying on protection."
+                      ? "Practice common leak scenarios, then check your setup before going live."
                       : "Verify your scenes, audio and detector budget before going live."}
                   </p>
                   <div className="hero-buttons">
@@ -387,8 +389,8 @@ function App() {
                   </div>
                   <p>Lookahead delay</p>
                   <span className="fine-print">
-                    Paranoid covers unverified frames; slow inference can keep
-                    output covered. Balanced can expose late frames.
+                    Paranoid waits for confirmed frames. Balanced permits late
+                    output.
                     <br />
                     Pre-flight checks the measured budget.
                   </span>
@@ -415,7 +417,7 @@ function App() {
                   <strong>{state.removed.toString().padStart(2, "0")}</strong>
                   <small>
                     {state.rehearsal
-                      ? "Simulated moderation"
+                      ? "Practice moderation"
                       : "EventSub → Helix deletion"}
                   </small>
                 </div>
@@ -481,7 +483,7 @@ function App() {
                   </kbd>
                   <small>
                     {state.rehearsal
-                      ? "Rehearsal: cover and Twitch actions are simulated."
+                      ? "Rehearsal: cover and Twitch actions stay in local practice mode."
                       : "Requires OBS for scene switching. Twitch actions need authorization."}
                   </small>
                 </section>
@@ -853,7 +855,8 @@ function App() {
                 </button>
               </div>
               <p className="subtle">
-                A connected badge alone does not prove a protected stream.
+                Check scene protection, audio alignment, and the measured delay
+                before going live.
               </p>
               <button
                 className="secondary"
@@ -903,6 +906,24 @@ function App() {
                     <div>
                       <h3>{c.title}</h3>
                       <p>{c.detail}</p>
+                      {c.recommendedDelay !== undefined && (
+                        <button
+                          className="secondary"
+                          disabled={busy || !state.obs}
+                          onClick={async () => {
+                            const value = await run("settings", {
+                              delay: c.recommendedDelay,
+                            });
+                            if (value !== undefined) {
+                              const updated = await run("preflight");
+                              if (Array.isArray(updated))
+                                setChecks(updated as typeof checks);
+                            }
+                          }}
+                        >
+                          Apply measured delay ({c.recommendedDelay} ms)
+                        </button>
+                      )}
                     </div>
                     <span className={"result " + c.status}>{c.status}</span>
                   </div>
@@ -913,9 +934,8 @@ function App() {
           {page === "Rehearsal" && (
             <>
               <div className="notice">
-                Synthetic captures → actual local OCR → measured delay-budget
-                decision. Output is a local simulation until the native OBS
-                filter is verified.
+                Practice captures → local OCR → measured delay check. Rehearsal
+                runs locally and does not change your broadcast.
               </div>
               <div className="scenario-buttons">
                 {[
@@ -947,7 +967,7 @@ function App() {
                 <section className="panel preview">
                   <div className="section-title">
                     <h2>Your screen</h2>
-                    <span>SYNTHETIC / LOCAL</span>
+                    <span>LOCAL PRACTICE</span>
                   </div>
                   {scan ? (
                     <MaskedImage scan={scan} masked={false} />
@@ -960,7 +980,7 @@ function App() {
                 </section>
                 <section className="panel preview">
                   <div className="section-title">
-                    <h2>Delayed output simulation</h2>
+                    <h2>Rehearsal result</h2>
                     <span>
                       {scan?.masked
                         ? "MASKED"
@@ -1089,7 +1109,7 @@ function App() {
                   />
                 </label>
                 <p className="subtle">
-                  Draw a rectangle on the last synthetic capture. Zones never
+                  Draw a rectangle on the last practice capture. Zones never
                   exclude vault, secret or window detections.
                 </p>
                 {scan ? (
@@ -1124,7 +1144,7 @@ function App() {
                   >
                     <img
                       src={scan.image}
-                      alt="Frozen synthetic source for ignore-zone editing"
+                      alt="Practice capture for ignore-zone editing"
                     />
                     {state.settings.ignoreZones.map((b, i) => (
                       <span
@@ -1322,7 +1342,13 @@ function App() {
                     });
                     setObsPassword("");
                     const value = await run("obs-scenes");
-                    if (Array.isArray(value)) setScenes(value as string[]);
+                    if (Array.isArray(value)) {
+                      const available = value as string[];
+                      setScenes(available);
+                      setSelected((current) =>
+                        current.filter((scene) => available.includes(scene)),
+                      );
+                    }
                   }}
                 >
                   Connect & inspect OBS
@@ -1353,6 +1379,7 @@ function App() {
                 ))}
                 <button
                   className="secondary"
+                  disabled={busy || !state.obs || selected.length === 0}
                   onClick={() => void run("obs-install", { scenes: selected })}
                 >
                   Add filters & sync audio

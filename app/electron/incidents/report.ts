@@ -7,7 +7,7 @@ export function report(
 ): string {
   return [
     `# VEIL incident #${incident.id}`,
-    `Mode: ${incident.rehearsal ? "Rehearsal (simulated actions)" : "Connected services"}`,
+    `Mode: ${incident.rehearsal ? "Rehearsal (local practice actions)" : "Connected services"}`,
     `State: ${incident.state}`,
     `Window: ${incident.started} — ${incident.ended ?? "open"}`,
     incident.marker

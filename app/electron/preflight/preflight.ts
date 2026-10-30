@@ -5,6 +5,7 @@ interface Check {
   title: string;
   status: "pass" | "warn" | "fail";
   detail: string;
+  recommendedDelay?: number;
 }
 /** Unknown OS/VOD settings are manual checks, never guessed passes. */
 export async function preflight(
@@ -22,10 +23,16 @@ export async function preflight(
     title: string,
     status: Check["status"],
     detail: string,
-  ) => checks.push({ id, title, status, detail });
+    recommendedDelay?: number,
+  ) => checks.push({ id, title, status, detail, recommendedDelay });
   try {
     const health = await detector.request("/v1/health");
-    const p99 = health.p99_ms as number | null;
+    const p99 =
+      typeof health.p99_ms === "number" &&
+      Number.isFinite(health.p99_ms) &&
+      health.p99_ms >= 0
+        ? health.p99_ms
+        : null;
     const required =
       p99 === null ? null : Math.ceil(1000 / sampleFps + p99 + 100);
     add(
@@ -43,6 +50,9 @@ export async function preflight(
       required === null
         ? "No measured latency yet"
         : `Configured ${delay} ms; measured budget needs at least ${required} ms${required > 3000 ? "; exceeds supported delay; use Paranoid and faster inference hardware" : ""}`,
+      required !== null && required > delay && required <= 3000
+        ? required
+        : undefined,
     );
     add(
       "windows",
@@ -71,9 +81,22 @@ export async function preflight(
           sourceName: scene,
         });
         if (
-          !response.filters.some(
-            (f) => f.filterKind === "veil_guard" && f.filterEnabled,
-          )
+          !response.filters.some((f) => {
+            const value: unknown = f.filterSettings;
+            if (
+              value === null ||
+              typeof value !== "object" ||
+              Array.isArray(value)
+            )
+              return false;
+            const config = value as Record<string, unknown>;
+            return (
+              f.filterKind === "veil_guard" &&
+              f.filterEnabled &&
+              config.enabled !== false &&
+              Number(config.profile ?? 1) > 0
+            );
+          })
         )
           missing++;
       }

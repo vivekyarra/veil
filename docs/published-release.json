@@ -1,0 +1,38 @@
+{
+  "build_source": "e2763be7991840516a58958b26ecb4427d595c30",
+  "build_run": "https://github.com/vivekyarra/veil/actions/runs/41073403215",
+  "mac_desktop_architecture": "arm64",
+  "mac_plugin_architectures": [
+    "arm64",
+    "x86_64"
+  ],
+  "windows_installer_matches_ci_manifest": true,
+  "packaged_app_e2e": {
+    "win32": true,
+    "darwin": true
+  },
+  "unsigned": true,
+  "files": [
+    {
+      "name": "VEIL-0.2.0-mac-arm64.dmg",
+      "bytes": 246054349,
+      "sha256": "34e36aeaa34145149ea432119b63ba805723212cc3c88295c60d3946141b8de6"
+    },
+    {
+      "name": "VEIL-0.2.0-win-x64.exe",
+      "bytes": 213665535,
+      "sha256": "719338977736cd292879603cafd33dc863c201a5abc3f6e76f5200bf9b3734d3"
+    },
+    {
+      "name": "VEIL-Guard-macos-universal.pkg",
+      "bytes": 381316,
+      "sha256": "a231e5004c8f4ce93277b85808bb397415469f78df02aef5ce97708a9cb8ae39"
+    },
+    {
+      "name": "VEIL-Guard-windows-x64.zip",
+      "bytes": 49351,
+      "sha256": "89f016e63409aa2d7d6c5e860b250ce35bc65cbae00a112cfeb6d2ffad88fee2"
+    }
+  ],
+  "scope": "Packaged Windows and macOS UI/OCR/vault/export/audio-rollback checks pass. Native OBS on macOS, reference GPU, sustained 1080p60 and clean consumer-machine acceptance remain unverified."
+}

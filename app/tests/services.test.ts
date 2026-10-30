@@ -60,6 +60,9 @@ it("supervisor health and pre-flight expose measured failures and manual checks"
     checks = await preflight(obs, detector, 1500, 4, 3, true, true);
     expect(checks.find((c) => c.id === "filters")?.status).toBe("pass");
     expect(checks.find((c) => c.id === "latency")?.status).toBe("pass");
+    await obs.install(["Live"], "local.json", 1500, 0);
+    checks = await preflight(obs, detector, 1500, 4, 3, true, true);
+    expect(checks.find((c) => c.id === "filters")?.status).toBe("fail");
     await obs.disconnect();
   } finally {
     detector.stop();

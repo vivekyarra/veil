@@ -1,11 +1,12 @@
 {
-  "measured_at": "2026-10-30T13:48:48.810Z",
-  "source_reference": "43d61bd2279c877bb8416b58781091971075a4b3",
+  "measured_at": "2026-10-30T14:43:52.768Z",
+  "platform": "win32",
+  "source_reference": "e2763be7991840516a58958b26ecb4427d595c30",
   "files": [
     {
       "path": "app/release/VEIL-0.2.0-win-x64.exe",
-      "bytes": 213665206,
-      "sha256": "c171dda4cfbe88eddf772e99d8ca80679402dd90542e2841eee6bf8a3b876717"
+      "bytes": 213665535,
+      "sha256": "719338977736cd292879603cafd33dc863c201a5abc3f6e76f5200bf9b3734d3"
     },
     {
       "path": "app/release/win-unpacked/resources/app.asar",
@@ -15,7 +16,7 @@
     {
       "path": "detector/dist/veil-detector/veil-detector.exe",
       "bytes": 14795225,
-      "sha256": "49e0ba46e49470b07c215f4f3b7f3ae9d9686e72de61722ced92fccd0f23df64"
+      "sha256": "0a09bd6b4aa06df5a85b953cb28765d274598a8893527332d3131bf2c93eb1d3"
     },
     {
       "path": "plugin/dist/obs-plugins/64bit/veil-guard.dll",
@@ -28,7 +29,6 @@
   "packaged_e2e_passed": true,
   "signed": false,
   "installer_installation_on_clean_machine_verified": false,
-  "native_dll_note": "Native OBS runtime proof is separate from compilation and packaging; see native-obs-smoke.json",
-  "release_acceptance": "Hackathon preview; read acceptance.md for measured gates and unresolved hardware limits.",
-  "acceptance_annotation": "Obsolete blocker wording was updated; binary hashes are unchanged from CI run 41065360278 and match the installed payload."
+  "native_filter_note": "Native OBS runtime proof is separate from desktop packaging; see native-obs-smoke.json and live-twitch-smoke.json",
+  "release_acceptance": "Hackathon preview; see acceptance.md for measured gates and unresolved hardware limits."
 }

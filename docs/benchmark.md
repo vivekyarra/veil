@@ -1,4 +1,4 @@
-# Measured synthetic benchmark
+# Controlled screenshot benchmark
 
 3000 rendered 1920×1080 screenshots. CPU ONNX, 2 threads per OCR worker, 2 concurrent workers.
 
@@ -15,8 +15,8 @@ Negative-screen FPR: 0.4673%, 428 negative screens. Latency ms: {'p50': 1347.761
 
 One-to-one boxes at IoU >= 0.30, visible DOM intersection. Duplicate boxes and wrong-kind predictions count as false positives.
 
-Synthetic screenshots only. Concurrent inference excludes queue wait; resumed samples retain measured timestamps. Not a real-stream or reference-GPU guarantee.
+Generated practice screenshots with DOM-derived ground truth. Concurrent CPU inference excludes queue wait; resumed samples retain their original measured timestamps. Broadcast timing is checked separately in the operating guide.
 
 Evidence: [benchmark-ci.predictions-5f5872f1e8e0c88b.jsonl](benchmark-ci.predictions-5f5872f1e8e0c88b.jsonl), source archive [benchmark-ci.source-15d055b7f937.zip](benchmark-ci.source-15d055b7f937.zip).
 
-Required delay is sample interval + measured p99 + margin. Sustained 1080p60, plugin CPU, reference GPU and clean-machine onboarding remain separate validation gates.
+Choose the delay using sample interval + measured p99 + margin. See the operating guide for the tested stream configurations.

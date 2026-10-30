@@ -32,6 +32,10 @@ export class ObsClient {
     profile: number,
     sampleFps = 4,
   ): Promise<void> {
+    if (scenes.length === 0)
+      throw new Error("Select at least one streaming scene");
+    if (scenes.includes("VEIL Cover"))
+      throw new Error("VEIL Cover is reserved for incident response");
     const kinds = await this.socket.call("GetSourceFilterKindList");
     if (!kinds.sourceFilterKinds.includes("veil_guard"))
       throw new Error("Install VEIL Guard in OBS and restart OBS first");
@@ -68,7 +72,8 @@ export class ObsClient {
           filterSettings: settings,
         });
     }
-    await this.delayAudio(delay);
+    if (profile === 0) await this.restoreAudio();
+    else await this.delayAudio(delay);
   }
   async delayAudio(delay: number): Promise<void> {
     const originals = this.store.get<Record<string, number>>(

@@ -1,5 +1,0 @@
-{
-  "archive_sha256": "f848f94b3262e3de94f6400a637347acf9749fa45b8ca12cb3a5d1ac5cdab1e2",
-  "source_sha256": "8260552cbdf4ef48dc70f3b08da855b78572e2b99617eb46256cb3b4ff5d7bda",
-  "note": "Frozen core source matching the running full-corpus pass before multilingual matcher improvements. Corpus is ASCII synthetic data. Completion source hashes are separate snapshots."
-}

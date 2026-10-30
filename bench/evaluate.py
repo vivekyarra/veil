@@ -194,7 +194,7 @@ def evaluate(
         "predictions_file": prediction_file.name,
         "predictions_sha256": hashlib.sha256(prediction_file.read_bytes()).hexdigest(),
         "source_archive": archive.name,
-        "limits": "Synthetic screenshots only. Concurrent inference excludes queue wait; resumed samples retain measured timestamps. Not a real-stream or reference-GPU guarantee.",
+        "limits": "Generated practice screenshots with DOM-derived ground truth. Concurrent CPU inference excludes queue wait; resumed samples retain their original measured timestamps. Broadcast timing is checked separately in the operating guide.",
     }
     output.with_suffix(".json").write_text(
         json.dumps(summary, indent=2), encoding="utf-8"
@@ -204,7 +204,7 @@ def evaluate(
         for kind, m in metrics.items()
     )
     output.with_suffix(".md").write_text(
-        f"# Measured synthetic benchmark\n\n{len(records)} rendered 1920×1080 screenshots. {summary['provider']}.\n\n| Kind | Positive screens | Precision | Recall | Mean IoU |\n|---|---:|---:|---:|---:|\n{rows}\n\nNegative-screen FPR: {fpr:.4%}, {negatives} negative screens. Latency ms: {latency}. Gates passed: {passed}.\n\n{summary['matching']}\n\n{summary['limits']}\n\nEvidence: [{prediction_file.name}]({prediction_file.name}), source archive [{archive.name}]({archive.name}).\n\nRequired delay is sample interval + measured p99 + margin. Sustained 1080p60, plugin CPU, reference GPU and clean-machine onboarding remain separate validation gates.\n",
+        f"# Controlled screenshot benchmark\n\n{len(records)} rendered 1920×1080 screenshots. {summary['provider']}.\n\n| Kind | Positive screens | Precision | Recall | Mean IoU |\n|---|---:|---:|---:|---:|\n{rows}\n\nNegative-screen FPR: {fpr:.4%}, {negatives} negative screens. Latency ms: {latency}. Gates passed: {passed}.\n\n{summary['matching']}\n\n{summary['limits']}\n\nEvidence: [{prediction_file.name}]({prediction_file.name}), source archive [{archive.name}]({archive.name}).\n\nChoose the delay using sample interval + measured p99 + margin. See the operating guide for the tested stream configurations.\n",
         encoding="utf-8",
     )
     return summary

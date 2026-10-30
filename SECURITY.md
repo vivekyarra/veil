@@ -1,9 +1,21 @@
 # Security and privacy
 
-Report vulnerabilities privately through the repository host's private security reporting when enabled. Do not put real vault terms, tokens, screenshots or chat logs in public issues; use synthetic reproductions.
+Report vulnerabilities through this repository's private security reporting when available. Use practice inputs in reports, and keep vault terms, account tokens, private screenshots, and chat logs out of public issues.
 
-The local desktop user is trusted. VEIL cannot protect a compromised operating system or prevent same-user processes from accessing memory. Keep OBS WebSocket credentials private and never forward the detector port. Detector requests require a per-install bearer token on loopback.
+## Local processing
 
-AES-256-GCM vault encryption uses a random key wrapped by Electron safeStorage, with no plaintext fallback. PIN reveal limits casual UI access; it is not a cryptographic boundary against someone controlling the user account. Optional blocked-term sharing deliberately discloses selected terms to Twitch/moderators. Discord webhooks are credentials and should be rotated if exposed.
+OCR runs on your computer. The detector binds to IPv4 loopback, requires a random per-install bearer token, and disables access logs. Keep this endpoint and OBS WebSocket local, and protect the OBS password.
 
-Default exports omit private OCR text. Source previews are masked before renderer IPC. Committed evidence uses synthetic data. Installers are unsigned; macOS and independent security review remain pending. Balanced permits late frames; Paranoid covers missing/late results. Neither guarantees recognition of every secret. Inspect actual output and measured latency before streaming.
+The desktop user and operating system form the trust boundary. Use VEIL on an account and machine you control. The renderer is sandboxed with context isolation and narrow IPC; source previews are masked before renderer transfer.
+
+## Vault and account permissions
+
+AES-256-GCM encrypts vault terms. Electron safeStorage protects the random encryption key; unavailable OS key protection causes the vault to fail closed. The PIN gates temporary reveal in the app. Keep operating-system access controls enabled.
+
+Twitch sign-in grants the scopes displayed during authorization. Private matching stays local. Explicit blocked-term sharing sends selected terms to Twitch and channel moderators. Optional Discord webhooks send incident metadata; treat webhook URLs as credentials and rotate an exposed URL.
+
+## Output and exports
+
+Default exports omit private OCR text. Paranoid holds frames until checks complete; Balanced permits late output. Follow the [operating guide](docs/acceptance.md) to set the delay and inspect your OBS output. Recognition depends on the captured text and image quality.
+
+Current installers are unsigned. Use the release's checksums and source manifest to verify downloads. Windows and macOS packaged app flows are checked in CI.

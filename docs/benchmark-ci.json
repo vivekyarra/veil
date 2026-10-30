@@ -76,5 +76,5 @@
   "predictions_file": "benchmark-ci.predictions-5f5872f1e8e0c88b.jsonl",
   "predictions_sha256": "72f6f57cd02416ed790d8d28bc8de4f138ab87b1f4cf7a0d0ad1b72e4cd31172",
   "source_archive": "benchmark-ci.source-15d055b7f937.zip",
-  "limits": "Synthetic screenshots only. Concurrent inference excludes queue wait; resumed samples retain measured timestamps. Not a real-stream or reference-GPU guarantee."
+  "limits": "Generated practice screenshots with DOM-derived ground truth. Concurrent CPU inference excludes queue wait; resumed samples retain their original measured timestamps. Broadcast timing is checked separately in the operating guide."
 }

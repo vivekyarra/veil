@@ -30,26 +30,26 @@ export class RehearsalActions implements GuardActions {
         description: `VEIL incident #${id}`,
       }),
       shield: async () => {
-        this.journal.push("shield simulated");
+        this.journal.push("shield practice action");
       },
       blocked: async () => {
-        this.journal.push("blocked terms simulated");
+        this.journal.push("blocked terms practice action");
       },
       notice: async () => {
-        this.journal.push("neutral notice simulated");
+        this.journal.push("neutral notice practice action");
       },
       discord: async (_incident: Incident) => {
-        this.journal.push("metadata webhook simulated");
+        this.journal.push("metadata webhook practice action");
       },
       clips: async () => [
         {
-          id: "SyntheticRehearsalClip",
-          url: "https://clips.twitch.tv/SyntheticRehearsalClip",
+          id: "LocalPracticeClip",
+          url: "https://clips.twitch.tv/LocalPracticeClip",
           created_at: new Date().toISOString(),
-          creator_name: "synthetic_viewer",
+          creator_name: "practice_viewer",
           thumbnail_url: "",
           vod_offset: 74,
-          video_id: "synthetic",
+          video_id: "local-practice",
         },
       ],
     };
@@ -59,17 +59,17 @@ export const SCENARIOS = {
   email: {
     title: "A quiet inbox",
     label: "Email",
-    value: "synthetic.viewer@example.com",
+    value: "practice.viewer@example.com",
   },
   dm: {
     title: "A private conversation",
     label: "Address",
-    value: "123 Synthetic Maple Street",
+    value: "123 Maple Street",
   },
   terminal: {
     title: "Developer terminal",
     label: "Credential",
-    value: "api_key=synthetic_demo_only_0123456789",
+    value: "api_key=practice_only_0123456789abcdef",
   },
   form: {
     title: "Shipping details",
