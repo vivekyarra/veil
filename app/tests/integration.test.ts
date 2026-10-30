@@ -45,6 +45,31 @@ it("OBS onboarding and audio rollback survive a simulated process crash", async 
     store.close();
   }
 });
+it("cover fits the OBS canvas and updates an existing browser source", async () => {
+  const mock = await obsMock(),
+    store = new Store(":memory:"),
+    obs = new ObsClient(store);
+  try {
+    await obs.connect(mock.url, "synthetic");
+    await obs.createCover("first-cover.html");
+    expect(mock.browserInputs["VEIL Cover Card"]).toMatchObject({
+      width: 1280,
+      height: 720,
+      local_file: "first-cover.html",
+    });
+    await obs.createCover("updated-cover.html");
+    expect(mock.requests.filter((r) => r === "CreateInput")).toHaveLength(1);
+    expect(mock.browserInputs["VEIL Cover Card"]).toMatchObject({
+      width: 1280,
+      height: 720,
+      local_file: "updated-cover.html",
+    });
+    await obs.disconnect();
+  } finally {
+    await mock.close();
+    store.close();
+  }
+});
 it("device authorization polls and serializes single-use refresh tokens", async () => {
   const mock = await twitchMock();
   let tokens: Tokens | undefined;

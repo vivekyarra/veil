@@ -1,17 +1,23 @@
-# Demo script — 2:50
+# Recorded demo — 2:32
 
-Record actual interactions with synthetic data. Label Rehearsal and simulated moderation. Current card recall and GPU timing gates remain open; show those limitations.
+The opening 0:00–0:08 is silent black for the participant's story clip. It makes no unverified claim about a public figure. Insert only a clip you are permitted to use. Keep the final video under three minutes.
 
-**0:00–0:20:** Open the dashboard and a synthetic email. Narration: “A private detail can appear on stream, spread through chat and persist in clips. VEIL explores prevention and containment in one local app.”
+The remaining footage records the real desktop app, native OBS output, authorized yarravivek Twitch broadcasts, and the project's actual Codex chat/code panel. The architecture section is an explanatory animation. Narration uses Microsoft en-US-AndrewNeural, an AI-generated voice, with short plain-English sentences and captions.
 
-**0:20–0:55:** Show real OBS synthetic mask output and Paranoid cover when the detector is unavailable. Identify these as mask tests. Open Pre-flight latency and explain current CPU results exceed Balanced delay. Only claim before-output protection after separately verifying actual GPU timing.
+| Time | Footage |
+|---|---|
+| 0:08–0:20 | Problem; actual connected dashboard |
+| 0:20–0:32 | Native solid masks and full-frame hold on controlled content |
+| 0:32–0:44 | Actual preflight exposes the CPU timing limit |
+| 0:44–0:57 | Vault add, PIN-controlled reveal and separate sharing option |
+| 0:57–1:12 | Connected dashboard and real 720p Twitch browser video |
+| 1:12–1:26 | Panic click, incident and default-No optional action |
+| 1:26–1:40 | Real dashboard/action record; broadcaster match warns |
+| 1:40–1:53 | Incident detail/export; live Twitch marker at 111 seconds |
+| 1:53–2:07 | Moving architecture with actual technologies used |
+| 2:07–2:22 | Genuine Codex code interaction and measured benchmark overlay |
+| 2:22–2:32 | Actual dashboard close |
 
-**0:55–1:30:** Click inbox, DM, terminal and form scenarios. Point to actual OCR detections and late-result indicators. Explain rehearsal and native output are separately tested. Do not hide failed/late frames.
+Run `python scripts/render-demo.py` after the local recordings and neural narration exist. Output: `artifacts/veil-demo.mp4`, captions and edit timeline. Raw recordings, tokens and stream credentials remain in ignored `runtime/`; do not publish that directory. No generated product-state images or stock product mockups are used.
 
-**1:30–2:05:** Trigger Rehearsal Panic. Show the incident timeline, synthetic obfuscated chat deletion and timeout records. Label actions simulated. Export/open Markdown and PDF; show private text absent. Live footage requires a separately authorized test channel.
-
-**2:05–2:25:** Add a synthetic Never Show term, reveal with PIN, and show blocked-term sharing requires opt-in. Run source review.
-
-**2:25–2:50:** Show the main Codex chat, shared golden cases, full benchmark and native OBS evidence. Narration: “We built this in one Codex chat with actual pixel tests and reproducible evidence. Card recall and GPU timing remain release gates.” Close on dashboard.
-
-Use direct narration, visible clicks and real state changes. Inspect the exported audio/video for correctness and private data before public upload. Human recording, upload and submission remain pending.
+Inspect exported frames, audio/captions, opening and credential exclusion before upload. The public YouTube URL and Devpost entry remain human publication steps. No universal 750 ms, reference-GPU, sustained 1080p60, clean-machine, or live viewer-deletion claim is made. Live broadcaster matching produced a warning; local contracts separately exercise deletion.

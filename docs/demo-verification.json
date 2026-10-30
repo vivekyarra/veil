@@ -1,0 +1,25 @@
+{
+  "duration_seconds": 152.086,
+  "video": "1920x1080 H.264, 30 fps",
+  "audio": "AI-generated Microsoft AndrewNeural, normalized to -16 LUFS target, stereo AAC",
+  "sha256": "4fe1f4258bcdadb21c797e4fc3af903d19023fbbf34453180a905118f06bab3a",
+  "opening": "8 seconds silent black, participant inserts permitted clip",
+  "selected_export_frames_visually_reviewed": true,
+  "caption_timing_and_legibility_reviewed": true,
+  "motion_changed_pixels": {
+    "native_replay": 401,
+    "vault": 17627,
+    "panic": 1285646,
+    "architecture": 5329,
+    "codex": 253577
+  },
+  "native_replay": "Real source, explicitly labeled 0.2x playback; CPU hold behavior retained",
+  "twitch_streams_stopped": true,
+  "electron_shutdown": "clean; audio-offset restoration verified separately in E2E",
+  "not_completed": [
+    "participant clip insertion",
+    "public YouTube upload",
+    "human Devpost submission"
+  ],
+  "credentials_review": "Selected footage contains no access tokens, stream key or real private terms; vault example is fake data."
+}

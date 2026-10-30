@@ -116,6 +116,13 @@ export class ObsClient {
     });
   }
   async createCover(htmlPath: string): Promise<void> {
+    const video = await this.socket.call("GetVideoSettings");
+    const inputSettings = {
+      is_local_file: true,
+      local_file: htmlPath,
+      width: video.baseWidth,
+      height: video.baseHeight,
+    };
     const scenes = await this.scenes();
     if (!scenes.includes("VEIL Cover"))
       await this.socket.call("CreateScene", { sceneName: "VEIL Cover" });
@@ -127,13 +134,13 @@ export class ObsClient {
         sceneName: "VEIL Cover",
         inputName: "VEIL Cover Card",
         inputKind: "browser_source",
-        inputSettings: {
-          is_local_file: true,
-          local_file: htmlPath,
-          width: 1920,
-          height: 1080,
-        },
+        inputSettings,
         sceneItemEnabled: true,
+      });
+    else
+      await this.socket.call("SetInputSettings", {
+        inputName: "VEIL Cover Card",
+        inputSettings,
       });
   }
   async disconnect(): Promise<void> {

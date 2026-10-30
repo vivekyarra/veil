@@ -28,11 +28,11 @@ The four criteria are equally weighted: innovation, impact, implementation and d
 - Public history starts with a source snapshot; original 14-commit build history is preserved locally as archive/original-build. Do not represent this publication cleanup as a different build process.
 - Eight named work branches and at most 15 public commits are the requested publication constraints.
 - Actual tests, packaging and model results are linked in acceptance.md. CI must pass on the published main commit.
-- Card recovery retains Luhn validation; its full-corpus rerun must pass unchanged gates before claiming that blocker closed.
+- Card recovery retains Luhn validation; its full 3,000-image CI rerun passes the unchanged gates. The failing baseline is retained.
 - Default Paranoid covers unverified frames, including worker stalls. It can keep output covered on slow hardware; this is not proof of fast GPU inference or perfect OCR.
-- Twitch account sign-in alone is not VEIL authorization: a Public Client ID and device grant are required.
+- Real Public-client device-grant authorization and EventSub are verified. The user approved the listed access at action time. Real broadcasts, Panic and a VOD marker are recorded in live-twitch-smoke.json.
 - Live test-channel interactions and the final video URL must be real, not substituted by local mocks.
-- Video recording follows the user's forthcoming instructions. The user will upload to YouTube and provide the URL.
+- The recorded edit uses real app/OBS/Twitch/Codex footage, an explicitly labeled slow replay of native output, neural narration, and a separate architecture animation. Opening 8 seconds are black for the user's clip. The user will upload to YouTube and provide the URL.
 - Devpost connection currently requires reauthentication. No registration, submission or personal eligibility is asserted here.
 
 ## Final handoff

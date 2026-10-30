@@ -1,0 +1,95 @@
+{
+  "account": "yarravivek",
+  "stream": {
+    "source": "controlled fake-data browser scene",
+    "stopped": true,
+    "desktop_audio_muted": true,
+    "microphone_muted": true
+  },
+  "limits": "CPU checks caused Paranoid full cover during parts of the broadcast. No reference-GPU, sustained 1080p60, unprivileged chat deletion or clean-machine claim.",
+  "connections": {
+    "twitch": true,
+    "obs": true,
+    "detector": true,
+    "eventsub": true
+  },
+  "chat": {
+    "automatic_deletion_verified": false,
+    "source": "Real Twitch EventSub",
+    "result": "privileged broadcaster warning",
+    "duration_ms": 4.4
+  },
+  "application": "VEIL Stream Guard",
+  "incident": {
+    "id": 1,
+    "trigger": "panic",
+    "state": "contained",
+    "started": "2026-10-30T02:08:14.866Z",
+    "actions": [
+      {
+        "action": "cover",
+        "time": "2026-10-30T02:08:14.89Z",
+        "status": "success",
+        "duration_ms": 23.099800000025425
+      },
+      {
+        "action": "guard",
+        "time": "2026-10-30T02:08:14.891Z",
+        "status": "success",
+        "duration_ms": 0.26289999997243285
+      },
+      {
+        "action": "retroactive",
+        "time": "2026-10-30T02:08:14.892Z",
+        "status": "success",
+        "duration_ms": 0.36040000000502914
+      },
+      {
+        "action": "marker",
+        "time": "2026-10-30T02:08:15.886Z",
+        "status": "success",
+        "duration_ms": 993.415800000017
+      },
+      {
+        "action": "blocked",
+        "time": "2026-10-30T02:08:15.887Z",
+        "status": "off",
+        "duration_ms": 0
+      },
+      {
+        "action": "notice",
+        "time": "2026-10-30T02:08:15.887Z",
+        "status": "off",
+        "duration_ms": 0
+      },
+      {
+        "action": "discord",
+        "time": "2026-10-30T02:08:15.887Z",
+        "status": "off",
+        "duration_ms": 0
+      },
+      {
+        "action": "shield",
+        "time": "2026-10-30T02:08:25.914Z",
+        "status": "declined",
+        "duration_ms": 10025.48960000003
+      },
+      {
+        "action": "clips",
+        "time": "2026-10-30T02:14:50.789Z",
+        "status": "success",
+        "duration_ms": 1035.8980999999912
+      }
+    ],
+    "clips": [],
+    "attempts": {},
+    "rehearsal": false,
+    "marker": {
+      "id": "9d1074bc4bcc9f84f8ad09ae12a921f3",
+      "created_at": "2026-10-30T02:08:16.543609952Z",
+      "position_seconds": 111,
+      "description": "VEIL incident #1"
+    }
+  },
+  "rehearsal": false
+}

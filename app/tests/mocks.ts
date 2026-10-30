@@ -74,6 +74,7 @@ export async function obsMock() {
   const offsets: Record<string, number> = { Mic: 25, Desktop: -10 };
   const filters: Record<string, Record<string, unknown>[]> = { Live: [] };
   const requests: string[] = [];
+  const browserInputs: Record<string, Record<string, unknown>> = {};
   let program = "Live";
   server.on("connection", (socket) => {
     socket.send(
@@ -100,7 +101,9 @@ export async function obsMock() {
       requests.push(type);
       let result: Record<string, unknown> = {};
       let success = true;
-      if (type === "GetSceneList")
+      if (type === "GetVideoSettings")
+        result = { baseWidth: 1280, baseHeight: 720 };
+      else if (type === "GetSceneList")
         result = {
           currentProgramSceneName: program,
           scenes: Object.keys(filters).map((sceneName) => ({ sceneName })),
@@ -128,12 +131,20 @@ export async function obsMock() {
       else if (type === "SetInputAudioSyncOffset")
         offsets[String(data.inputName)] = Number(data.inputAudioSyncOffset);
       else if (type === "CreateScene") filters[String(data.sceneName)] = [];
+      else if (type === "CreateInput" || type === "SetInputSettings")
+        browserInputs[String(data.inputName)] = data.inputSettings as Record<
+          string,
+          unknown
+        >;
       else if (type === "GetSceneItemList")
         result = {
           sceneItems:
             data.sceneName === "Live"
               ? [{ sourceName: "Synthetic fixture", sceneItemEnabled: true }]
-              : [],
+              : data.sceneName === "VEIL Cover" &&
+                  browserInputs["VEIL Cover Card"]
+                ? [{ sourceName: "VEIL Cover Card", sceneItemEnabled: true }]
+                : [],
         };
       else if (type === "GetSourceScreenshot")
         result = { imageData: screenshot };
@@ -144,6 +155,7 @@ export async function obsMock() {
       else if (
         ![
           "CreateInput",
+          "SetInputSettings",
           "SetSourceFilterSettings",
           "SetSourceFilterEnabled",
         ].includes(type)
@@ -168,6 +180,7 @@ export async function obsMock() {
   return {
     url: `ws://127.0.0.1:${address.port}`,
     offsets,
+    browserInputs,
     filters,
     requests,
     get program() {
