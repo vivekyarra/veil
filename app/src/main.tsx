@@ -1258,9 +1258,9 @@ function App() {
                 <span className="step-label">02 / TWITCH</span>
                 <h3>Connect your channel</h3>
                 <p className="subtle">
-                  Register a Public application in the Twitch developer console.
-                  Its Client ID is public; VEIL never asks for a client secret.
-                  Missing credentials never block rehearsal.
+                  Sign in to connect your channel. VEIL’s public app is ready.
+                  Advanced users can change the Client ID below. VEIL never asks
+                  for a client secret.
                 </p>
                 <label>
                   Public Twitch Client ID

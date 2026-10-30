@@ -47,4 +47,4 @@ const server = createServer(async (req, res) => {
 });
 await new Promise(r => server.listen(0, '127.0.0.1', r));
 writeFileSync(resolve(dir, 'control.json'), JSON.stringify({ port: server.address().port, token }));
-console.log('Real VEIL demo app ready; private control saved locally.');
+process.stdout.write('Real VEIL demo app ready; private control saved locally.\n');

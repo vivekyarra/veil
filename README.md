@@ -20,7 +20,7 @@ Platform builds and packaged Windows E2E run in [GitHub Actions](https://github.
 2. Copy `plugin/dist/veil-guard.dll` into OBS's `obs-plugins/64bit/`. Copy `plugin/data/locale/` into `data/obs-plugins/veil-guard/locale/`. Restart OBS.
 3. Start VEIL, open Onboarding, connect OBS and select scenes. Apply the filter/delay configuration. The app supplies the authenticated local detector token file to the filter.
 4. Add synthetic Never Show terms and run Pre-flight and Rehearsal. Inspect actual OBS output before streaming. Balanced can expose late results; Paranoid covers late/unavailable results. A passing configuration check does not override measured latency.
-5. For live account features register a **Public** Twitch application, enter its public Client ID in VEIL's Onboarding page, then start device authorization. No Client Secret is requested. `TWITCH_CLIENT_ID` or the repository's `.env` is also supported for development. Offline rehearsal does not need Twitch credentials.
+5. In Onboarding, choose **Sign in with Twitch** and finish device authorization for **VEIL Stream Guard**. The verified public app ID is preconfigured; no developer registration or Client Secret is needed. Advanced users can enter their own Public Client ID or use `TWITCH_CLIENT_ID` / `.env`. Offline rehearsal does not need Twitch credentials.
 
 Audio offsets are saved before changing them and restored at clean exit or next OBS connection after a crash. Avoid independently changing offsets while VEIL owns them.
 

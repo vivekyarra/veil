@@ -733,6 +733,8 @@ async function start(): Promise<void> {
       source.match(/^TWITCH_CLIENT_ID\s*=\s*["']?([^\r\n"']*)/m)?.[1]?.trim() ??
       "";
   }
+  // Public OAuth identifier, never a client secret. Users may override it.
+  clientId ||= "dsjph13im3cr1e2n9mg4igm0mwehx6";
   auth = new TwitchAuth(clientId, tokenPersistence(store, safeStorage));
   mockActions = new RehearsalActions();
   mockGuard = new ChatGuard(mockActions, onGuard, () => {

@@ -133,7 +133,9 @@ it("real loopback EventSub -> private matcher -> Helix deletion meets mock laten
   );
   try {
     sub.start();
-    for (let i = 0; i < 100 && mock.requests.length < 5; i++) await wait();
+    // Server receipt precedes the final subscription response reaching the
+    // client. Wait for acknowledged readiness before sending chat traffic.
+    for (let i = 0; i < 100 && !sub.connected; i++) await wait();
     expect(sub.connected).toBe(true);
     for (let i = 0; i < 30; i++) {
       const frame = {
