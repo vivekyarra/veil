@@ -1,35 +1,35 @@
 # Verification and operating guide
 
-## Verified workflow
+## What is checked
 
 | Area | Evidence |
 |---|---|
-| Local recognition | Authenticated OCR service and event WebSocket; 3,000-screen controlled benchmark; all configured recall and false-positive gates pass. [Results](benchmark.md). |
-| Shared matching | 208 shared Python / TypeScript normalization cases. |
-| Native OBS | Windows DLL loaded in OBS 31.1.1; pixel checks verify masks, surrounding pixels, and Paranoid holds. [Record](native-obs-smoke.json). |
-| Desktop app | Onboarding, vault, Panic, incident detail, OCR practice, source review, Markdown / PDF export, and clean shutdown. [App checks](e2e-evidence.json). |
-| Twitch connection | Authorized OAuth and EventSub, 720p broadcast, Panic cover switch, and VOD marker at 111 seconds. Broadcaster matches produce the expected protected-user warning. [Live checks](live-twitch-smoke.json). |
-| Chat response | 30 deduplicated messages processed below one second p95 against isolated HTTP / WebSocket service contracts. [Timing](chat-benchmark.json). |
-| Packaged apps | Windows and macOS CI builds include actual packaged app interactions and a bundled-source audit. [CI](https://github.com/vivekyarra/veil/actions/workflows/ci.yml). |
-| Published Windows install | Version 0.2.0 installed in 106.01 seconds on the existing Windows host; installed payload hashes matched CI. Bundled OCR executed and clean shutdown completed. [Install](windows-installer-smoke.json) · [Runtime](windows-installed-runtime.json). |
-| Accessibility | Seven routes in both themes pass automated WCAG A/AA checks; keyboard focus stays inside approval dialogs. [Checks](accessibility.json). |
-| Private text | Planted-term checks verify exclusion from default logs and exports; source previews are masked before renderer IPC. |
-| Audio recovery | Apply and crash-recovery service contracts, plus clean-exit packaged app checks. |
+| Screen recognition | Generated test corpus with known ground truth: varied values, hard negatives and multi-element screens. A hit needs ≥ 90% coverage of the glyph ink box. Per-kind recall and false-positive rates are in [benchmark.md](benchmark.md). CI scores the full corpus against gates. |
+| Temporal behavior | Masks scored across frame sequences on the same generated test corpus: [benchmark-temporal.md](benchmark-temporal.md). |
+| Shared matching | Python and TypeScript share one set of normalization cases ([normalization-cases.json](../shared/normalization-cases.json)): homoglyphs, leetspeak, split messages and whole-word matching for short terms. |
+| Native OBS | Windows filter in OBS 31.1.1 passed 38/38 pixel checks covering mask color, surrounding pixels, transparent sources and fail-closed holds with the detector unavailable. [Record](evidence/native-obs-smoke.json). |
+| Delay memory | The 4:2:0 YUV ring keeps 1080p60 at full resolution with a 2.5 s delay in about 451 MiB. [Plugin notes](../plugin/README.md). |
+| Desktop app | Onboarding, vault, Panic, incident detail, OCR practice, source review, Markdown / PDF export and clean shutdown. [App checks](evidence/e2e-evidence.json). |
+| Twitch | Authorized OAuth and EventSub, a 720p broadcast, a Panic cover switch and a VOD marker at 111 seconds. [Live checks](evidence/live-twitch-smoke.json). |
+| Chat response | Loopback contract run against local stand-ins for the Twitch services. [Timing](evidence/chat-benchmark.json). |
+| Packaged apps | Windows and macOS CI builds run packaged-app interactions. [CI](https://github.com/vivekyarra/veil/actions/workflows/ci.yml) · [Windows install](evidence/windows-installer-smoke.json). |
+| Accessibility | Automated WCAG A/AA checks on every route in both themes; keyboard focus stays inside approval dialogs. [Checks](evidence/accessibility.json). |
+| Private text | Planted-term checks confirm that vault terms stay out of default logs and exports. Source previews are masked before they reach the renderer. |
 
-Release assets identify their exact source commit and checksums in the attached `RELEASE-MANIFEST.json`. The [published checkpoint](published-release.json) records version 0.2.0; the CI artifacts for each later build carry their own generated manifests.
+## Choosing your stream settings
 
-## Choose your stream settings
+**Paranoid** is the default. Frames newer than the last finished check stay covered, including when the detector is busy or unavailable. Masks from consecutive samples are unioned, so a region that moves between samples stays covered. **Balanced** is an explicit opt-in that allows late output.
 
-Paranoid is the default. It holds output until recognition checks complete, including when the worker is busy. Balanced is an explicit choice that allows late output. Inspect actual OBS output after applying settings.
+Set the delay to the sample interval plus your measured p99 processing time plus a margin. The committed run measured per-frame timing on a laptop CPU, in [benchmark.md](benchmark.md) and [benchmark-temporal.md](benchmark-temporal.md). On CPU-only hardware, Paranoid holds the cover during busy scenes; incremental OCR keeps steady scenes fast. Pre-flight measures your machine and offers **Apply measured delay**, which updates the filter and audio offsets together.
 
-The two-worker CPU benchmark measured p50 **1.35 seconds** and p99 **2.49 seconds**, excluding queue wait. Set a delay using the sample interval, measured p99, and a margin. The default 750 ms setting can result in a continuing cover on this CPU configuration. Benchmark screens use generated layouts with known ground truth; use Pre-flight and Rehearsal to check your setup.
-
-The verification above covers the stated environments and workflows. Reference-GPU timing, sustained 1080p60, native OBS output on macOS, clean consumer-machine onboarding, and deletion of an ordinary viewer's message on live Twitch have not been qualified by these checks.
 
 ## Account actions and privacy
 
-Live Twitch actions require account authorization and the appropriate channel permissions. Protected accounts, including the broadcaster, receive warnings rather than deletion. Chat response follows receipt of an event; it cannot retract a message before Twitch delivers it.
+- **Panic** always switches OBS to the cover card. When enabled, mute-on-panic also mutes audio.
+- **Moderator mode** lets a trusted moderator run VEIL for a streamer.
+- **Twitch outages** do not sign you out.
+- Protected accounts, including the broadcaster, get warnings instead of deletions. Chat response starts once Twitch delivers the event, so a message can't be stopped before that.
+- Vault terms are matched locally. Sharing a term to Twitch's blocked-term list is a separate, explicit action, and moderators can see shared terms. Shield Mode and other extra actions need approval.
+- **Rehearsal** uses practice captures and isolated account actions. Its state is saved, and a protection banner stays visible while it is on.
 
-Adding a vault term keeps matching local. Explicit blocked-term sharing sends a selected term to Twitch, where moderators can see it. Shield Mode and additional incident actions use approval controls. Clip links support human review.
-
-Rehearsal uses practice captures and isolated account actions; its result is displayed separately from OBS broadcast output. Reports leave out private OCR text by default. [Security and privacy](../SECURITY.md).
+[Security and privacy](../SECURITY.md)

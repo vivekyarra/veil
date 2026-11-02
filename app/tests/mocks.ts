@@ -72,6 +72,7 @@ export async function obsMock() {
   const server = new WebSocketServer({ host: "127.0.0.1", port: 0 });
   await new Promise<void>((r) => server.once("listening", r));
   const offsets: Record<string, number> = { Mic: 25, Desktop: -10 };
+  const mutes: Record<string, boolean> = { Mic: false, Desktop: true };
   const filters: Record<string, Record<string, unknown>[]> = { Live: [] };
   const requests: string[] = [];
   const browserInputs: Record<string, Record<string, unknown>> = {};
@@ -143,6 +144,12 @@ export async function obsMock() {
         };
       else if (type === "GetInputAudioSyncOffset")
         result = { inputAudioSyncOffset: offsets[String(data.inputName)] };
+      else if (type === "GetInputMute") {
+        if (String(data.inputName) in mutes)
+          result = { inputMuted: mutes[String(data.inputName)] };
+        else success = false;
+      } else if (type === "SetInputMute")
+        mutes[String(data.inputName)] = data.inputMuted === true;
       else if (type === "SetInputAudioSyncOffset")
         offsets[String(data.inputName)] = Number(data.inputAudioSyncOffset);
       else if (type === "CreateScene") filters[String(data.sceneName)] = [];
@@ -188,7 +195,10 @@ export async function obsMock() {
   return {
     url: `ws://127.0.0.1:${address.port}`,
     offsets,
+    mutes,
     browserInputs,
+    /** Drop every client connection without stopping the server. */
+    drop: () => server.clients.forEach((c) => c.terminate()),
     filters,
     requests,
     get program() {

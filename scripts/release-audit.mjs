@@ -31,16 +31,30 @@ const files = await Promise.all([
   plugin,
 ].map(fingerprint));
 const asar = resolve(root, files[1].path);
-for (const path of ['dist-electron/main.js', 'dist/index.html'])
+// main.ts copies the OBS browser-source pages out of the asar at launch, so both must ship.
+for (const path of ['dist-electron/main.js', 'dist/index.html', 'dist-electron/rehearsal/cover.html', 'dist-electron/overlay/overlay.html'])
   assert.equal(hash(extractFile(asar, path)), hash(readFileSync(resolve(root, 'app', path))), 'Packaged source mismatch: ' + path);
-for (const [original, packaged] of [
+assert.equal(hash(readFileSync(resolve(root, 'app/dist-electron/overlay/overlay.html'))), hash(readFileSync(resolve(root, 'app/electron/overlay/overlay.html'))), 'Stale overlay.html build copy');
+assert.equal(hash(readFileSync(resolve(root, 'app/dist-electron/rehearsal/cover.html'))), hash(readFileSync(resolve(root, 'app/electron/rehearsal/cover.html'))), 'Stale cover.html build copy');
+// The native filter cannot mask without its YUV shader; it loads it via obs_module_file.
+const effect = 'plugin/data/veil-yuv.effect';
+const installedEffect = mac ? 'plugin/dist/veil-guard.plugin/Contents/Resources/veil-yuv.effect' : 'plugin/dist/data/obs-plugins/veil-guard/veil-yuv.effect';
+const runtimePairs = [
   ['detector/dist/veil-detector/' + detectorName, resources + '/detector/' + detectorName],
   [plugin, resources + '/plugins/' + plugin.slice('plugin/dist/'.length)],
-]) assert.equal((await fingerprint(original)).sha256, (await fingerprint(packaged)).sha256, 'Packaged runtime mismatch');
-const e2e = JSON.parse(readFileSync(resolve(root, 'docs/e2e-evidence.json'), 'utf8'));
+  [effect, resources + '/plugin-data/veil-yuv.effect'],
+];
+if (existsSync(resolve(root, installedEffect))) {
+  runtimePairs.push([effect, installedEffect]);
+  runtimePairs.push([effect, resources + '/plugins/' + installedEffect.slice('plugin/dist/'.length)]);
+}
+for (const [original, packaged] of runtimePairs)
+  assert.equal((await fingerprint(original)).sha256, (await fingerprint(packaged)).sha256, 'Packaged runtime mismatch: ' + packaged);
+files.push(await fingerprint(effect));
+const e2e = JSON.parse(readFileSync(resolve(root, 'docs/evidence/e2e-evidence.json'), 'utf8'));
 assert.ok(e2e.passed && e2e.packaged && e2e.clean_exit_audio_restored);
 assert.equal(e2e.platform, process.platform, 'Packaged E2E platform mismatch');
-writeFileSync(resolve(root, 'docs/release-manifest.json'), JSON.stringify({
+writeFileSync(resolve(root, 'docs/evidence/release-manifest.json'), JSON.stringify({
   measured_at: new Date().toISOString(),
   platform: process.platform,
   source_reference: execFileSync('git', ['rev-parse', 'HEAD'], { cwd: root, encoding: 'utf8' }).trim(),

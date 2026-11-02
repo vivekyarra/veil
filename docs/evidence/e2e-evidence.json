@@ -22,21 +22,21 @@
   "scenarioMeasurements": [
     {
       "kind": "dm",
-      "processed_ms": 3422.0841000205837,
-      "late": true,
+      "processed_ms": 1588.0689000186976,
+      "late": false,
       "masked": true,
-      "fullHold": true
+      "fullHold": false
     },
     {
       "kind": "terminal",
-      "processed_ms": 4260.56699999026,
+      "processed_ms": 3462.351599999238,
       "late": true,
       "masked": true,
       "fullHold": true
     },
     {
       "kind": "form",
-      "processed_ms": 2752.036499994574,
+      "processed_ms": 2413.054700009525,
       "late": true,
       "masked": true,
       "fullHold": true
@@ -44,5 +44,5 @@
   ],
   "passed": true,
   "clean_exit_audio_restored": true,
-  "completed_at": "2026-10-30T18:48:49.213Z"
+  "completed_at": "2026-11-02T17:48:06.798Z"
 }

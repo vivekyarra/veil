@@ -1,26 +1,262 @@
 <!doctype html>
-<html>
-  <meta charset="utf-8" /><title>VEIL Cover</title
-  ><style>
-    body {
-      margin: 0;
-      background: #0c1018;
-      color: #f3f6fc;
-      display: grid;
-      place-content: center;
-      height: 100vh;
-      font: 32px Arial;
-      text-align: center;
-    }
-    strong {
-      font-size: 100px;
-      letter-spacing: 22px;
-      color: #bcf79a;
-    }
-    p {
-      color: #acb5c8;
-    }</style
-  ><strong>VEIL</strong>
-  <h1>Be right back.</h1>
-  <p>A little privacy. The stream continues soon.</p>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; style-src 'unsafe-inline'"
+    />
+    <title>VEIL Cover</title>
+    <!--
+      Shown on stream during a panic. Static and generic by design: it never
+      contains channel, incident or private details. Scales with vmin, so it
+      fills 1920x1080 and 1280x720 browser sources alike.
+    -->
+    <style>
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+        overflow: hidden;
+      }
+      body {
+        background: #07090e;
+        color: #f3f6fc;
+        font-family: Inter, "Segoe UI", Arial, sans-serif;
+        display: grid;
+        place-items: center;
+      }
+      .aurora {
+        position: fixed;
+        inset: -20%;
+        filter: blur(9vmin);
+        opacity: 0.75;
+      }
+      .aurora i {
+        position: absolute;
+        width: 60vmin;
+        height: 60vmin;
+        border-radius: 50%;
+      }
+      .aurora i:nth-child(1) {
+        background: #7c5cff;
+        left: 18%;
+        top: 22%;
+        animation: drift1 18s ease-in-out infinite alternate;
+      }
+      .aurora i:nth-child(2) {
+        background: #2f6f4a;
+        right: 15%;
+        top: 30%;
+        animation: drift2 22s ease-in-out infinite alternate;
+      }
+      .aurora i:nth-child(3) {
+        background: #3a2a8f;
+        left: 40%;
+        bottom: 5%;
+        animation: drift1 26s ease-in-out infinite alternate-reverse;
+      }
+      @keyframes drift1 {
+        to {
+          transform: translate(14vmin, -8vmin) scale(1.15);
+        }
+      }
+      @keyframes drift2 {
+        to {
+          transform: translate(-16vmin, 10vmin) scale(0.9);
+        }
+      }
+      .grain {
+        position: fixed;
+        inset: 0;
+        background:
+          radial-gradient(ellipse at center, transparent 40%, #07090e 100%),
+          repeating-linear-gradient(
+            0deg,
+            rgba(255, 255, 255, 0.025) 0 1px,
+            transparent 1px 3px
+          );
+      }
+      .card {
+        position: relative;
+        display: grid;
+        justify-items: center;
+        text-align: center;
+        gap: 2.6vmin;
+        padding: 7vmin 10vmin;
+        border-radius: 4vmin;
+        background: rgba(11, 14, 20, 0.55);
+        border: 0.2vmin solid rgba(182, 165, 255, 0.28);
+        box-shadow: 0 4vmin 12vmin rgba(0, 0, 0, 0.45);
+        animation: rise 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+      }
+      @keyframes rise {
+        from {
+          opacity: 0;
+          transform: translateY(3vmin) scale(0.98);
+        }
+      }
+      .mark {
+        position: relative;
+        width: 16vmin;
+        height: 18vmin;
+      }
+      .mark svg {
+        width: 100%;
+        height: 100%;
+        overflow: visible;
+      }
+      .ring {
+        position: absolute;
+        inset: -3vmin;
+        border-radius: 50%;
+        border: 0.3vmin solid rgba(124, 92, 255, 0.6);
+        animation: ring 3.2s ease-out infinite;
+      }
+      .ring.r2 {
+        animation-delay: 1.6s;
+      }
+      @keyframes ring {
+        from {
+          transform: scale(0.75);
+          opacity: 0.9;
+        }
+        to {
+          transform: scale(1.5);
+          opacity: 0;
+        }
+      }
+      .veil {
+        animation: veil 4.5s ease-in-out infinite;
+      }
+      @keyframes veil {
+        0%,
+        15% {
+          transform: translateY(-52px);
+        }
+        55%,
+        70% {
+          transform: translateY(0);
+        }
+        100% {
+          transform: translateY(52px);
+        }
+      }
+      .brand {
+        font-size: 2.2vmin;
+        font-weight: 700;
+        letter-spacing: 1.2vmin;
+        padding-left: 1.2vmin;
+        color: #b6a5ff;
+      }
+      h1 {
+        margin: 0;
+        font-size: 9vmin;
+        font-weight: 650;
+        letter-spacing: -0.3vmin;
+        line-height: 1;
+        background: linear-gradient(100deg, #ffffff 30%, #c9bcff 70%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+      p {
+        margin: 0;
+        font-size: 3.4vmin;
+        color: #c7cfdd;
+      }
+      .dots {
+        display: flex;
+        gap: 1.4vmin;
+        margin-top: 1.4vmin;
+      }
+      .dots i {
+        width: 1.4vmin;
+        height: 1.4vmin;
+        border-radius: 50%;
+        background: #b6a5ff;
+        animation: dot 1.4s ease-in-out infinite;
+      }
+      .dots i:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      .dots i:nth-child(3) {
+        animation-delay: 0.4s;
+      }
+      @keyframes dot {
+        0%,
+        80%,
+        100% {
+          opacity: 0.25;
+          transform: scale(0.8);
+        }
+        40% {
+          opacity: 1;
+          transform: scale(1.2);
+        }
+      }
+      footer {
+        position: fixed;
+        bottom: 5vmin;
+        font-size: 1.9vmin;
+        letter-spacing: 0.5vmin;
+        text-transform: uppercase;
+        color: #8a97ab;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+    <div class="grain" aria-hidden="true"></div>
+    <main class="card">
+      <div class="mark" aria-hidden="true">
+        <span class="ring"></span><span class="ring r2"></span>
+        <svg viewBox="0 0 44 50">
+          <defs>
+            <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#b6a5ff" />
+              <stop offset="1" stop-color="#7c5cff" />
+            </linearGradient>
+            <clipPath id="c">
+              <path d="M22 2 41 9v15c0 12-8 20-19 24C11 44 3 36 3 24V9z" />
+            </clipPath>
+          </defs>
+          <path
+            d="M22 2 41 9v15c0 12-8 20-19 24C11 44 3 36 3 24V9z"
+            fill="url(#g)"
+          />
+          <g clip-path="url(#c)">
+            <rect
+              class="veil"
+              x="0"
+              y="0"
+              width="44"
+              height="50"
+              fill="rgba(11,14,20,.35)"
+            />
+          </g>
+          <path
+            d="M13 17l9 18 9-18"
+            fill="none"
+            stroke="#0b0e14"
+            stroke-width="4"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </div>
+      <div class="brand">VEIL</div>
+      <h1>Privacy break</h1>
+      <p>Back in a moment. Thanks for hanging out.</p>
+      <div class="dots" aria-hidden="true"><i></i><i></i><i></i></div>
+    </main>
+    <footer>Stream paused for privacy</footer>
+  </body>
 </html>

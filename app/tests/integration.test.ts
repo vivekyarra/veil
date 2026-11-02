@@ -165,7 +165,7 @@ it("real loopback EventSub -> private matcher -> Helix deletion meets mock laten
     expect(p95).toBeLessThan(1000);
     expect(mock.requests.filter((r) => r.method === "DELETE")).toHaveLength(30);
     expect(JSON.stringify(emitted)).not.toContain("m4in");
-    const dir = join(import.meta.dirname, "../../docs");
+    const dir = join(import.meta.dirname, "../../docs/evidence");
     writeFileSync(
       join(dir, "chat-benchmark.json"),
       JSON.stringify(

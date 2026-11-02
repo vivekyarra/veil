@@ -1,0 +1,8 @@
+{
+  "min_frame_recall": 0.7,
+  "min_masked_fraction": 0.8,
+  "max_time_to_mask_frames_p95": 2,
+  "max_false_positives_per_frame": 1.0,
+  "max_change_latency_p95_ms": 20000,
+  "max_steady_latency_p95_ms": 20000
+}

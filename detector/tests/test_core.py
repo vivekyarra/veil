@@ -1,3 +1,4 @@
+import secrets
 import io
 import json
 import numpy as np
@@ -81,7 +82,7 @@ def test_api(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setattr(
         pipeline.ocr, "read", lambda _: [Line("fake@example.com", (0.1, 0.1, 0.2, 0.05), 0.99)]
     )
-    token = "x" * 64
+    token = secrets.token_hex(32)
     client = TestClient(create_app(token, pipeline))
     headers = {"Authorization": "Bearer " + token}
     assert client.get("/v1/health").status_code == 401
@@ -118,7 +119,7 @@ def test_box_validation() -> None:
 def test_health_reports_custom_capture_stream_latency(monkeypatch: pytest.MonkeyPatch) -> None:
     pipeline = Pipeline()
     monkeypatch.setattr(pipeline.ocr, "read", lambda _: [])
-    token = "x" * 64
+    token = secrets.token_hex(32)
     client = TestClient(create_app(token, pipeline))
     blob = io.BytesIO()
     Image.new("RGB", (32, 32)).save(blob, format="PNG")

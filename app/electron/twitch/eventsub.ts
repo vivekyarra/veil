@@ -46,6 +46,14 @@ type Frame = {
   };
 };
 
+const TOPICS = [
+  "channel.chat.message",
+  "stream.online",
+  "stream.offline",
+  "channel.shield_mode.begin",
+  "channel.shield_mode.end",
+];
+
 /** EventSub has no replay. A reconnect handoff reuses subscriptions. */
 export class EventSub {
   connected = false;
@@ -57,6 +65,7 @@ export class EventSub {
   private stopped = true;
   private backoff = 1000;
   private keepalive = 10000;
+  private session = "";
   constructor(
     private readonly helix: Helix,
     private readonly onChat: (message: ChatMessage) => void,
@@ -82,19 +91,32 @@ export class EventSub {
     )
       throw new Error("Untrusted EventSub reconnect host");
     const previous = this.socket;
+    // A fresh connect supersedes any half-finished handoff socket.
+    if (!handoff && previous && previous.readyState !== WebSocket.CLOSED) {
+      this.retired.add(previous);
+      previous.terminate();
+    }
     const socket = new WebSocket(url);
     this.socket = socket;
+    // A socket that never sends session_welcome must not hang forever.
+    this.arm(socket, 10000);
     socket.on("message", (data) => {
+      let frame: Frame;
       try {
-        void this.receive(
-          JSON.parse(data.toString()) as Frame,
-          socket,
-          handoff,
-          previous,
-        ).catch(() => this.onStatus("subscription error"));
+        frame = JSON.parse(data.toString()) as Frame;
+        if (
+          typeof frame?.metadata?.message_type !== "string" ||
+          typeof frame.payload !== "object" ||
+          frame.payload === null
+        )
+          throw new Error("malformed");
       } catch {
         this.onStatus("invalid EventSub frame");
+        return;
       }
+      void this.receive(frame, socket, handoff, previous).catch(() =>
+        this.onStatus("subscription error"),
+      );
     });
     socket.on("error", () => this.onStatus("EventSub connection error"));
     socket.on("close", () => {
@@ -117,50 +139,42 @@ export class EventSub {
     handoff: boolean,
     previous: WebSocket | undefined,
   ): Promise<void> {
-    clearTimeout(this.watchdog);
-    this.watchdog = setTimeout(() => socket.close(), this.keepalive + 2000);
+    // Frames on a socket being handed off must not move the live watchdog.
+    if (socket === this.socket) this.arm(socket, this.keepalive + 2000);
     const type = frame.metadata.message_type;
+    // Twitch may resend events; control frames are per connection.
+    const id = frame.metadata.message_id;
+    if (id && (type === "notification" || type === "revocation")) {
+      if (this.seen.has(id)) return;
+      this.seen.add(id);
+      if (this.seen.size > 1000)
+        this.seen.delete(this.seen.values().next().value!);
+    }
     if (type === "session_welcome") {
-      const session = frame.payload.session!;
-      this.keepalive = (session.keepalive_timeout_seconds || 10) * 1000;
-      clearTimeout(this.watchdog);
-      this.watchdog = setTimeout(() => socket.close(), this.keepalive + 2000);
+      const session = frame.payload.session;
+      if (!session || typeof session.id !== "string") {
+        this.onStatus("invalid EventSub frame");
+        return;
+      }
+      this.keepalive =
+        Math.min(600, Math.max(10, session.keepalive_timeout_seconds || 10)) *
+        1000;
+      if (socket === this.socket) this.arm(socket, this.keepalive + 2000);
       this.backoff = 1000;
+      this.session = session.id;
       if (handoff && previous) {
         this.retired.add(previous);
         previous.close();
         return;
       }
-      const id = this.helix.userId;
       let complete = true;
-      for (const event of [
-        "channel.chat.message",
-        "stream.online",
-        "stream.offline",
-        "channel.shield_mode.begin",
-        "channel.shield_mode.end",
-      ]) {
-        const condition: Record<string, string> = { broadcaster_user_id: id };
-        if (event === "channel.chat.message") condition.user_id = id;
-        if (event.startsWith("channel.shield"))
-          condition.moderator_user_id = id;
+      for (const event of TOPICS)
         try {
-          await this.helix.request(
-            "POST",
-            "/eventsub/subscriptions",
-            {
-              type: event,
-              version: "1",
-              condition,
-              transport: { method: "websocket", session_id: session.id },
-            },
-            2,
-          );
+          await this.subscribe(event, session.id);
         } catch {
           complete = false;
           this.onStatus("subscription setup failed: " + event);
         }
-      }
       if (socket === this.socket && socket.readyState === WebSocket.OPEN) {
         this.connected = complete;
         this.onStatus(complete ? "connected" : "subscription setup incomplete");
@@ -169,23 +183,33 @@ export class EventSub {
       const url = frame.payload.session?.reconnect_url;
       if (url) this.connect(url, true);
     } else if (type === "revocation") {
+      // Try to restore the topic; a real revocation fails and is reported.
+      const topic = frame.payload.subscription?.type ?? "";
       this.connected = false;
-      this.onStatus("authorization revoked; sign in again");
+      this.onStatus("subscription revoked: " + topic + "; resubscribing");
+      try {
+        if (!TOPICS.includes(topic) || !this.session)
+          throw new Error("Unknown topic");
+        await this.subscribe(topic, this.session);
+        if (socket === this.socket) this.connected = true;
+        this.onStatus("resubscribed: " + topic);
+      } catch {
+        this.onStatus("authorization revoked; sign in again");
+      }
     } else if (type === "notification") {
-      const id = frame.metadata.message_id;
-      if (this.seen.has(id)) return;
-      this.seen.add(id);
-      if (this.seen.size > 1000)
-        this.seen.delete(this.seen.values().next().value!);
-      if (frame.metadata.subscription_type === "channel.chat.message") {
-        const e = frame.payload.event!;
+      const e = frame.payload.event;
+      if (
+        frame.metadata.subscription_type === "channel.chat.message" &&
+        e &&
+        typeof (e.message as { text?: unknown } | undefined)?.text === "string"
+      ) {
         const badges = e.badges as { set_id: string }[] | undefined;
         this.onChat({
           id: String(e.message_id),
           userId: String(e.chatter_user_id),
           login: String(e.chatter_user_login),
           text: String((e.message as { text: string }).text),
-          timestamp: Date.now(),
+          timestamp: Date.parse(frame.metadata.message_timestamp) || Date.now(),
           privileged:
             badges?.some((b) =>
               ["broadcaster", "moderator"].includes(b.set_id),
@@ -193,6 +217,32 @@ export class EventSub {
         });
       }
     }
+  }
+  /** Keepalive watchdog for the live socket; terminate skips the close handshake. */
+  private arm(socket: WebSocket, ms: number): void {
+    clearTimeout(this.watchdog);
+    this.watchdog = setTimeout(() => {
+      if (socket === this.socket) socket.terminate();
+    }, ms);
+  }
+  private subscribe(event: string, session: string): Promise<unknown> {
+    const condition: Record<string, string> = {
+      broadcaster_user_id: this.helix.broadcasterId,
+    };
+    if (event === "channel.chat.message") condition.user_id = this.helix.userId;
+    if (event.startsWith("channel.shield"))
+      condition.moderator_user_id = this.helix.userId;
+    return this.helix.request(
+      "POST",
+      "/eventsub/subscriptions",
+      {
+        type: event,
+        version: "1",
+        condition,
+        transport: { method: "websocket", session_id: session },
+      },
+      2,
+    );
   }
   stop(): void {
     this.stopped = true;

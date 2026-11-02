@@ -1,0 +1,192 @@
+// VEIL Guard delay-buffer packing: RGBA <-> 4:2:0 Y'CbCr, BT.709 full range,
+// with an optional full-resolution alpha plane. Constants match
+// veil_rgb_to_yuv709 / veil_yuv709_to_rgb in guard-core.c.
+//
+// The capture texture holds sRGB-encoded (nonlinear) R'G'B' premultiplied by
+// alpha, as OBS filters capture their target, so it is read with
+// gs_effect_set_texture (no sRGB decode) and packed like a video encoder
+// would. Premultiplied color is what gets subsampled, so the undefined color
+// of fully transparent pixels never bleeds into visible chroma. Unpacking
+// yields premultiplied R'G'B'; the Linear variants decode it to linear for
+// targets drawn with framebuffer sRGB enabled (gs_get_linear_srgb()).
+
+uniform float4x4 ViewProj;
+uniform texture2d image;    // pack: RGBA capture; unpack: R8 luma
+uniform texture2d image_uv; // unpack: R8G8 chroma (Cb, Cr)
+uniform texture2d image_a;  // unpack with alpha: R8 alpha
+uniform float2 texel;       // pack: 1 / capture size
+
+sampler_state point_clamp {
+	Filter = Point;
+	AddressU = Clamp;
+	AddressV = Clamp;
+};
+
+sampler_state linear_clamp {
+	Filter = Linear;
+	AddressU = Clamp;
+	AddressV = Clamp;
+};
+
+struct VertData {
+	float4 pos : POSITION;
+	float2 uv : TEXCOORD0;
+};
+
+VertData VSDefault(VertData v_in)
+{
+	VertData v_out;
+	v_out.pos = mul(float4(v_in.pos.xyz, 1.0), ViewProj);
+	v_out.uv = v_in.uv;
+	return v_out;
+}
+
+// Premultiplied color: without the alpha plane this is the source
+// composited over black, as OBS does for the program output.
+float3 premultiplied(float2 uv)
+{
+	return image.Sample(point_clamp, uv).rgb;
+}
+
+float luma(float3 c)
+{
+	return dot(c, float3(0.2126, 0.7152, 0.0722));
+}
+
+float PSPackY(VertData v_in) : TARGET
+{
+	return luma(premultiplied(v_in.uv));
+}
+
+// One chroma texel per 2x2 luma block, sited at the block centre. The four
+// point samples land on the block's texel centres.
+float PSPackA(VertData v_in) : TARGET
+{
+	return image.Sample(point_clamp, v_in.uv).a;
+}
+
+float2 PSPackUV(VertData v_in) : TARGET
+{
+	float2 d = texel * 0.5;
+	float3 c = (premultiplied(v_in.uv + float2(-d.x, -d.y)) +
+		    premultiplied(v_in.uv + float2(d.x, -d.y)) +
+		    premultiplied(v_in.uv + float2(-d.x, d.y)) +
+		    premultiplied(v_in.uv + float2(d.x, d.y))) * 0.25;
+	float y = luma(c);
+	return float2((c.b - y) / 1.8556 + 0.5, (c.r - y) / 1.5748 + 0.5);
+}
+
+float3 unpack(float2 uv)
+{
+	float y = image.Sample(linear_clamp, uv).r;
+	float2 c = image_uv.Sample(linear_clamp, uv).rg - float2(0.5, 0.5);
+	return saturate(float3(y + 1.5748 * c.y,
+			       y - 0.187324 * c.x - 0.468124 * c.y,
+			       y + 1.8556 * c.x));
+}
+
+float srgb_to_linear(float u)
+{
+	return (u <= 0.04045) ? (u / 12.92) : pow((u + 0.055) / 1.055, 2.4);
+}
+
+float4 PSUnpack(VertData v_in) : TARGET
+{
+	return float4(unpack(v_in.uv), 1.0);
+}
+
+float3 srgb_to_linear3(float3 c)
+{
+	return float3(srgb_to_linear(c.r), srgb_to_linear(c.g), srgb_to_linear(c.b));
+}
+
+float4 PSUnpackLinear(VertData v_in) : TARGET
+{
+	return float4(srgb_to_linear3(unpack(v_in.uv)), 1.0);
+}
+
+// Premultiplied R'G'B' and alpha. Rounding in the 4:2:0 round trip can push a
+// channel above alpha, which is not a valid premultiplied value: clamp it.
+float4 unpack_alpha(float2 uv)
+{
+	float a = image_a.Sample(linear_clamp, uv).r;
+	return float4(min(unpack(uv), float3(a, a, a)), a);
+}
+
+// Drawn with blend ONE / INVSRCALPHA.
+float4 PSUnpackAlpha(VertData v_in) : TARGET
+{
+	return unpack_alpha(v_in.uv);
+}
+
+// Premultiplied nonlinear -> premultiplied linear: divide by alpha, decode,
+// multiply again (OBS DrawNonlinearAlpha in reverse).
+float4 PSUnpackAlphaLinear(VertData v_in) : TARGET
+{
+	float4 c = unpack_alpha(v_in.uv);
+	float3 straight = (c.a > 0.0) ? saturate(c.rgb / c.a) : float3(0.0, 0.0, 0.0);
+	return float4(srgb_to_linear3(straight) * c.a, c.a);
+}
+
+technique PackY
+{
+	pass
+	{
+		vertex_shader = VSDefault(v_in);
+		pixel_shader = PSPackY(v_in);
+	}
+}
+
+technique PackUV
+{
+	pass
+	{
+		vertex_shader = VSDefault(v_in);
+		pixel_shader = PSPackUV(v_in);
+	}
+}
+
+technique Unpack
+{
+	pass
+	{
+		vertex_shader = VSDefault(v_in);
+		pixel_shader = PSUnpack(v_in);
+	}
+}
+
+technique UnpackLinear
+{
+	pass
+	{
+		vertex_shader = VSDefault(v_in);
+		pixel_shader = PSUnpackLinear(v_in);
+	}
+}
+
+technique PackA
+{
+	pass
+	{
+		vertex_shader = VSDefault(v_in);
+		pixel_shader = PSPackA(v_in);
+	}
+}
+
+technique UnpackAlpha
+{
+	pass
+	{
+		vertex_shader = VSDefault(v_in);
+		pixel_shader = PSUnpackAlpha(v_in);
+	}
+}
+
+technique UnpackAlphaLinear
+{
+	pass
+	{
+		vertex_shader = VSDefault(v_in);
+		pixel_shader = PSUnpackAlphaLinear(v_in);
+	}
+}

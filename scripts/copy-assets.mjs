@@ -1,5 +1,9 @@
 import {mkdirSync,copyFileSync} from 'node:fs';
-import {resolve} from 'node:path';
+import {resolve,dirname} from 'node:path';
 const root=resolve(import.meta.dirname,'..');
-mkdirSync(resolve(root,'app/dist-electron/rehearsal'),{recursive:true});
-copyFileSync(resolve(root,'app/electron/rehearsal/cover.html'),resolve(root,'app/dist-electron/rehearsal/cover.html'));
+// OBS reads these pages from real files, so they ship next to the main bundle.
+for(const asset of ['rehearsal/cover.html','overlay/overlay.html']){
+  const target=resolve(root,'app/dist-electron',asset);
+  mkdirSync(dirname(target),{recursive:true});
+  copyFileSync(resolve(root,'app/electron',asset),target);
+}

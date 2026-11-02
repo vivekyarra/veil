@@ -112,12 +112,12 @@ try {
     }
   }
   writeFileSync(
-    join(workspace, "docs/accessibility.json"),
+    join(workspace, "docs/evidence/accessibility.json"),
     JSON.stringify(accessibility, null, 2),
   );
   assert.ok(
     accessibility.every((p) => p.violations.length === 0),
-    "Automated accessibility violations: inspect docs/accessibility.json",
+    "Automated accessibility violations: inspect docs/evidence/accessibility.json",
   );
   await page.evaluate(() => window.veil.command("settings", { theme: "dark" }));
   await page.getByRole("button", { name: "Dashboard", exact: true }).click();
@@ -149,7 +149,7 @@ try {
   await page.waitForFunction(
     () => document.querySelector("[role=status]")?.textContent === "Done",
   );
-  assert.equal(obs.offsets.Mic, 775);
+  assert.equal(obs.offsets.Mic, 2525);
   await page.getByRole("button", { name: "Never Show", exact: true }).click();
   await page.getByLabel("Category").selectOption("school");
   await page.getByLabel("Private term", { exact: true }).fill(planted);
@@ -212,7 +212,7 @@ try {
   const diagnosticText = readFileSync(exports.diagnostics, "utf8");
   assert.equal(diagnosticText.includes(planted), false);
   assert.equal(diagnosticText.includes("token"), false);
-  assert.equal(JSON.parse(diagnosticText).configuration.delay, 750);
+  assert.equal(JSON.parse(diagnosticText).configuration.delay, 2500);
   writeFileSync(
     join(data, "state-before-scan.json"),
     JSON.stringify(
@@ -240,7 +240,7 @@ try {
   await page.locator(".scan-result").waitFor({ timeout: 90000 });
   assert.match(
     await page.locator(".scan-result").innerText(),
-    /Regions\s+[1-9]/,
+    /Leaks found\s+[1-9]/,
   );
   const scenarioMeasurements = [];
   for (const kind of ["dm", "terminal", "form"]) {
@@ -270,7 +270,7 @@ try {
     "Planted vault data appeared in process logs",
   );
   writeFileSync(
-    join(workspace, "docs/e2e-evidence.json"),
+    join(workspace, "docs/evidence/e2e-evidence.json"),
     JSON.stringify(
       {
         executed: true,
@@ -339,7 +339,7 @@ try {
   assert.equal(obs.offsets.Desktop, -10);
   await obs.close();
   if (completed) {
-    const evidencePath = join(workspace, "docs/e2e-evidence.json");
+    const evidencePath = join(workspace, "docs/evidence/e2e-evidence.json");
     writeFileSync(
       evidencePath,
       JSON.stringify(

@@ -30,8 +30,9 @@ CI also builds the native plugin and packages on Windows and macOS, runs package
 
 ```powershell
 uv run --project detector playwright install chromium
-uv run --project detector python bench/generate.py --count 3000 --output bench/data-ci
-uv run --project detector python bench/evaluate.py --data bench/data-ci --output docs/benchmark-ci --workers 2
+uv run --project detector python bench/generate.py --count 3000 --output bench/data
+uv run --project detector python bench/evaluate.py --data bench/data --output docs/benchmark --workers 2
+uv run --project detector python bench/temporal.py --output docs/benchmark-temporal
 ```
 
-The corpus consists of generated practice screens with DOM-derived ground truth. Prediction caching requires matching detector source, models, corpus, runtime, hardware environment, and worker settings; each reused image also requires a matching pixel hash. Existing prediction records retain their measured timing. A new environment performs fresh inference. [Current scoring](benchmark.md).
+Add `--limit 1000` to `evaluate.py` for a quicker partial run; the report labels it as partial. The corpus is generated from a fixed seed with varied values, hard negatives and multi-element screens, and ground truth comes from each span's glyph ink box. `temporal.py` scores masks across frame sequences. Predictions are cached only when the detector source, models, corpus, runtime, hardware and worker settings match and each image's pixel hash matches; any other environment runs fresh inference. [Current results](benchmark.md).

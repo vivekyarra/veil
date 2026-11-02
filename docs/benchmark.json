@@ -1,80 +1,617 @@
 {
-  "source_sha256": "15d055b7f937d52b56ae17449a4afe464cc6581695d02220dbe5458f55e9f943",
-  "manifest_sha256": "ce177ab562f108d52b03676e664023bce54eb52bf8b4513d25842cd48b8bfaed",
+  "source_sha256": "85957310e854992369bb3c20022fc8ef2605261ec00abc47c81b4c68666d4c7e",
+  "manifest_sha256": "d714e9dfe139036eea592d8d1cdd45aeb579170e63b11ec54b9cf57c6ca6760f",
   "model_sha256": {
     "ch_PP-OCRv4_det_infer.onnx": "d2a7720d45a54257208b1e13e36a8479894cb74155a5efe29462512d42f49da9",
     "ch_PP-OCRv4_rec_infer.onnx": "48fc40f24f6d2a207a2b1091d3437eb3cc3eb6b676dc3ef9c37384005483683b",
     "ch_ppocr_mobile_v2.0_cls_infer.onnx": "e47acedf663230f8863ff1ab0e64dd2d82b838fceb5957146dab185a89d6215c"
   },
-  "workers": 2,
+  "workers": 4,
   "onnxruntime": "1.31.1",
   "rapidocr": "1.4.4",
-  "processor": "Intel64 Family 6 Model 207 Stepping 2, GenuineIntel",
-  "platform": "Windows-10-10.0.20348-SP0",
-  "screens": 3000,
-  "completed_at_utc": "2026-10-30T14:25:05.148638+00:00",
-  "provider": "CPU ONNX, 2 threads per OCR worker, 2 concurrent workers",
+  "processor": "Intel64 Family 6 Model 186 Stepping 3, GenuineIntel",
+  "platform": "Windows-10-10.0.26300-SP0",
+  "screens": 340,
+  "corpus_screens": 3000,
+  "partial": true,
+  "completed_at_utc": "2026-11-02T17:44:49.640125+00:00",
+  "provider": "CPU ONNX, 2 threads per OCR worker, 4 concurrent workers",
   "metrics": {
     "email": {
-      "screens": 429,
-      "true_positives": 428,
-      "false_positive_boxes": 0,
-      "precision": 1.0,
-      "recall": 0.9976689976689976,
-      "mean_iou": 0.6728261918241838
+      "screens": 40,
+      "true_positives": 40,
+      "false_positive_boxes": 1,
+      "precision": 0.975609756097561,
+      "recall": 1.0,
+      "recall_iou50": 0.375,
+      "mean_iou": 0.4736776924750976
     },
     "card": {
-      "screens": 429,
-      "true_positives": 428,
-      "false_positive_boxes": 0,
-      "precision": 1.0,
-      "recall": 0.9976689976689976,
-      "mean_iou": 0.7213097288805355
+      "screens": 39,
+      "true_positives": 38,
+      "false_positive_boxes": 7,
+      "precision": 0.8444444444444444,
+      "recall": 0.9743589743589743,
+      "recall_iou50": 0.10256410256410256,
+      "mean_iou": 0.3900313897658229
     },
     "secret": {
-      "screens": 429,
-      "true_positives": 426,
+      "screens": 41,
+      "true_positives": 39,
       "false_positive_boxes": 0,
       "precision": 1.0,
-      "recall": 0.993006993006993,
-      "mean_iou": 0.6462007948551287
+      "recall": 0.9512195121951219,
+      "recall_iou50": 0.8292682926829268,
+      "mean_iou": 0.5610488307224497
     },
     "vault": {
-      "screens": 429,
-      "true_positives": 429,
+      "screens": 34,
+      "true_positives": 34,
       "false_positive_boxes": 0,
       "precision": 1.0,
       "recall": 1.0,
-      "mean_iou": 0.6398286681789803
+      "recall_iou50": 0.4117647058823529,
+      "mean_iou": 0.4551312557916178
     },
     "phone": {
-      "screens": 428,
-      "true_positives": 427,
-      "false_positive_boxes": 22,
-      "precision": 0.9510022271714922,
-      "recall": 0.9976635514018691,
-      "mean_iou": 0.7146015443897421
-    },
-    "address": {
-      "screens": 428,
-      "true_positives": 427,
+      "screens": 38,
+      "true_positives": 32,
       "false_positive_boxes": 0,
       "precision": 1.0,
-      "recall": 0.9976635514018691,
-      "mean_iou": 0.6883040351469655
+      "recall": 0.8421052631578947,
+      "recall_iou50": 0.23684210526315788,
+      "mean_iou": 0.4178397294746352
+    },
+    "address": {
+      "screens": 27,
+      "true_positives": 26,
+      "false_positive_boxes": 4,
+      "precision": 0.8666666666666667,
+      "recall": 0.9629629629629629,
+      "recall_iou50": 0.5185185185185185,
+      "mean_iou": 0.4989666412229828
+    },
+    "ip": {
+      "screens": 39,
+      "true_positives": 35,
+      "false_positive_boxes": 0,
+      "precision": 1.0,
+      "recall": 0.8974358974358975,
+      "recall_iou50": 0.3333333333333333,
+      "mean_iou": 0.43199428718189337
+    },
+    "national_id": {
+      "screens": 40,
+      "true_positives": 39,
+      "false_positive_boxes": 0,
+      "precision": 1.0,
+      "recall": 0.975,
+      "recall_iou50": 0.075,
+      "mean_iou": 0.3696130031728743
+    },
+    "iban": {
+      "screens": 44,
+      "true_positives": 42,
+      "false_positive_boxes": 0,
+      "precision": 1.0,
+      "recall": 0.9545454545454546,
+      "recall_iou50": 0.25,
+      "mean_iou": 0.44577480506897693
     }
   },
-  "negative_screens": 428,
-  "negative_screen_fpr": 0.004672897196261682,
-  "latency_ms": {
-    "p50": 1347.7617500001315,
-    "p95": 2132.4581949998665,
-    "p99": 2490.781044000032
+  "formats": {
+    "address:de": {
+      "screens": 3,
+      "hits": 3,
+      "recall": 1.0
+    },
+    "address:fr": {
+      "screens": 6,
+      "hits": 6,
+      "recall": 1.0
+    },
+    "address:uk": {
+      "screens": 1,
+      "hits": 0,
+      "recall": 0.0
+    },
+    "address:us": {
+      "screens": 17,
+      "hits": 17,
+      "recall": 1.0
+    },
+    "card:amex-dash": {
+      "screens": 2,
+      "hits": 2,
+      "recall": 1.0
+    },
+    "card:amex-plain": {
+      "screens": 2,
+      "hits": 2,
+      "recall": 1.0
+    },
+    "card:amex-space": {
+      "screens": 3,
+      "hits": 3,
+      "recall": 1.0
+    },
+    "card:discover-dash": {
+      "screens": 1,
+      "hits": 1,
+      "recall": 1.0
+    },
+    "card:discover-plain": {
+      "screens": 2,
+      "hits": 2,
+      "recall": 1.0
+    },
+    "card:discover-plain-split-inputs": {
+      "screens": 2,
+      "hits": 2,
+      "recall": 1.0
+    },
+    "card:discover-space": {
+      "screens": 6,
+      "hits": 6,
+      "recall": 1.0
+    },
+    "card:mastercard-dash": {
+      "screens": 2,
+      "hits": 2,
+      "recall": 1.0
+    },
+    "card:mastercard-plain": {
+      "screens": 2,
+      "hits": 2,
+      "recall": 1.0
+    },
+    "card:mastercard-plain-split-inputs": {
+      "screens": 1,
+      "hits": 1,
+      "recall": 1.0
+    },
+    "card:mastercard-space": {
+      "screens": 5,
+      "hits": 4,
+      "recall": 0.8
+    },
+    "card:mastercard-space-split-inputs": {
+      "screens": 3,
+      "hits": 3,
+      "recall": 1.0
+    },
+    "card:visa-dash-split-inputs": {
+      "screens": 2,
+      "hits": 2,
+      "recall": 1.0
+    },
+    "card:visa-plain": {
+      "screens": 1,
+      "hits": 1,
+      "recall": 1.0
+    },
+    "card:visa-plain-split-inputs": {
+      "screens": 2,
+      "hits": 2,
+      "recall": 1.0
+    },
+    "card:visa-space": {
+      "screens": 1,
+      "hits": 1,
+      "recall": 1.0
+    },
+    "card:visa-space-split-inputs": {
+      "screens": 2,
+      "hits": 2,
+      "recall": 1.0
+    },
+    "email:au": {
+      "screens": 1,
+      "hits": 1,
+      "recall": 1.0
+    },
+    "email:biz": {
+      "screens": 1,
+      "hits": 1,
+      "recall": 1.0
+    },
+    "email:com": {
+      "screens": 12,
+      "hits": 12,
+      "recall": 1.0
+    },
+    "email:de": {
+      "screens": 7,
+      "hits": 7,
+      "recall": 1.0
+    },
+    "email:dev": {
+      "screens": 1,
+      "hits": 1,
+      "recall": 1.0
+    },
+    "email:fr": {
+      "screens": 7,
+      "hits": 7,
+      "recall": 1.0
+    },
+    "email:io": {
+      "screens": 1,
+      "hits": 1,
+      "recall": 1.0
+    },
+    "email:net": {
+      "screens": 1,
+      "hits": 1,
+      "recall": 1.0
+    },
+    "email:org": {
+      "screens": 7,
+      "hits": 7,
+      "recall": 1.0
+    },
+    "email:uk": {
+      "screens": 2,
+      "hits": 2,
+      "recall": 1.0
+    },
+    "iban:DE": {
+      "screens": 7,
+      "hits": 7,
+      "recall": 1.0
+    },
+    "iban:ES": {
+      "screens": 17,
+      "hits": 16,
+      "recall": 0.9411764705882353
+    },
+    "iban:FR": {
+      "screens": 9,
+      "hits": 9,
+      "recall": 1.0
+    },
+    "iban:GB": {
+      "screens": 7,
+      "hits": 7,
+      "recall": 1.0
+    },
+    "iban:NL": {
+      "screens": 4,
+      "hits": 3,
+      "recall": 0.75
+    },
+    "ip:ipv4": {
+      "screens": 29,
+      "hits": 26,
+      "recall": 0.896551724137931
+    },
+    "ip:ipv6": {
+      "screens": 10,
+      "hits": 9,
+      "recall": 0.9
+    },
+    "national_id:uk_nino": {
+      "screens": 15,
+      "hits": 14,
+      "recall": 0.9333333333333333
+    },
+    "national_id:us_ssn": {
+      "screens": 25,
+      "hits": 25,
+      "recall": 1.0
+    },
+    "phone:AU-international": {
+      "screens": 1,
+      "hits": 1,
+      "recall": 1.0
+    },
+    "phone:BR-international": {
+      "screens": 3,
+      "hits": 3,
+      "recall": 1.0
+    },
+    "phone:BR-national": {
+      "screens": 1,
+      "hits": 0,
+      "recall": 0.0
+    },
+    "phone:CA-e164": {
+      "screens": 1,
+      "hits": 1,
+      "recall": 1.0
+    },
+    "phone:CA-international": {
+      "screens": 1,
+      "hits": 1,
+      "recall": 1.0
+    },
+    "phone:DE-e164": {
+      "screens": 2,
+      "hits": 2,
+      "recall": 1.0
+    },
+    "phone:DE-international": {
+      "screens": 1,
+      "hits": 0,
+      "recall": 0.0
+    },
+    "phone:DE-national": {
+      "screens": 1,
+      "hits": 0,
+      "recall": 0.0
+    },
+    "phone:ES-e164": {
+      "screens": 1,
+      "hits": 1,
+      "recall": 1.0
+    },
+    "phone:ES-international": {
+      "screens": 4,
+      "hits": 4,
+      "recall": 1.0
+    },
+    "phone:ES-national": {
+      "screens": 1,
+      "hits": 0,
+      "recall": 0.0
+    },
+    "phone:FR-e164": {
+      "screens": 2,
+      "hits": 2,
+      "recall": 1.0
+    },
+    "phone:FR-international": {
+      "screens": 1,
+      "hits": 1,
+      "recall": 1.0
+    },
+    "phone:FR-national": {
+      "screens": 1,
+      "hits": 0,
+      "recall": 0.0
+    },
+    "phone:GB-e164": {
+      "screens": 1,
+      "hits": 1,
+      "recall": 1.0
+    },
+    "phone:IT-e164": {
+      "screens": 2,
+      "hits": 2,
+      "recall": 1.0
+    },
+    "phone:IT-international": {
+      "screens": 3,
+      "hits": 3,
+      "recall": 1.0
+    },
+    "phone:IT-national": {
+      "screens": 1,
+      "hits": 1,
+      "recall": 1.0
+    },
+    "phone:JP-international": {
+      "screens": 1,
+      "hits": 1,
+      "recall": 1.0
+    },
+    "phone:JP-national": {
+      "screens": 1,
+      "hits": 1,
+      "recall": 1.0
+    },
+    "phone:MX-national": {
+      "screens": 1,
+      "hits": 0,
+      "recall": 0.0
+    },
+    "phone:NL-e164": {
+      "screens": 1,
+      "hits": 1,
+      "recall": 1.0
+    },
+    "phone:NL-international": {
+      "screens": 4,
+      "hits": 4,
+      "recall": 1.0
+    },
+    "phone:US-international": {
+      "screens": 1,
+      "hits": 1,
+      "recall": 1.0
+    },
+    "phone:US-national": {
+      "screens": 1,
+      "hits": 1,
+      "recall": 1.0
+    },
+    "secret:api_key": {
+      "screens": 1,
+      "hits": 1,
+      "recall": 1.0
+    },
+    "secret:aws_access_key": {
+      "screens": 4,
+      "hits": 4,
+      "recall": 1.0
+    },
+    "secret:aws_secret": {
+      "screens": 1,
+      "hits": 1,
+      "recall": 1.0
+    },
+    "secret:bearer": {
+      "screens": 5,
+      "hits": 4,
+      "recall": 0.8
+    },
+    "secret:env_password": {
+      "screens": 4,
+      "hits": 4,
+      "recall": 1.0
+    },
+    "secret:github_app": {
+      "screens": 3,
+      "hits": 3,
+      "recall": 1.0
+    },
+    "secret:github_fine": {
+      "screens": 4,
+      "hits": 4,
+      "recall": 1.0
+    },
+    "secret:gitlab": {
+      "screens": 3,
+      "hits": 3,
+      "recall": 1.0
+    },
+    "secret:google": {
+      "screens": 3,
+      "hits": 3,
+      "recall": 1.0
+    },
+    "secret:jwt": {
+      "screens": 4,
+      "hits": 3,
+      "recall": 0.75
+    },
+    "secret:openai": {
+      "screens": 2,
+      "hits": 2,
+      "recall": 1.0
+    },
+    "secret:password_bare": {
+      "screens": 3,
+      "hits": 3,
+      "recall": 1.0
+    },
+    "secret:password_colon": {
+      "screens": 2,
+      "hits": 2,
+      "recall": 1.0
+    },
+    "secret:stripe": {
+      "screens": 2,
+      "hits": 2,
+      "recall": 1.0
+    },
+    "vault:vault": {
+      "screens": 34,
+      "hits": 34,
+      "recall": 1.0
+    }
   },
+  "hard_negatives": {
+    "code": {
+      "spans": 198,
+      "flagged": 0,
+      "kinds": {},
+      "fpr": 0.0
+    },
+    "chat_mention": {
+      "spans": 183,
+      "flagged": 0,
+      "kinds": {},
+      "fpr": 0.0
+    },
+    "time_at": {
+      "spans": 167,
+      "flagged": 1,
+      "kinds": {
+        "email": 1
+      },
+      "fpr": 0.005988023952095809
+    },
+    "version": {
+      "spans": 172,
+      "flagged": 0,
+      "kinds": {},
+      "fpr": 0.0
+    },
+    "private_ip": {
+      "spans": 165,
+      "flagged": 4,
+      "kinds": {
+        "card": 4
+      },
+      "fpr": 0.024242424242424242
+    },
+    "date": {
+      "spans": 181,
+      "flagged": 3,
+      "kinds": {
+        "address": 3
+      },
+      "fpr": 0.016574585635359115
+    },
+    "reference_number": {
+      "spans": 161,
+      "flagged": 0,
+      "kinds": {},
+      "fpr": 0.0
+    },
+    "non_luhn_16": {
+      "spans": 191,
+      "flagged": 6,
+      "kinds": {
+        "card": 6
+      },
+      "fpr": 0.031413612565445025
+    },
+    "scoreboard": {
+      "spans": 145,
+      "flagged": 2,
+      "kinds": {
+        "card": 1,
+        "address": 1
+      },
+      "fpr": 0.013793103448275862
+    },
+    "url": {
+      "spans": 191,
+      "flagged": 0,
+      "kinds": {},
+      "fpr": 0.0
+    }
+  },
+  "negative_screens": 95,
+  "negative_screen_fpr": 0.010526315789473684,
+  "latency_ms": {
+    "p50": 9949.847850002698,
+    "p95": 24575.862359994797,
+    "p99": 34515.098021992606
+  },
+  "gates": {
+    "recall": {
+      "email": 0.91,
+      "card": 0.86,
+      "secret": 0.83,
+      "vault": 0.89,
+      "phone": 0.69,
+      "address": 0.81,
+      "ip": 0.76,
+      "national_id": 0.87,
+      "iban": 0.84
+    },
+    "negative_screen_fpr": 0.06,
+    "hard_negative_fpr": {
+      "code": 0.03,
+      "chat_mention": 0.03,
+      "time_at": 0.04,
+      "version": 0.03,
+      "private_ip": 0.07,
+      "date": 0.05,
+      "reference_number": 0.03,
+      "non_luhn_16": 0.07,
+      "scoreboard": 0.05,
+      "url": 0.03
+    }
+  },
+  "gate_failures": [],
   "gates_passed": true,
-  "matching": "One-to-one boxes at IoU >= 0.30, visible DOM intersection. Duplicate boxes and wrong-kind predictions count as false positives.",
-  "predictions_file": "benchmark-ci.predictions-5f5872f1e8e0c88b.jsonl",
-  "predictions_sha256": "72f6f57cd02416ed790d8d28bc8de4f138ab87b1f4cf7a0d0ad1b72e4cd31172",
-  "source_archive": "benchmark-ci.source-15d055b7f937.zip",
-  "limits": "Generated practice screenshots with DOM-derived ground truth. Concurrent CPU inference excludes queue wait; resumed samples retain their original measured timestamps. Broadcast timing is checked separately in the operating guide."
+  "matching": "Ground truth is the glyph ink box of each labelled span (pixel difference between the screen and the same screen with that text made transparent). A target is a hit when one unmatched detection of the same kind covers at least 90% of the ink box area and is no larger than 8x that area (so a full-screen mask cannot score). Matching is one-to-one; duplicate boxes and wrong-kind predictions count as false positives. Recall at IoU >= 0.5 against the ink box is reported alongside as a stricter localisation measure. A hard-negative span is a false positive when an unmatched detection covers at least 30% of it.",
+  "predictions_file": "benchmark.predictions-bbcda382ad8f2a4c.jsonl",
+  "predictions_sha256": "104994ca6af9ef28e57d5696c7089efdec28c4417feaa246ef0fa35eaea230d8",
+  "source_archive": "benchmark.source-85957310e854.zip",
+  "limits": "The corpus is a generated test corpus with DOM-derived ground truth (bench/generate.py, reproducible from a fixed seed). The detector was not tuned on this corpus's per-screen values; the same team wrote the generator, so results describe the value formats and layouts listed above rather than every possible desktop. Concurrent CPU inference excludes queue wait; resumed samples retain their original measured timestamps."
 }

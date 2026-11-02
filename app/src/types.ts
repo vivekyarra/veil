@@ -1,24 +1,17 @@
-import type { Incident } from "../electron/incidents/engine";
+import type { Action, Incident, Mode } from "../electron/incidents/engine";
 import type { Category } from "../electron/vault/vault";
+import type { Settings } from "../electron/store/settings";
+
+export type { Action, Incident, Mode };
 export interface State {
   rehearsal: boolean;
-  settings: {
-    profile: "off" | "balanced" | "paranoid";
-    delay: number;
-    sampleFps: number;
-    theme: "dark" | "light";
-    hotkey: string;
-    obsUrl: string;
-    discord: string;
-    retentionDays: number;
-    ignoreZones: { x: number; y: number; w: number; h: number }[];
-    denylist: string[];
-    modes: Record<string, string>;
-    recognizers: string[];
-    thresholds: Record<string, number>;
-    gameId: string;
-    gameZones: Record<string, { x: number; y: number; w: number; h: number }[]>;
-  };
+  /** Live chat moderation and OBS cover are both armed for real. */
+  protectionActive: boolean;
+  /** What protection is missing, item by item. */
+  protection: { live: boolean; chatGuard: boolean; obs: boolean };
+  onboardingComplete: boolean;
+  channel: { login: string; moderating: boolean };
+  settings: Settings;
   obs: boolean;
   detector: boolean;
   twitch: boolean;
@@ -32,6 +25,8 @@ export interface State {
   removed: number;
   device?: { user_code: string; verification_uri: string };
   tokenFile: string;
+  /** Loopback URL of the on-stream overlay; "" when unavailable. */
+  overlayUrl: string;
 }
 export interface Scan {
   image: string;
@@ -44,6 +39,13 @@ export interface Scan {
   masked: boolean;
   fullHold: boolean;
   mode: string;
+}
+export interface Check {
+  id: string;
+  title: string;
+  status: string;
+  detail: string;
+  recommendedDelay?: number;
 }
 interface Bridge {
   command: (

@@ -1,8 +1,24 @@
+import { randomUUID } from "node:crypto";
 import type { GuardActions } from "../guard/chat-guard.js";
 import type { IncidentActions, Incident } from "../incidents/engine.js";
 import type { ChatGuard } from "../guard/chat-guard.js";
 
-/** This adapter has no network capability: rehearsal cannot moderate real chat. */
+/** Synthetic terms the practice chat guard watches for. */
+export const PRACTICE_TERMS = [
+  { text: "123 Main St", category: "address" },
+  { text: "Maple Academy", category: "school" },
+];
+/** Local OBS actions that rehearsal performs for real when OBS is connected. */
+interface LocalActions {
+  cover(): Promise<void>;
+  mute(): Promise<void>;
+  unmute(): Promise<void>;
+}
+
+/**
+ * Twitch actions are mocked: rehearsal cannot moderate real chat. Local OBS
+ * actions (cover, mute) are real when supplied, so panic is always safe.
+ */
 export class RehearsalActions implements GuardActions {
   deleted: string[] = [];
   timeouts: string[] = [];
@@ -14,10 +30,19 @@ export class RehearsalActions implements GuardActions {
   async timeout(id: string): Promise<void> {
     this.timeouts.push(id);
   }
-  incidentActions(guard: ChatGuard): IncidentActions {
+  incidentActions(guard: ChatGuard, local?: LocalActions): IncidentActions {
     return {
       cover: async () => {
         this.covered = true;
+        await local?.cover();
+      },
+      mute: async () => {
+        this.journal.push("mute practice action");
+        await local?.mute();
+      },
+      unmute: async () => {
+        this.journal.push("unmute practice action");
+        await local?.unmute();
       },
       guard: async (terms) => {
         guard.addSessionTerms(terms);
@@ -77,3 +102,15 @@ export const SCENARIOS = {
     value: "+1 202 555 0100",
   },
 } as const;
+/** Synthetic practice chat: three viewers repeat a practice address. */
+export async function practiceChat(guard: ChatGuard): Promise<void> {
+  for (let i = 0; i < 5; i++)
+    await guard.receive({
+      id: randomUUID(),
+      userId: "practice-" + (i % 3),
+      login: "viewer_" + (i % 3),
+      text: i === 0 ? "hello everyone" : "1 2 3 m4in st",
+      timestamp: Date.now(),
+      privileged: false,
+    });
+}

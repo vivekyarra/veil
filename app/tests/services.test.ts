@@ -108,7 +108,11 @@ it("OAuth startup validation verifies client and scopes, refresh failure clears 
     "synthetic",
     persistence,
     "https://id.twitch.tv",
-    async () => new Response("{}", { status: 401 }),
+    async () =>
+      new Response(
+        JSON.stringify({ status: 400, message: "Invalid refresh token" }),
+        { status: 400 },
+      ),
   );
   tokens = { ...tokens!, obtained_at: 0, expires_in: 1 };
   await expect(revoked.access()).rejects.toThrow("refresh failed");

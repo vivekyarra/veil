@@ -1,6 +1,6 @@
 {
   "mode": "loopback contract mock; not live Twitch",
   "samples": 30,
-  "p95_ms": 113.91759999999977,
-  "max_ms": 121.34109999999964
+  "p95_ms": 56.9320000000007,
+  "max_ms": 58.09180000000015
 }

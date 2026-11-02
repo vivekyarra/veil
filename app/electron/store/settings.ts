@@ -22,6 +22,11 @@ export interface Settings {
   thresholds: Record<string, number>;
   gameId: string;
   gameZones: Record<string, Zone[]>;
+  /** Twitch login of the channel to protect; "" means the signed-in user. */
+  protectedChannel: string;
+  /** Saved rehearsal choice; only honored once onboarding is complete. */
+  rehearsal: boolean;
+  onboardingComplete: boolean;
 }
 const kinds = [
   "email",
@@ -36,7 +41,7 @@ const kinds = [
 export function defaultSettings(): Settings {
   return {
     profile: "paranoid",
-    delay: 750,
+    delay: 2500,
     sampleFps: 4,
     theme: "dark",
     hotkey:
@@ -59,7 +64,51 @@ export function defaultSettings(): Settings {
     thresholds: {},
     gameId: "default",
     gameZones: {},
+    protectedChannel: "",
+    rehearsal: true,
+    onboardingComplete: false,
   };
+}
+/**
+ * Merge stored settings over defaults, including newly added modes. Fields of
+ * the wrong type (an older or hand-edited file) fall back to the default, so a
+ * damaged settings row can never brick startup.
+ */
+export function loadSettings(stored: unknown): Settings {
+  const defaults = defaultSettings();
+  if (!stored || typeof stored !== "object" || Array.isArray(stored))
+    return defaults;
+  const input = stored as Record<string, unknown>;
+  const out = { ...defaults } as unknown as Record<string, unknown>;
+  for (const [key, fallback] of Object.entries(defaults)) {
+    if (key === "modes") continue;
+    const value = input[key];
+    if (value === undefined || value === null) continue;
+    if (Array.isArray(fallback) !== Array.isArray(value)) continue;
+    if (typeof value !== typeof fallback) continue;
+    if (typeof value === "number" && !Number.isFinite(value)) continue;
+    out[key] = value;
+  }
+  if (!["off", "balanced", "paranoid"].includes(String(out.profile)))
+    out.profile = defaults.profile;
+  if (!["dark", "light"].includes(String(out.theme)))
+    out.theme = defaults.theme;
+  const modes = { ...defaults.modes };
+  const storedModes = input.modes;
+  if (
+    storedModes &&
+    typeof storedModes === "object" &&
+    !Array.isArray(storedModes)
+  )
+    for (const [action, mode] of Object.entries(storedModes))
+      if (action in modes && ["auto", "ask", "off"].includes(String(mode)))
+        modes[action as Action] = mode as Mode;
+  out.modes = modes;
+  return out as unknown as Settings;
+}
+/** Rehearsal is forced until onboarding completes; then the saved value. */
+export function startupRehearsal(settings: Settings): boolean {
+  return settings.onboardingComplete ? settings.rehearsal : true;
 }
 function bounded(value: unknown, min: number, max: number): number {
   if (
@@ -98,6 +147,7 @@ export function patchSettings(
         "recognizers",
         "thresholds",
         "gameId",
+        "protectedChannel",
       ].includes(key)
     )
       throw new Error("Unknown setting");
@@ -107,7 +157,7 @@ export function patchSettings(
     next.profile = patch.profile as Settings["profile"];
   }
   if (patch.delay !== undefined)
-    next.delay = Math.round(bounded(patch.delay, 300, 3000));
+    next.delay = Math.round(bounded(patch.delay, 300, 6000));
   if (patch.sampleFps !== undefined)
     next.sampleFps = Math.round(bounded(patch.sampleFps, 1, 10));
   if (patch.retentionDays !== undefined)
@@ -134,6 +184,12 @@ export function patchSettings(
     }
     next.discord = value;
     next.modes.discord = value ? "auto" : "off";
+  }
+  if (patch.protectedChannel !== undefined) {
+    const login = string(patch.protectedChannel, 25).trim().toLowerCase();
+    if (!/^[a-z0-9_]{0,25}$/.test(login))
+      throw new Error("Enter a Twitch channel login, or leave empty for yours");
+    next.protectedChannel = login;
   }
   if (patch.gameId !== undefined) {
     const id = string(patch.gameId, 30);

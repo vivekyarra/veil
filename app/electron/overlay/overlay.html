@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; connect-src 'self'"
+    />
+    <title>VEIL Overlay</title>
+    <!--
+      OBS browser source, 520 x 160, transparent. It receives counts and
+      timestamps only from VEIL's loopback feed and never renders feed text.
+    -->
+    <style>
+      :root {
+        --violet: #7c5cff;
+        --violet-soft: #b6a5ff;
+        --green: #b9f391;
+        --ink: #0b0e14;
+      }
+      html,
+      body {
+        margin: 0;
+        background: transparent;
+        overflow: hidden;
+        font-family: Inter, "Segoe UI", Arial, sans-serif;
+      }
+      .stage {
+        position: relative;
+        width: 520px;
+        height: 160px;
+      }
+      .badge {
+        position: absolute;
+        left: 16px;
+        bottom: 16px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 12px 20px 12px 12px;
+        border-radius: 18px;
+        background: rgba(11, 14, 20, 0.82);
+        border: 1px solid rgba(182, 165, 255, 0.35);
+        box-shadow:
+          0 10px 30px rgba(0, 0, 0, 0.35),
+          inset 0 1px 0 rgba(255, 255, 255, 0.06);
+        color: #f3f6fc;
+        overflow: hidden;
+        opacity: 0;
+        transform: translateY(8px);
+        transition:
+          opacity 0.4s ease,
+          transform 0.4s ease,
+          border-color 0.4s ease;
+      }
+      .badge.on {
+        opacity: 1;
+        transform: none;
+      }
+      .badge.standby {
+        border-color: rgba(255, 255, 255, 0.15);
+      }
+      .badge.standby .shield {
+        filter: grayscale(1) opacity(0.7);
+      }
+      .shield {
+        position: relative;
+        width: 44px;
+        height: 50px;
+        flex: none;
+      }
+      .shield svg {
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+      .shield::after {
+        content: "";
+        position: absolute;
+        inset: -6px;
+        border-radius: 50%;
+        border: 2px solid var(--violet);
+        opacity: 0;
+      }
+      .shine {
+        animation: shine 6s ease-in-out infinite;
+      }
+      @keyframes shine {
+        0%,
+        70% {
+          transform: translateX(-60px);
+        }
+        100% {
+          transform: translateX(60px);
+        }
+      }
+      .title {
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 2.4px;
+        text-transform: uppercase;
+      }
+      .title b {
+        color: var(--violet-soft);
+      }
+      .meta {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: 6px;
+        font-size: 15px;
+        font-variant-numeric: tabular-nums;
+        color: #c7cfdd;
+      }
+      .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--green);
+        box-shadow: 0 0 10px var(--green);
+        animation: breathe 2.4s ease-in-out infinite;
+      }
+      .standby .dot {
+        background: #8a97ab;
+        box-shadow: none;
+        animation: none;
+      }
+      @keyframes breathe {
+        50% {
+          opacity: 0.45;
+        }
+      }
+      .count {
+        display: inline-flex;
+        align-items: baseline;
+        gap: 5px;
+        padding: 2px 9px;
+        border-radius: 999px;
+        background: rgba(124, 92, 255, 0.22);
+        color: #fff;
+      }
+      .count strong {
+        display: inline-block;
+        font-size: 16px;
+      }
+      .sweep {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          100deg,
+          transparent 0%,
+          rgba(124, 92, 255, 0.75) 45%,
+          rgba(182, 165, 255, 0.95) 50%,
+          rgba(124, 92, 255, 0.75) 55%,
+          transparent 100%
+        );
+        transform: translateX(-110%);
+        pointer-events: none;
+        mix-blend-mode: screen;
+      }
+      .catch .sweep {
+        animation: sweep 0.9s cubic-bezier(0.6, 0, 0.2, 1);
+      }
+      .catch .shield {
+        animation: pulse 0.9s ease-out;
+      }
+      .catch .shield::after {
+        animation: ring 0.9s ease-out;
+      }
+      .catch .count strong {
+        animation: pop 0.6s 0.35s ease-out both;
+      }
+      .catch {
+        border-color: var(--violet);
+      }
+      @keyframes sweep {
+        to {
+          transform: translateX(110%);
+        }
+      }
+      @keyframes pulse {
+        35% {
+          transform: scale(1.18) rotate(-4deg);
+        }
+      }
+      @keyframes ring {
+        0% {
+          opacity: 0.9;
+          transform: scale(0.7);
+        }
+        100% {
+          opacity: 0;
+          transform: scale(1.6);
+        }
+      }
+      @keyframes pop {
+        40% {
+          transform: scale(1.5);
+          color: var(--violet-soft);
+        }
+      }
+      .toast {
+        position: absolute;
+        left: 30px;
+        bottom: 98px;
+        padding: 7px 14px;
+        border-radius: 999px;
+        background: var(--violet);
+        color: #fff;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 1.2px;
+        text-transform: uppercase;
+        opacity: 0;
+        transform: translateY(10px) scale(0.96);
+        transition:
+          opacity 0.25s ease,
+          transform 0.25s ease;
+      }
+      .toast.show {
+        opacity: 1;
+        transform: none;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::after {
+          animation: none !important;
+          transition: opacity 0.2s !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="stage">
+      <div class="toast" id="toast" aria-hidden="true"></div>
+      <div class="badge" id="badge">
+        <div class="shield" aria-hidden="true">
+          <svg viewBox="0 0 44 50">
+            <defs>
+              <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#b6a5ff" />
+                <stop offset="1" stop-color="#7c5cff" />
+              </linearGradient>
+              <clipPath id="c">
+                <path d="M22 2 41 9v15c0 12-8 20-19 24C11 44 3 36 3 24V9z" />
+              </clipPath>
+            </defs>
+            <path
+              d="M22 2 41 9v15c0 12-8 20-19 24C11 44 3 36 3 24V9z"
+              fill="url(#g)"
+            />
+            <g clip-path="url(#c)">
+              <rect
+                class="shine"
+                x="0"
+                y="0"
+                width="14"
+                height="50"
+                fill="rgba(255,255,255,.35)"
+                transform="skewX(-20)"
+              />
+            </g>
+            <path
+              d="M13 17l9 18 9-18"
+              fill="none"
+              stroke="#0b0e14"
+              stroke-width="4"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </div>
+        <div>
+          <div class="title" id="title">Shielded by <b>VEIL</b></div>
+          <div class="meta">
+            <span class="dot"></span><span id="uptime">0:00:00</span>
+            <span class="count"><strong id="count">0</strong> caught</span>
+          </div>
+        </div>
+        <div class="sweep"></div>
+      </div>
+    </div>
+    <script>
+      (() => {
+        const badge = document.getElementById("badge"),
+          title = document.getElementById("title"),
+          uptime = document.getElementById("uptime"),
+          count = document.getElementById("count"),
+          toast = document.getElementById("toast");
+        let since = 0,
+          seen = -1,
+          hideTimer = 0,
+          catchTimer = 0;
+        const two = (n) => String(n).padStart(2, "0");
+        const tick = () => {
+          if (!since) return void (uptime.textContent = "standby");
+          const s = Math.max(0, Math.floor((Date.now() - since) / 1000));
+          uptime.textContent =
+            Math.floor(s / 3600) +
+            ":" +
+            two(Math.floor(s / 60) % 60) +
+            ":" +
+            two(s % 60);
+        };
+        setInterval(tick, 1000);
+        const celebrate = (kind) => {
+          badge.classList.remove("catch");
+          void badge.offsetWidth;
+          badge.classList.add("catch");
+          toast.textContent = kind === 2 ? "Chat leak removed" : "Leak masked";
+          toast.classList.add("show");
+          clearTimeout(catchTimer);
+          clearTimeout(hideTimer);
+          catchTimer = setTimeout(() => badge.classList.remove("catch"), 1000);
+          hideTimer = setTimeout(() => toast.classList.remove("show"), 2400);
+        };
+        const apply = (p) => {
+          const armed = p.armed === true,
+            total = (Number(p.screen) || 0) + (Number(p.chat) || 0),
+            last = Number(p.lastCatch) || 0;
+          since = armed ? Number(p.since) || 0 : 0;
+          badge.classList.add("on");
+          badge.classList.toggle("standby", !armed);
+          title.firstChild.textContent = armed ? "Shielded by " : "Standby · ";
+          count.textContent = String(total);
+          // Only celebrate fresh catches, never replay on (re)connect.
+          if (seen >= 0 && last > seen && Date.now() - last < 10000)
+            celebrate(Number(p.lastKind));
+          seen = last;
+          tick();
+        };
+        const connect = () => {
+          const events = new EventSource("/overlay/events");
+          events.onmessage = (e) => {
+            try {
+              apply(JSON.parse(e.data));
+            } catch {
+              /* ignore malformed frames */
+            }
+          };
+          // VEIL closed: hide rather than claim protection we cannot confirm.
+          events.onerror = () => badge.classList.remove("on");
+        };
+        connect();
+      })();
+    </script>
+  </body>
+</html>

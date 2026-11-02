@@ -3,7 +3,21 @@
 from typing import Literal, cast
 from pydantic import BaseModel, Field, model_validator
 
-Kind = Literal["email", "phone", "card", "ip", "address", "secret", "vault", "window"]
+Kind = Literal[
+    "email",
+    "phone",
+    "card",
+    "ip",
+    "address",
+    "secret",
+    "vault",
+    "window",
+    "national_id",
+    "iban",
+]
+# Kinds added after the desktop app's settings list was frozen. A client that names neither
+# of them inherits both from its "card" toggle so older settings do not silently disable them.
+CARD_FAMILY: tuple[Kind, ...] = ("national_id", "iban")
 
 
 class Box(BaseModel):
@@ -51,6 +65,8 @@ class Policy(BaseModel):
                 "secret",
                 "vault",
                 "window",
+                "national_id",
+                "iban",
             ],
         )
     )
@@ -70,6 +86,13 @@ class Policy(BaseModel):
             "proton mail",
         ]
     )
+
+    @model_validator(mode="after")
+    def card_family(self) -> "Policy":
+        """Older clients list only the original kinds; extend their card choice."""
+        if "card" in self.enabled and not any(kind in self.enabled for kind in CARD_FAMILY):
+            self.enabled = [*self.enabled, *CARD_FAMILY]
+        return self
 
 
 class VaultUpdate(BaseModel):

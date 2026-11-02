@@ -1038,5 +1038,550 @@
     "term": "5550100",
     "message": "chat ٥٥٥٠١٠٠ chat",
     "match": true
+  },
+  {
+    "term": "secrets",
+    "message": "ѕecrets",
+    "match": true
+  },
+  {
+    "term": "123 Main St",
+    "message": "123 Máin St",
+    "match": true
+  },
+  {
+    "term": "bella",
+    "message": "8e||a",
+    "match": true
+  },
+  {
+    "term": "bob",
+    "message": "hi 8o8",
+    "match": true
+  },
+  {
+    "term": "alice",
+    "message": "a1ice",
+    "match": true
+  },
+  {
+    "term": "alice",
+    "message": "a|ice",
+    "match": true
+  },
+  {
+    "term": "Ali",
+    "message": "all of you",
+    "match": false
+  },
+  {
+    "term": "Ali",
+    "message": "hey 4li",
+    "match": true
+  },
+  {
+    "term": "123 Main St",
+    "message": "123\nMain St",
+    "match": true
+  },
+  {
+    "term": "Ann",
+    "message": "this is annoying",
+    "match": false
+  },
+  {
+    "term": "Ann",
+    "message": "Annabelle",
+    "match": false
+  },
+  {
+    "term": "Ann",
+    "message": "hi Ann!",
+    "match": true
+  },
+  {
+    "term": "Ann",
+    "message": "<emote>ann</emote>",
+    "match": true
+  },
+  {
+    "term": "Main",
+    "message": "mainstream",
+    "match": false
+  },
+  {
+    "term": "5551234567",
+    "message": "I scored 555 then 1234567",
+    "match": false
+  },
+  {
+    "term": "5551234567",
+    "message": "555.123.4567",
+    "match": true
+  },
+  {
+    "term": "555 123 4567",
+    "message": "call (555) 123-4567 now",
+    "match": true
+  },
+  {
+    "term": "5550100",
+    "message": "555-O1OO",
+    "match": true
+  },
+  {
+    "term": "5550100",
+    "message": "room 555 and floor 0100",
+    "match": false
+  },
+  {
+    "term": "josé",
+    "message": "jose",
+    "match": true
+  },
+  {
+    "term": "jose",
+    "message": "josé",
+    "match": true
+  },
+  {
+    "term": "taxi",
+    "message": "ταχι",
+    "match": true
+  },
+  {
+    "term": "maple",
+    "message": "Ｍａｐｌｅ",
+    "match": true
+  },
+  {
+    "term": "1234",
+    "message": "pin 1234 ok",
+    "match": true
+  },
+  {
+    "term": "1234",
+    "message": "a12345",
+    "match": false
+  },
+  {
+    "term": "zzazz",
+    "message": "hey zzаzz ok",
+    "match": true
+  },
+  {
+    "term": "zzbzz",
+    "message": "hey zzвzz ok",
+    "match": true
+  },
+  {
+    "term": "zzezz",
+    "message": "hey zzеzz ok",
+    "match": true
+  },
+  {
+    "term": "zzezz",
+    "message": "hey zzёzz ok",
+    "match": true
+  },
+  {
+    "term": "zzszz",
+    "message": "hey zzѕzz ok",
+    "match": true
+  },
+  {
+    "term": "zzizz",
+    "message": "hey zzіzz ok",
+    "match": true
+  },
+  {
+    "term": "zzizz",
+    "message": "hey zzїzz ok",
+    "match": true
+  },
+  {
+    "term": "zzjzz",
+    "message": "hey zzјzz ok",
+    "match": true
+  },
+  {
+    "term": "zzkzz",
+    "message": "hey zzкzz ok",
+    "match": true
+  },
+  {
+    "term": "zzmzz",
+    "message": "hey zzмzz ok",
+    "match": true
+  },
+  {
+    "term": "zzhzz",
+    "message": "hey zzнzz ok",
+    "match": true
+  },
+  {
+    "term": "zzozz",
+    "message": "hey zzоzz ok",
+    "match": true
+  },
+  {
+    "term": "zznzz",
+    "message": "hey zzпzz ok",
+    "match": true
+  },
+  {
+    "term": "zzpzz",
+    "message": "hey zzрzz ok",
+    "match": true
+  },
+  {
+    "term": "zzczz",
+    "message": "hey zzсzz ok",
+    "match": true
+  },
+  {
+    "term": "zztzz",
+    "message": "hey zzтzz ok",
+    "match": true
+  },
+  {
+    "term": "zzyzz",
+    "message": "hey zzуzz ok",
+    "match": true
+  },
+  {
+    "term": "zzxzz",
+    "message": "hey zzхzz ok",
+    "match": true
+  },
+  {
+    "term": "zzbzz",
+    "message": "hey zzьzz ok",
+    "match": true
+  },
+  {
+    "term": "zzdzz",
+    "message": "hey zzԁzz ok",
+    "match": true
+  },
+  {
+    "term": "zzqzz",
+    "message": "hey zzԛzz ok",
+    "match": true
+  },
+  {
+    "term": "zzwzz",
+    "message": "hey zzԝzz ok",
+    "match": true
+  },
+  {
+    "term": "zzhzz",
+    "message": "hey zzһzz ok",
+    "match": true
+  },
+  {
+    "term": "zzlzz",
+    "message": "hey zzӏzz ok",
+    "match": true
+  },
+  {
+    "term": "zzgzz",
+    "message": "hey zzɡzz ok",
+    "match": true
+  },
+  {
+    "term": "zzazz",
+    "message": "hey zzαzz ok",
+    "match": true
+  },
+  {
+    "term": "zzbzz",
+    "message": "hey zzβzz ok",
+    "match": true
+  },
+  {
+    "term": "zzyzz",
+    "message": "hey zzγzz ok",
+    "match": true
+  },
+  {
+    "term": "zzezz",
+    "message": "hey zzεzz ok",
+    "match": true
+  },
+  {
+    "term": "zzzzz",
+    "message": "hey zzζzz ok",
+    "match": true
+  },
+  {
+    "term": "zzhzz",
+    "message": "hey zzηzz ok",
+    "match": true
+  },
+  {
+    "term": "zzizz",
+    "message": "hey zzιzz ok",
+    "match": true
+  },
+  {
+    "term": "zzkzz",
+    "message": "hey zzκzz ok",
+    "match": true
+  },
+  {
+    "term": "zzmzz",
+    "message": "hey zzμzz ok",
+    "match": true
+  },
+  {
+    "term": "zznzz",
+    "message": "hey zzνzz ok",
+    "match": true
+  },
+  {
+    "term": "zzozz",
+    "message": "hey zzοzz ok",
+    "match": true
+  },
+  {
+    "term": "zzpzz",
+    "message": "hey zzρzz ok",
+    "match": true
+  },
+  {
+    "term": "zztzz",
+    "message": "hey zzτzz ok",
+    "match": true
+  },
+  {
+    "term": "zzyzz",
+    "message": "hey zzυzz ok",
+    "match": true
+  },
+  {
+    "term": "zzxzz",
+    "message": "hey zzχzz ok",
+    "match": true
+  },
+  {
+    "term": "zzwzz",
+    "message": "hey zzωzz ok",
+    "match": true
+  },
+  {
+    "term": "zzszz",
+    "message": "hey zzςzz ok",
+    "match": true
+  },
+  {
+    "term": "zzozz",
+    "message": "hey zzօzz ok",
+    "match": true
+  },
+  {
+    "term": "zzuzz",
+    "message": "hey zzսzz ok",
+    "match": true
+  },
+  {
+    "term": "zzhzz",
+    "message": "hey zzհzz ok",
+    "match": true
+  },
+  {
+    "term": "zznzz",
+    "message": "hey zzոzz ok",
+    "match": true
+  },
+  {
+    "term": "zzgzz",
+    "message": "hey zzցzz ok",
+    "match": true
+  },
+  {
+    "term": "zzqzz",
+    "message": "hey zzզzz ok",
+    "match": true
+  },
+  {
+    "term": "zzizz",
+    "message": "hey zzızz ok",
+    "match": true
+  },
+  {
+    "term": "zzjzz",
+    "message": "hey zzȷzz ok",
+    "match": true
+  },
+  {
+    "term": "zzlzz",
+    "message": "hey zzłzz ok",
+    "match": true
+  },
+  {
+    "term": "zzozz",
+    "message": "hey zzøzz ok",
+    "match": true
+  },
+  {
+    "term": "zzdzz",
+    "message": "hey zzđzz ok",
+    "match": true
+  },
+  {
+    "term": "zzhzz",
+    "message": "hey zzħzz ok",
+    "match": true
+  },
+  {
+    "term": "zztzz",
+    "message": "hey zzŧzz ok",
+    "match": true
+  },
+  {
+    "term": "zzbzz",
+    "message": "hey zzƀzz ok",
+    "match": true
+  },
+  {
+    "term": "zzazz",
+    "message": "hey zzɑzz ok",
+    "match": true
+  },
+  {
+    "term": "zzizz",
+    "message": "hey zzɩzz ok",
+    "match": true
+  },
+  {
+    "term": "zzizz",
+    "message": "hey zzɪzz ok",
+    "match": true
+  },
+  {
+    "term": "zzlzz",
+    "message": "hey zzʟzz ok",
+    "match": true
+  },
+  {
+    "term": "zznzz",
+    "message": "hey zzɴzz ok",
+    "match": true
+  },
+  {
+    "term": "zzrzz",
+    "message": "hey zzʀzz ok",
+    "match": true
+  },
+  {
+    "term": "zzyzz",
+    "message": "hey zzʏzz ok",
+    "match": true
+  },
+  {
+    "term": "zzazz",
+    "message": "hey zzᴀzz ok",
+    "match": true
+  },
+  {
+    "term": "zzbzz",
+    "message": "hey zzʙzz ok",
+    "match": true
+  },
+  {
+    "term": "zzczz",
+    "message": "hey zzᴄzz ok",
+    "match": true
+  },
+  {
+    "term": "zzdzz",
+    "message": "hey zzᴅzz ok",
+    "match": true
+  },
+  {
+    "term": "zzezz",
+    "message": "hey zzᴇzz ok",
+    "match": true
+  },
+  {
+    "term": "zzgzz",
+    "message": "hey zzɢzz ok",
+    "match": true
+  },
+  {
+    "term": "zzhzz",
+    "message": "hey zzʜzz ok",
+    "match": true
+  },
+  {
+    "term": "zzjzz",
+    "message": "hey zzᴊzz ok",
+    "match": true
+  },
+  {
+    "term": "zzkzz",
+    "message": "hey zzᴋzz ok",
+    "match": true
+  },
+  {
+    "term": "zzmzz",
+    "message": "hey zzᴍzz ok",
+    "match": true
+  },
+  {
+    "term": "zzozz",
+    "message": "hey zzᴏzz ok",
+    "match": true
+  },
+  {
+    "term": "zzpzz",
+    "message": "hey zzᴘzz ok",
+    "match": true
+  },
+  {
+    "term": "zzszz",
+    "message": "hey zzꜱzz ok",
+    "match": true
+  },
+  {
+    "term": "zztzz",
+    "message": "hey zzᴛzz ok",
+    "match": true
+  },
+  {
+    "term": "zzuzz",
+    "message": "hey zzᴜzz ok",
+    "match": true
+  },
+  {
+    "term": "zzvzz",
+    "message": "hey zzᴠzz ok",
+    "match": true
+  },
+  {
+    "term": "zzwzz",
+    "message": "hey zzᴡzz ok",
+    "match": true
+  },
+  {
+    "term": "zzzzz",
+    "message": "hey zzᴢzz ok",
+    "match": true
+  },
+  {
+    "term": "123 Main St",
+    "message": "<123 Main St>",
+    "match": true
+  },
+  {
+    "term": "202 555 0100",
+    "message": "<2025550100>",
+    "match": true
+  },
+  {
+    "term": "sunflower",
+    "message": "<b>sun</b>flower",
+    "match": true
   }
 ]

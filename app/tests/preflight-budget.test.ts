@@ -22,11 +22,13 @@ async function budget(p99: unknown, delay = 750, sampleFps = 4) {
 it("offers an actionable measured budget with sample interval and margin", async () => {
   expect(await budget(2490)).toMatchObject({
     status: "fail",
-    recommendedDelay: 2840,
+    recommendedDelay: 3835,
   });
-  expect(await budget(2490, 2840)).toMatchObject({ status: "pass" });
-  expect((await budget(2490, 2840)).recommendedDelay).toBeUndefined();
-  expect((await budget(2490, 750, 10)).recommendedDelay).toBe(2690);
+  expect(await budget(2490, 3835)).toMatchObject({ status: "pass" });
+  expect((await budget(2490, 3835)).recommendedDelay).toBeUndefined();
+  // Two in-flight requests: the sample gap is max(interval, p99 / 2).
+  expect((await budget(300, 300, 4)).recommendedDelay).toBe(650);
+  expect((await budget(900, 300, 10)).recommendedDelay).toBe(1450);
 });
 
 it.each([null, undefined, NaN, Infinity, -1, "900"])(
@@ -39,7 +41,7 @@ it.each([null, undefined, NaN, Infinity, -1, "900"])(
 );
 
 it("does not offer an unsupported or unnecessary delay", async () => {
-  expect((await budget(2650)).recommendedDelay).toBe(3000);
-  expect((await budget(2651)).recommendedDelay).toBeUndefined();
+  expect((await budget(3933)).recommendedDelay).toBe(6000);
+  expect((await budget(3934)).recommendedDelay).toBeUndefined();
   expect((await budget(200)).recommendedDelay).toBeUndefined();
 });

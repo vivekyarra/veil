@@ -1,0 +1,21 @@
+{
+  "obs": "31.1.1 portable Windows x64",
+  "plugin_loaded": true,
+  "source": "generated synthetic JPEG only",
+  "test_pattern_capture_executed": true,
+  "paranoid_detector_unavailable_capture_executed": true,
+  "transparent_source_capture_executed": true,
+  "frame_pixel_validation": {
+    "mask_color": "#7c5cff",
+    "tolerance_levels": 6,
+    "passed": true,
+    "checks": 38,
+    "failed": []
+  },
+  "renderTotalFrames": 4399,
+  "renderSkippedFrames": 21,
+  "smokeRenderTotalFrames": 254,
+  "smokeRenderSkippedFrames": 0,
+  "averageFrameRenderTimeMs": 0.749074,
+  "scope": "Smoke only; no stream, no reference-GPU throughput or real OCR timing proof"
+}

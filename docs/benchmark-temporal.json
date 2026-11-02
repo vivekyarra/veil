@@ -1,0 +1,168 @@
+{
+  "synthetic": true,
+  "generated_at": "2026-11-02T17:23:27.103648+00:00",
+  "config": {
+    "sequences": 6,
+    "frames": 12,
+    "interval_ms": 250.0,
+    "seed": 0,
+    "resolution": [
+      1280,
+      720
+    ],
+    "coverage_required": 0.9
+  },
+  "host": {
+    "platform": "Windows-10-10.0.26300-SP0",
+    "processor": "Intel64 Family 6 Model 186 Stepping 3, GenuineIntel"
+  },
+  "ocr_warmup_ms": 12750.41,
+  "latency_ms": {
+    "steady": {
+      "count": 37,
+      "p50": 89.61,
+      "p95": 4737.52,
+      "p99": 10293.43,
+      "max": 12840.62
+    },
+    "change": {
+      "count": 35,
+      "p50": 6267.38,
+      "p95": 10927.73,
+      "p99": 12629.63,
+      "max": 13499.38
+    }
+  },
+  "time_to_mask": {
+    "targets": 6,
+    "masked": 6,
+    "never_masked": 0,
+    "frames": {
+      "count": 6,
+      "p50": 0.0,
+      "p95": 0.0,
+      "p99": 0.0,
+      "max": 0
+    },
+    "ms": {
+      "count": 6,
+      "p50": 6194.36,
+      "p95": 9137.94,
+      "p99": 9148.98,
+      "max": 9151.74
+    }
+  },
+  "recall": {
+    "target_frames": 39,
+    "covered_frames": 39,
+    "frame_recall": 1.0
+  },
+  "false_positives": {
+    "frames": 72,
+    "detections": 27,
+    "frames_with_fp": 7,
+    "per_frame": 0.375
+  },
+  "sequences": [
+    {
+      "index": 0,
+      "scenario": "toast_email",
+      "targets": 1,
+      "masked": 1,
+      "time_to_mask": [
+        {
+          "frames": 0,
+          "ms": 9096.53
+        }
+      ],
+      "target_frames": 6,
+      "covered_frames": 6,
+      "false_positive_detections": 0
+    },
+    {
+      "index": 1,
+      "scenario": "chat_phone",
+      "targets": 1,
+      "masked": 1,
+      "time_to_mask": [
+        {
+          "frames": 0,
+          "ms": 9151.74
+        }
+      ],
+      "target_frames": 8,
+      "covered_frames": 8,
+      "false_positive_detections": 27
+    },
+    {
+      "index": 2,
+      "scenario": "typing_email",
+      "targets": 1,
+      "masked": 1,
+      "time_to_mask": [
+        {
+          "frames": 0,
+          "ms": 2705.58
+        }
+      ],
+      "target_frames": 5,
+      "covered_frames": 5,
+      "false_positive_detections": 0
+    },
+    {
+      "index": 3,
+      "scenario": "editor_to_inbox",
+      "targets": 1,
+      "masked": 1,
+      "time_to_mask": [
+        {
+          "frames": 0,
+          "ms": 4299.84
+        }
+      ],
+      "target_frames": 7,
+      "covered_frames": 7,
+      "false_positive_detections": 0
+    },
+    {
+      "index": 4,
+      "scenario": "terminal_secret",
+      "targets": 1,
+      "masked": 1,
+      "time_to_mask": [
+        {
+          "frames": 0,
+          "ms": 8088.89
+        }
+      ],
+      "target_frames": 6,
+      "covered_frames": 6,
+      "false_positive_detections": 0
+    },
+    {
+      "index": 5,
+      "scenario": "toast_email",
+      "targets": 1,
+      "masked": 1,
+      "time_to_mask": [
+        {
+          "frames": 0,
+          "ms": 3939.95
+        }
+      ],
+      "target_frames": 7,
+      "covered_frames": 7,
+      "false_positive_detections": 0
+    }
+  ],
+  "detector_source_sha256": "3ed31633d2b225988bf2412eb511eaca5d0493a5335c7b1b9c3b328f89b67cc4",
+  "gates": {
+    "min_frame_recall": 0.7,
+    "min_masked_fraction": 0.8,
+    "max_time_to_mask_frames_p95": 2,
+    "max_false_positives_per_frame": 1.0,
+    "max_change_latency_p95_ms": 20000,
+    "max_steady_latency_p95_ms": 20000
+  },
+  "gate_failures": []
+}

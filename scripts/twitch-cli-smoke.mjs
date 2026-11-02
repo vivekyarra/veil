@@ -42,7 +42,7 @@ try {
   for (let i = 0; i < 150 && subscriptions.length < 5; i++) await new Promise(r => setTimeout(r, 100));
   assert.equal(subscriptions.length, 5, 'Production client did not attempt all five subscriptions');
   assert.ok(subscriptions.some(s => s.status === 202), 'No official CLI subscription accepted');
-  writeFileSync(resolve(root, 'docs/twitch-cli-smoke.json'), JSON.stringify({
+  writeFileSync(resolve(root, 'docs/evidence/twitch-cli-smoke.json'), JSON.stringify({
     cli_version: '1.1.24', actual_cli: true, loopback_only: true, subscriptions, connected: eventsub.connected, status,
     live_account: false, helix_device_code_fallback: 'Local Fastify contracts: CLI mock-api binds all interfaces and does not implement device-code flow',
   }, null, 2));

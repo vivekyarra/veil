@@ -14,6 +14,8 @@ for name in files:
         continue
     if path.suffix not in {".py", ".ts", ".tsx", ".cts", ".mjs", ".cpp", ".c", ".h"} or name == "scripts/check-crumbs.py":
         continue
+    if not path.exists():  # deleted in the working tree but not yet committed
+        continue
     source = path.read_text(encoding="utf-8")
     pattern = r"\b(?:TO" + r"DO|FIX" + r"ME|XX" + r"X|HA" + r"CK)\b|console\.log\(|\.(?:skip|only)\("
     if re.search(pattern, source):

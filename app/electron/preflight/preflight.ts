@@ -1,5 +1,8 @@
 import type { ObsClient } from "../obs/client.js";
 import type { Supervisor } from "../supervisor.js";
+/** Mirrors veil-filter.cpp: max_delay_ms and default_inflight. */
+const MAX_DELAY_MS = 6000;
+const MAX_IN_FLIGHT = 2;
 interface Check {
   id: string;
   title: string;
@@ -33,8 +36,11 @@ export async function preflight(
       health.p99_ms >= 0
         ? health.p99_ms
         : null;
-    const required =
-      p99 === null ? null : Math.ceil(1000 / sampleFps + p99 + 100);
+    // With MAX_IN_FLIGHT requests busy the plugin skips samples, so the
+    // effective sample gap is the larger of the interval and p99 / slots.
+    const gap =
+      p99 === null ? 0 : Math.max(1000 / sampleFps, p99 / MAX_IN_FLIGHT);
+    const required = p99 === null ? null : Math.ceil(gap + p99 + 100);
     add(
       "detector",
       "Local detector",
@@ -49,8 +55,8 @@ export async function preflight(
       required === null ? "warn" : delay >= required ? "pass" : "fail",
       required === null
         ? "No measured latency yet"
-        : `Configured ${delay} ms; measured budget needs at least ${required} ms${required > 3000 ? "; exceeds supported delay; use Paranoid and faster inference hardware" : ""}`,
-      required !== null && required > delay && required <= 3000
+        : `Configured ${delay} ms; measured budget needs at least ${required} ms${required > MAX_DELAY_MS ? "; exceeds supported delay; use Paranoid and faster inference hardware" : ""}`,
+      required !== null && required > delay && required <= MAX_DELAY_MS
         ? required
         : undefined,
     );
