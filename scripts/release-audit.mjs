@@ -1,6 +1,6 @@
 import { createHash } from 'node:crypto';
 import { createReadStream, existsSync, readFileSync, readdirSync, statSync, writeFileSync } from 'node:fs';
-import { resolve } from 'node:path';
+import { resolve, sep } from 'node:path';
 import { createRequire } from 'node:module';
 import { execFileSync } from 'node:child_process';
 import assert from 'node:assert/strict';
@@ -33,7 +33,7 @@ const files = await Promise.all([
 const asar = resolve(root, files[1].path);
 // main.ts copies the OBS browser-source pages out of the asar at launch, so both must ship.
 for (const path of ['dist-electron/main.js', 'dist/index.html', 'dist-electron/rehearsal/cover.html', 'dist-electron/overlay/overlay.html'])
-  assert.equal(hash(extractFile(asar, path)), hash(readFileSync(resolve(root, 'app', path))), 'Packaged source mismatch: ' + path);
+  assert.equal(hash(extractFile(asar, path.split('/').join(sep))), hash(readFileSync(resolve(root, 'app', path))), 'Packaged source mismatch: ' + path);
 assert.equal(hash(readFileSync(resolve(root, 'app/dist-electron/overlay/overlay.html'))), hash(readFileSync(resolve(root, 'app/electron/overlay/overlay.html'))), 'Stale overlay.html build copy');
 assert.equal(hash(readFileSync(resolve(root, 'app/dist-electron/rehearsal/cover.html'))), hash(readFileSync(resolve(root, 'app/electron/rehearsal/cover.html'))), 'Stale cover.html build copy');
 // The native filter cannot mask without its YUV shader; it loads it via obs_module_file.
