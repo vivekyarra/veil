@@ -1,6 +1,6 @@
 # VEIL
 
-**Private info never reaches your stream — or your chat.**
+**Private info never reaches your stream — not on screen, not on camera, not in chat.**
 
 [![Build](https://github.com/vivekyarra/veil/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/vivekyarra/veil/actions/workflows/ci.yml)
 [![Download VEIL](https://img.shields.io/github/v/release/vivekyarra/veil?include_prereleases&label=download&color=7c5cff)](https://github.com/vivekyarra/veil/releases)
@@ -8,8 +8,7 @@
 
 ![VEIL stream protection control room](docs/screenshots/dashboard.png)
 
-<!-- TODO: replace with the final demo video URL -->
-[▶ Watch the 3-minute demo](https://youtu.be/)
+[▶ Watch the demo](https://youtu.be/jkyMC46QsyE)
 
 ## Judge quick start
 
@@ -23,7 +22,10 @@ No OBS or Twitch account needed:
 
 ## What it does
 
+VEIL blocks private info in all three places a stream leaks: your **screen share**, your **camera** and your **chat**.
+
 - **Screen:** a native OBS filter masks private text locally before frames leave the PC: cards, emails, phones, addresses, IPs, IBANs, national IDs, secrets and anything in your encrypted **Never Show** vault. In Paranoid mode (the default), a frame that has not been checked stays covered.
+- **On camera too:** the filter works on any OBS source, including your webcam. Hold up a phone with your address on it and viewers only ever see a solid mask.
 - **Chat:** a Twitch chat guard deletes repeats through EventSub and Helix, catching lookalike letters, leetspeak and messages split across lines. Vault terms stay on your machine.
 - **Panic:** one key covers OBS with a cover scene, drops a VOD marker and sweeps recent chat. Mic mute is one setting away, and Shield Mode turns on with a single approval.
 - **Community:** moderator mode lets a trusted mod run VEIL for the streamer, and an on-stream overlay badge counts catches without ever showing what it caught.
