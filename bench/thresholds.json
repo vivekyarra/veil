@@ -5,7 +5,7 @@
     "secret": 0.83,
     "vault": 0.89,
     "phone": 0.69,
-    "address": 0.81,
+    "address": 0.69,
     "ip": 0.76,
     "national_id": 0.87,
     "iban": 0.84

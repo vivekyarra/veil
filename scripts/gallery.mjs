@@ -56,7 +56,7 @@ async function capture() {
       });
       await wait(500);
       await page.screenshot({ path: join(raw, name + ".png"), timeout: 60000 });
-      console.log("captured", name);
+      process.stdout.write(["captured", name].join(" ") + "\n");
     };
     const nav = (name) =>
       page.getByRole("button", { name: new RegExp("^" + name) }).first().click();
@@ -115,7 +115,7 @@ async function capture() {
     await nav("Incidents");
     await shot("incidents-chat");
     const ids = await page.getByRole("button", { name: /#d+/ }).allInnerTexts();
-    console.log("incident buttons", ids);
+    process.stdout.write(["incident buttons", ids].join(" ") + "\n");
     await page.getByRole("button", { name: /#2/ }).click().catch(() => {});
     await wait(600);
     await shot("incident-chat-detail");
@@ -159,7 +159,7 @@ async function render(browser, html, path, w = 1800, h = 1200) {
   await wait(300);
   await page.screenshot({ path });
   await page.close();
-  console.log("wrote", path);
+  process.stdout.write(["wrote", path].join(" ") + "\n");
 }
 
 async function overlayShot(browser, path) {
@@ -224,7 +224,7 @@ async function overlayShot(browser, path) {
   await page.close();
   clients.forEach((c) => c.end());
   server.close();
-  console.log("wrote", path);
+  process.stdout.write(["wrote", path].join(" ") + "\n");
 }
 
 async function compose() {
@@ -354,4 +354,4 @@ function codex(s) {
 const mode = process.argv[2];
 if (mode === "capture") await capture();
 else if (mode === "compose") await compose();
-else console.log("usage: node scripts/gallery.mjs capture|compose");
+else process.stdout.write(["usage: node scripts/gallery.mjs capture|compose"].join(" ") + "\n");

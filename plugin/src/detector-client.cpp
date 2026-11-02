@@ -5,6 +5,9 @@
 #include <obs.h>
 #include <sstream>
 #ifdef _WIN32
+#ifndef NOMINMAX
+#define NOMINMAX
+#endif
 #include <windows.h>
 #include <winhttp.h>
 #else

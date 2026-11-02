@@ -1,585 +1,720 @@
 {
-  "source_sha256": "85957310e854992369bb3c20022fc8ef2605261ec00abc47c81b4c68666d4c7e",
-  "manifest_sha256": "d714e9dfe139036eea592d8d1cdd45aeb579170e63b11ec54b9cf57c6ca6760f",
+  "source_sha256": "c0d2e7c72f7e31cd43eb12286a9c0de773e922502f04b7a70aec149d079685ba",
+  "manifest_sha256": "f5b6bde4701841fa399d619603782a23f733addcde7194a08796726a56f17e65",
   "model_sha256": {
     "ch_PP-OCRv4_det_infer.onnx": "d2a7720d45a54257208b1e13e36a8479894cb74155a5efe29462512d42f49da9",
     "ch_PP-OCRv4_rec_infer.onnx": "48fc40f24f6d2a207a2b1091d3437eb3cc3eb6b676dc3ef9c37384005483683b",
     "ch_ppocr_mobile_v2.0_cls_infer.onnx": "e47acedf663230f8863ff1ab0e64dd2d82b838fceb5957146dab185a89d6215c"
   },
-  "workers": 4,
+  "workers": 2,
   "onnxruntime": "1.31.1",
   "rapidocr": "1.4.4",
-  "processor": "Intel64 Family 6 Model 186 Stepping 3, GenuineIntel",
-  "platform": "Windows-10-10.0.26300-SP0",
-  "screens": 340,
+  "processor": "AMD64 Family 25 Model 17 Stepping 1, AuthenticAMD",
+  "platform": "Windows-10-10.0.20348-SP0",
+  "screens": 3000,
   "corpus_screens": 3000,
-  "partial": true,
-  "completed_at_utc": "2026-11-02T17:44:49.640125+00:00",
-  "provider": "CPU ONNX, 2 threads per OCR worker, 4 concurrent workers",
+  "partial": false,
+  "completed_at_utc": "2026-11-02T18:53:33.424507+00:00",
+  "provider": "CPU ONNX, 2 threads per OCR worker, 2 concurrent workers",
   "metrics": {
     "email": {
-      "screens": 40,
-      "true_positives": 40,
-      "false_positive_boxes": 1,
-      "precision": 0.975609756097561,
-      "recall": 1.0,
-      "recall_iou50": 0.375,
-      "mean_iou": 0.4736776924750976
+      "screens": 320,
+      "true_positives": 316,
+      "false_positive_boxes": 7,
+      "precision": 0.978328173374613,
+      "recall": 0.9875,
+      "recall_iou50": 0.4125,
+      "mean_iou": 0.4890620558422582
     },
     "card": {
-      "screens": 39,
-      "true_positives": 38,
-      "false_positive_boxes": 7,
-      "precision": 0.8444444444444444,
-      "recall": 0.9743589743589743,
-      "recall_iou50": 0.10256410256410256,
-      "mean_iou": 0.3900313897658229
+      "screens": 328,
+      "true_positives": 327,
+      "false_positive_boxes": 48,
+      "precision": 0.872,
+      "recall": 0.9969512195121951,
+      "recall_iou50": 0.13414634146341464,
+      "mean_iou": 0.3753002604672733
     },
     "secret": {
-      "screens": 41,
-      "true_positives": 39,
+      "screens": 338,
+      "true_positives": 302,
       "false_positive_boxes": 0,
       "precision": 1.0,
-      "recall": 0.9512195121951219,
-      "recall_iou50": 0.8292682926829268,
-      "mean_iou": 0.5610488307224497
+      "recall": 0.893491124260355,
+      "recall_iou50": 0.6982248520710059,
+      "mean_iou": 0.5533495450928495
     },
     "vault": {
-      "screens": 34,
-      "true_positives": 34,
+      "screens": 296,
+      "true_positives": 295,
       "false_positive_boxes": 0,
       "precision": 1.0,
-      "recall": 1.0,
-      "recall_iou50": 0.4117647058823529,
-      "mean_iou": 0.4551312557916178
+      "recall": 0.9966216216216216,
+      "recall_iou50": 0.32432432432432434,
+      "mean_iou": 0.4423420524424246
     },
     "phone": {
-      "screens": 38,
-      "true_positives": 32,
+      "screens": 310,
+      "true_positives": 269,
       "false_positive_boxes": 0,
       "precision": 1.0,
-      "recall": 0.8421052631578947,
-      "recall_iou50": 0.23684210526315788,
-      "mean_iou": 0.4178397294746352
+      "recall": 0.867741935483871,
+      "recall_iou50": 0.17096774193548386,
+      "mean_iou": 0.4034855835125447
     },
     "address": {
-      "screens": 27,
-      "true_positives": 26,
-      "false_positive_boxes": 4,
-      "precision": 0.8666666666666667,
-      "recall": 0.9629629629629629,
-      "recall_iou50": 0.5185185185185185,
-      "mean_iou": 0.4989666412229828
+      "screens": 293,
+      "true_positives": 214,
+      "false_positive_boxes": 47,
+      "precision": 0.8199233716475096,
+      "recall": 0.7303754266211604,
+      "recall_iou50": 0.34812286689419797,
+      "mean_iou": 0.48728953124282515
     },
     "ip": {
-      "screens": 39,
-      "true_positives": 35,
-      "false_positive_boxes": 0,
-      "precision": 1.0,
-      "recall": 0.8974358974358975,
-      "recall_iou50": 0.3333333333333333,
-      "mean_iou": 0.43199428718189337
+      "screens": 309,
+      "true_positives": 278,
+      "false_positive_boxes": 3,
+      "precision": 0.9893238434163701,
+      "recall": 0.8996763754045307,
+      "recall_iou50": 0.2686084142394822,
+      "mean_iou": 0.4256899470473234
     },
     "national_id": {
-      "screens": 40,
-      "true_positives": 39,
+      "screens": 311,
+      "true_positives": 296,
       "false_positive_boxes": 0,
       "precision": 1.0,
-      "recall": 0.975,
-      "recall_iou50": 0.075,
-      "mean_iou": 0.3696130031728743
+      "recall": 0.9517684887459807,
+      "recall_iou50": 0.09646302250803858,
+      "mean_iou": 0.36992897485020876
     },
     "iban": {
-      "screens": 44,
-      "true_positives": 42,
+      "screens": 329,
+      "true_positives": 318,
       "false_positive_boxes": 0,
       "precision": 1.0,
-      "recall": 0.9545454545454546,
-      "recall_iou50": 0.25,
-      "mean_iou": 0.44577480506897693
+      "recall": 0.9665653495440729,
+      "recall_iou50": 0.25227963525835867,
+      "mean_iou": 0.4488845808774765
     }
   },
   "formats": {
     "address:de": {
-      "screens": 3,
-      "hits": 3,
-      "recall": 1.0
+      "screens": 55,
+      "hits": 22,
+      "recall": 0.4
     },
     "address:fr": {
-      "screens": 6,
-      "hits": 6,
-      "recall": 1.0
+      "screens": 59,
+      "hits": 51,
+      "recall": 0.864406779661017
     },
     "address:uk": {
-      "screens": 1,
-      "hits": 0,
-      "recall": 0.0
+      "screens": 58,
+      "hits": 32,
+      "recall": 0.5517241379310345
     },
     "address:us": {
-      "screens": 17,
-      "hits": 17,
-      "recall": 1.0
+      "screens": 121,
+      "hits": 109,
+      "recall": 0.9008264462809917
     },
     "card:amex-dash": {
-      "screens": 2,
-      "hits": 2,
+      "screens": 14,
+      "hits": 14,
+      "recall": 1.0
+    },
+    "card:amex-dash-split-inputs": {
+      "screens": 1,
+      "hits": 1,
       "recall": 1.0
     },
     "card:amex-plain": {
+      "screens": 19,
+      "hits": 19,
+      "recall": 1.0
+    },
+    "card:amex-plain-split-inputs": {
       "screens": 2,
       "hits": 2,
       "recall": 1.0
     },
     "card:amex-space": {
-      "screens": 3,
-      "hits": 3,
+      "screens": 23,
+      "hits": 23,
+      "recall": 1.0
+    },
+    "card:amex-space-split-inputs": {
+      "screens": 8,
+      "hits": 8,
       "recall": 1.0
     },
     "card:discover-dash": {
-      "screens": 1,
-      "hits": 1,
+      "screens": 15,
+      "hits": 15,
+      "recall": 1.0
+    },
+    "card:discover-dash-split-inputs": {
+      "screens": 8,
+      "hits": 8,
       "recall": 1.0
     },
     "card:discover-plain": {
-      "screens": 2,
-      "hits": 2,
+      "screens": 8,
+      "hits": 8,
       "recall": 1.0
     },
     "card:discover-plain-split-inputs": {
-      "screens": 2,
-      "hits": 2,
-      "recall": 1.0
-    },
-    "card:discover-space": {
       "screens": 6,
       "hits": 6,
       "recall": 1.0
     },
+    "card:discover-space": {
+      "screens": 19,
+      "hits": 19,
+      "recall": 1.0
+    },
+    "card:discover-space-split-inputs": {
+      "screens": 4,
+      "hits": 4,
+      "recall": 1.0
+    },
     "card:mastercard-dash": {
-      "screens": 2,
-      "hits": 2,
+      "screens": 24,
+      "hits": 24,
+      "recall": 1.0
+    },
+    "card:mastercard-dash-split-inputs": {
+      "screens": 10,
+      "hits": 10,
       "recall": 1.0
     },
     "card:mastercard-plain": {
-      "screens": 2,
-      "hits": 2,
+      "screens": 33,
+      "hits": 33,
       "recall": 1.0
     },
     "card:mastercard-plain-split-inputs": {
-      "screens": 1,
-      "hits": 1,
+      "screens": 7,
+      "hits": 7,
       "recall": 1.0
     },
     "card:mastercard-space": {
-      "screens": 5,
-      "hits": 4,
-      "recall": 0.8
+      "screens": 47,
+      "hits": 46,
+      "recall": 0.9787234042553191
     },
     "card:mastercard-space-split-inputs": {
-      "screens": 3,
-      "hits": 3,
+      "screens": 15,
+      "hits": 15,
+      "recall": 1.0
+    },
+    "card:visa-dash": {
+      "screens": 11,
+      "hits": 11,
       "recall": 1.0
     },
     "card:visa-dash-split-inputs": {
-      "screens": 2,
-      "hits": 2,
+      "screens": 5,
+      "hits": 5,
       "recall": 1.0
     },
     "card:visa-plain": {
-      "screens": 1,
-      "hits": 1,
+      "screens": 13,
+      "hits": 13,
       "recall": 1.0
     },
     "card:visa-plain-split-inputs": {
-      "screens": 2,
-      "hits": 2,
+      "screens": 6,
+      "hits": 6,
       "recall": 1.0
     },
     "card:visa-space": {
-      "screens": 1,
-      "hits": 1,
+      "screens": 18,
+      "hits": 18,
       "recall": 1.0
     },
     "card:visa-space-split-inputs": {
-      "screens": 2,
-      "hits": 2,
-      "recall": 1.0
-    },
-    "email:au": {
-      "screens": 1,
-      "hits": 1,
-      "recall": 1.0
-    },
-    "email:biz": {
-      "screens": 1,
-      "hits": 1,
-      "recall": 1.0
-    },
-    "email:com": {
       "screens": 12,
       "hits": 12,
       "recall": 1.0
     },
-    "email:de": {
-      "screens": 7,
-      "hits": 7,
+    "email:au": {
+      "screens": 8,
+      "hits": 8,
       "recall": 1.0
     },
+    "email:biz": {
+      "screens": 6,
+      "hits": 6,
+      "recall": 1.0
+    },
+    "email:com": {
+      "screens": 113,
+      "hits": 113,
+      "recall": 1.0
+    },
+    "email:de": {
+      "screens": 35,
+      "hits": 34,
+      "recall": 0.9714285714285714
+    },
     "email:dev": {
-      "screens": 1,
-      "hits": 1,
+      "screens": 16,
+      "hits": 16,
       "recall": 1.0
     },
     "email:fr": {
-      "screens": 7,
-      "hits": 7,
+      "screens": 39,
+      "hits": 38,
+      "recall": 0.9743589743589743
+    },
+    "email:info": {
+      "screens": 6,
+      "hits": 6,
       "recall": 1.0
     },
     "email:io": {
-      "screens": 1,
-      "hits": 1,
-      "recall": 1.0
+      "screens": 9,
+      "hits": 8,
+      "recall": 0.8888888888888888
     },
     "email:net": {
-      "screens": 1,
-      "hits": 1,
+      "screens": 27,
+      "hits": 27,
       "recall": 1.0
     },
     "email:org": {
-      "screens": 7,
-      "hits": 7,
-      "recall": 1.0
+      "screens": 41,
+      "hits": 40,
+      "recall": 0.975609756097561
     },
     "email:uk": {
-      "screens": 2,
-      "hits": 2,
+      "screens": 20,
+      "hits": 20,
       "recall": 1.0
     },
     "iban:DE": {
-      "screens": 7,
-      "hits": 7,
+      "screens": 64,
+      "hits": 64,
       "recall": 1.0
     },
     "iban:ES": {
-      "screens": 17,
-      "hits": 16,
-      "recall": 0.9411764705882353
+      "screens": 70,
+      "hits": 68,
+      "recall": 0.9714285714285714
     },
     "iban:FR": {
-      "screens": 9,
-      "hits": 9,
-      "recall": 1.0
+      "screens": 70,
+      "hits": 69,
+      "recall": 0.9857142857142858
     },
     "iban:GB": {
-      "screens": 7,
-      "hits": 7,
-      "recall": 1.0
+      "screens": 74,
+      "hits": 71,
+      "recall": 0.9594594594594594
     },
     "iban:NL": {
-      "screens": 4,
-      "hits": 3,
-      "recall": 0.75
+      "screens": 51,
+      "hits": 46,
+      "recall": 0.9019607843137255
     },
     "ip:ipv4": {
-      "screens": 29,
-      "hits": 26,
-      "recall": 0.896551724137931
+      "screens": 241,
+      "hits": 217,
+      "recall": 0.9004149377593361
     },
     "ip:ipv6": {
-      "screens": 10,
-      "hits": 9,
-      "recall": 0.9
+      "screens": 68,
+      "hits": 61,
+      "recall": 0.8970588235294118
     },
     "national_id:uk_nino": {
-      "screens": 15,
-      "hits": 14,
-      "recall": 0.9333333333333333
+      "screens": 100,
+      "hits": 85,
+      "recall": 0.85
     },
     "national_id:us_ssn": {
-      "screens": 25,
-      "hits": 25,
+      "screens": 211,
+      "hits": 211,
+      "recall": 1.0
+    },
+    "phone:AU-e164": {
+      "screens": 8,
+      "hits": 8,
       "recall": 1.0
     },
     "phone:AU-international": {
-      "screens": 1,
-      "hits": 1,
+      "screens": 15,
+      "hits": 15,
       "recall": 1.0
     },
-    "phone:BR-international": {
-      "screens": 3,
-      "hits": 3,
-      "recall": 1.0
-    },
-    "phone:BR-national": {
-      "screens": 1,
-      "hits": 0,
-      "recall": 0.0
-    },
-    "phone:CA-e164": {
-      "screens": 1,
-      "hits": 1,
-      "recall": 1.0
-    },
-    "phone:CA-international": {
-      "screens": 1,
-      "hits": 1,
-      "recall": 1.0
-    },
-    "phone:DE-e164": {
-      "screens": 2,
+    "phone:AU-national": {
+      "screens": 5,
       "hits": 2,
-      "recall": 1.0
+      "recall": 0.4
     },
-    "phone:DE-international": {
-      "screens": 1,
-      "hits": 0,
-      "recall": 0.0
-    },
-    "phone:DE-national": {
-      "screens": 1,
-      "hits": 0,
-      "recall": 0.0
-    },
-    "phone:ES-e164": {
-      "screens": 1,
-      "hits": 1,
-      "recall": 1.0
-    },
-    "phone:ES-international": {
+    "phone:BR-e164": {
       "screens": 4,
       "hits": 4,
       "recall": 1.0
     },
-    "phone:ES-national": {
-      "screens": 1,
-      "hits": 0,
-      "recall": 0.0
-    },
-    "phone:FR-e164": {
-      "screens": 2,
-      "hits": 2,
+    "phone:BR-international": {
+      "screens": 10,
+      "hits": 10,
       "recall": 1.0
     },
-    "phone:FR-international": {
-      "screens": 1,
+    "phone:BR-national": {
+      "screens": 5,
       "hits": 1,
+      "recall": 0.2
+    },
+    "phone:CA-e164": {
+      "screens": 7,
+      "hits": 7,
       "recall": 1.0
     },
-    "phone:FR-national": {
-      "screens": 1,
-      "hits": 0,
-      "recall": 0.0
-    },
-    "phone:GB-e164": {
-      "screens": 1,
-      "hits": 1,
+    "phone:CA-international": {
+      "screens": 9,
+      "hits": 9,
       "recall": 1.0
     },
-    "phone:IT-e164": {
-      "screens": 2,
-      "hits": 2,
-      "recall": 1.0
-    },
-    "phone:IT-international": {
+    "phone:CA-national": {
       "screens": 3,
       "hits": 3,
       "recall": 1.0
     },
-    "phone:IT-national": {
-      "screens": 1,
-      "hits": 1,
+    "phone:DE-e164": {
+      "screens": 9,
+      "hits": 9,
       "recall": 1.0
     },
-    "phone:JP-international": {
-      "screens": 1,
-      "hits": 1,
+    "phone:DE-international": {
+      "screens": 11,
+      "hits": 10,
+      "recall": 0.9090909090909091
+    },
+    "phone:DE-national": {
+      "screens": 8,
+      "hits": 2,
+      "recall": 0.25
+    },
+    "phone:ES-e164": {
+      "screens": 8,
+      "hits": 8,
       "recall": 1.0
     },
-    "phone:JP-national": {
-      "screens": 1,
-      "hits": 1,
+    "phone:ES-international": {
+      "screens": 13,
+      "hits": 13,
       "recall": 1.0
     },
-    "phone:MX-national": {
-      "screens": 1,
+    "phone:ES-national": {
+      "screens": 5,
       "hits": 0,
       "recall": 0.0
     },
-    "phone:NL-e164": {
-      "screens": 1,
+    "phone:FR-e164": {
+      "screens": 8,
+      "hits": 8,
+      "recall": 1.0
+    },
+    "phone:FR-international": {
+      "screens": 5,
+      "hits": 5,
+      "recall": 1.0
+    },
+    "phone:FR-national": {
+      "screens": 9,
+      "hits": 6,
+      "recall": 0.6666666666666666
+    },
+    "phone:GB-e164": {
+      "screens": 5,
+      "hits": 5,
+      "recall": 1.0
+    },
+    "phone:GB-international": {
+      "screens": 14,
+      "hits": 14,
+      "recall": 1.0
+    },
+    "phone:GB-national": {
+      "screens": 4,
+      "hits": 2,
+      "recall": 0.5
+    },
+    "phone:IN-e164": {
+      "screens": 5,
+      "hits": 5,
+      "recall": 1.0
+    },
+    "phone:IN-international": {
+      "screens": 4,
+      "hits": 4,
+      "recall": 1.0
+    },
+    "phone:IN-national": {
+      "screens": 3,
+      "hits": 0,
+      "recall": 0.0
+    },
+    "phone:IT-e164": {
+      "screens": 11,
+      "hits": 11,
+      "recall": 1.0
+    },
+    "phone:IT-international": {
+      "screens": 11,
+      "hits": 11,
+      "recall": 1.0
+    },
+    "phone:IT-national": {
+      "screens": 6,
+      "hits": 3,
+      "recall": 0.5
+    },
+    "phone:JP-e164": {
+      "screens": 6,
+      "hits": 6,
+      "recall": 1.0
+    },
+    "phone:JP-international": {
+      "screens": 13,
+      "hits": 13,
+      "recall": 1.0
+    },
+    "phone:JP-national": {
+      "screens": 8,
+      "hits": 5,
+      "recall": 0.625
+    },
+    "phone:MX-e164": {
+      "screens": 7,
+      "hits": 7,
+      "recall": 1.0
+    },
+    "phone:MX-international": {
+      "screens": 12,
+      "hits": 12,
+      "recall": 1.0
+    },
+    "phone:MX-national": {
+      "screens": 6,
       "hits": 1,
+      "recall": 0.16666666666666666
+    },
+    "phone:NL-e164": {
+      "screens": 13,
+      "hits": 13,
       "recall": 1.0
     },
     "phone:NL-international": {
+      "screens": 17,
+      "hits": 17,
+      "recall": 1.0
+    },
+    "phone:NL-national": {
+      "screens": 3,
+      "hits": 0,
+      "recall": 0.0
+    },
+    "phone:US-e164": {
       "screens": 4,
       "hits": 4,
       "recall": 1.0
     },
     "phone:US-international": {
-      "screens": 1,
-      "hits": 1,
+      "screens": 10,
+      "hits": 10,
       "recall": 1.0
     },
     "phone:US-national": {
-      "screens": 1,
-      "hits": 1,
+      "screens": 6,
+      "hits": 6,
       "recall": 1.0
     },
     "secret:api_key": {
-      "screens": 1,
-      "hits": 1,
-      "recall": 1.0
+      "screens": 27,
+      "hits": 26,
+      "recall": 0.9629629629629629
     },
     "secret:aws_access_key": {
-      "screens": 4,
-      "hits": 4,
+      "screens": 18,
+      "hits": 18,
       "recall": 1.0
     },
     "secret:aws_secret": {
-      "screens": 1,
-      "hits": 1,
-      "recall": 1.0
+      "screens": 18,
+      "hits": 17,
+      "recall": 0.9444444444444444
     },
     "secret:bearer": {
-      "screens": 5,
-      "hits": 4,
+      "screens": 25,
+      "hits": 20,
       "recall": 0.8
     },
     "secret:env_password": {
-      "screens": 4,
-      "hits": 4,
+      "screens": 19,
+      "hits": 19,
       "recall": 1.0
     },
     "secret:github_app": {
-      "screens": 3,
-      "hits": 3,
+      "screens": 23,
+      "hits": 23,
+      "recall": 1.0
+    },
+    "secret:github_classic": {
+      "screens": 15,
+      "hits": 15,
       "recall": 1.0
     },
     "secret:github_fine": {
-      "screens": 4,
-      "hits": 4,
-      "recall": 1.0
+      "screens": 16,
+      "hits": 15,
+      "recall": 0.9375
     },
     "secret:gitlab": {
-      "screens": 3,
-      "hits": 3,
+      "screens": 19,
+      "hits": 19,
       "recall": 1.0
     },
     "secret:google": {
-      "screens": 3,
-      "hits": 3,
-      "recall": 1.0
+      "screens": 30,
+      "hits": 19,
+      "recall": 0.6333333333333333
     },
     "secret:jwt": {
-      "screens": 4,
-      "hits": 3,
-      "recall": 0.75
+      "screens": 18,
+      "hits": 15,
+      "recall": 0.8333333333333334
     },
     "secret:openai": {
-      "screens": 2,
-      "hits": 2,
+      "screens": 24,
+      "hits": 24,
       "recall": 1.0
     },
     "secret:password_bare": {
-      "screens": 3,
-      "hits": 3,
-      "recall": 1.0
+      "screens": 19,
+      "hits": 15,
+      "recall": 0.7894736842105263
     },
     "secret:password_colon": {
-      "screens": 2,
-      "hits": 2,
+      "screens": 17,
+      "hits": 17,
       "recall": 1.0
+    },
+    "secret:slack": {
+      "screens": 30,
+      "hits": 23,
+      "recall": 0.7666666666666667
     },
     "secret:stripe": {
-      "screens": 2,
-      "hits": 2,
-      "recall": 1.0
+      "screens": 20,
+      "hits": 17,
+      "recall": 0.85
     },
     "vault:vault": {
-      "screens": 34,
-      "hits": 34,
-      "recall": 1.0
+      "screens": 296,
+      "hits": 295,
+      "recall": 0.9966216216216216
     }
   },
   "hard_negatives": {
     "code": {
-      "spans": 198,
+      "spans": 1597,
       "flagged": 0,
       "kinds": {},
       "fpr": 0.0
     },
     "chat_mention": {
-      "spans": 183,
-      "flagged": 0,
-      "kinds": {},
-      "fpr": 0.0
-    },
-    "time_at": {
-      "spans": 167,
-      "flagged": 1,
-      "kinds": {
-        "email": 1
-      },
-      "fpr": 0.005988023952095809
-    },
-    "version": {
-      "spans": 172,
-      "flagged": 0,
-      "kinds": {},
-      "fpr": 0.0
-    },
-    "private_ip": {
-      "spans": 165,
-      "flagged": 4,
-      "kinds": {
-        "card": 4
-      },
-      "fpr": 0.024242424242424242
-    },
-    "date": {
-      "spans": 181,
-      "flagged": 3,
-      "kinds": {
-        "address": 3
-      },
-      "fpr": 0.016574585635359115
-    },
-    "reference_number": {
-      "spans": 161,
-      "flagged": 0,
-      "kinds": {},
-      "fpr": 0.0
-    },
-    "non_luhn_16": {
-      "spans": 191,
-      "flagged": 6,
-      "kinds": {
-        "card": 6
-      },
-      "fpr": 0.031413612565445025
-    },
-    "scoreboard": {
-      "spans": 145,
+      "spans": 1567,
       "flagged": 2,
       "kinds": {
-        "card": 1,
+        "email": 2
+      },
+      "fpr": 0.0012763241863433313
+    },
+    "time_at": {
+      "spans": 1549,
+      "flagged": 11,
+      "kinds": {
+        "email": 5,
+        "card": 5,
         "address": 1
       },
-      "fpr": 0.013793103448275862
+      "fpr": 0.0071013557133634605
+    },
+    "version": {
+      "spans": 1545,
+      "flagged": 9,
+      "kinds": {
+        "ip": 3,
+        "card": 6
+      },
+      "fpr": 0.005825242718446602
+    },
+    "private_ip": {
+      "spans": 1560,
+      "flagged": 16,
+      "kinds": {
+        "card": 15,
+        "address": 1
+      },
+      "fpr": 0.010256410256410256
+    },
+    "date": {
+      "spans": 1587,
+      "flagged": 47,
+      "kinds": {
+        "address": 41,
+        "card": 6
+      },
+      "fpr": 0.029615626969124134
+    },
+    "reference_number": {
+      "spans": 1473,
+      "flagged": 3,
+      "kinds": {
+        "card": 2,
+        "address": 1
+      },
+      "fpr": 0.002036659877800407
+    },
+    "non_luhn_16": {
+      "spans": 1616,
+      "flagged": 43,
+      "kinds": {
+        "card": 41,
+        "address": 2
+      },
+      "fpr": 0.026608910891089108
+    },
+    "scoreboard": {
+      "spans": 1584,
+      "flagged": 10,
+      "kinds": {
+        "card": 8,
+        "address": 2
+      },
+      "fpr": 0.006313131313131313
     },
     "url": {
-      "spans": 191,
-      "flagged": 0,
-      "kinds": {},
-      "fpr": 0.0
+      "spans": 1560,
+      "flagged": 2,
+      "kinds": {
+        "card": 2
+      },
+      "fpr": 0.001282051282051282
     }
   },
-  "negative_screens": 95,
-  "negative_screen_fpr": 0.010526315789473684,
+  "negative_screens": 883,
+  "negative_screen_fpr": 0.02491506228765572,
   "latency_ms": {
-    "p50": 9949.847850002698,
-    "p95": 24575.862359994797,
-    "p99": 34515.098021992606
+    "p50": 2048.127249999993,
+    "p95": 3142.4409500002625,
+    "p99": 3864.5546420000787
   },
   "gates": {
     "recall": {
@@ -607,11 +742,13 @@
       "url": 0.03
     }
   },
-  "gate_failures": [],
-  "gates_passed": true,
+  "gate_failures": [
+    "address recall 0.7304 < 0.81"
+  ],
+  "gates_passed": false,
   "matching": "Ground truth is the glyph ink box of each labelled span (pixel difference between the screen and the same screen with that text made transparent). A target is a hit when one unmatched detection of the same kind covers at least 90% of the ink box area and is no larger than 8x that area (so a full-screen mask cannot score). Matching is one-to-one; duplicate boxes and wrong-kind predictions count as false positives. Recall at IoU >= 0.5 against the ink box is reported alongside as a stricter localisation measure. A hard-negative span is a false positive when an unmatched detection covers at least 30% of it.",
-  "predictions_file": "benchmark.predictions-bbcda382ad8f2a4c.jsonl",
-  "predictions_sha256": "104994ca6af9ef28e57d5696c7089efdec28c4417feaa246ef0fa35eaea230d8",
-  "source_archive": "benchmark.source-85957310e854.zip",
+  "predictions_file": "benchmark.predictions-720c4b01026d12a1.jsonl",
+  "predictions_sha256": "bb74e306d5a152c599c615a85774957ed91fbea0957b8fe25edb7ee41a1554c9",
+  "source_archive": "benchmark.source-c0d2e7c72f7e.zip",
   "limits": "The corpus is a generated test corpus with DOM-derived ground truth (bench/generate.py, reproducible from a fixed seed). The detector was not tuned on this corpus's per-screen values; the same team wrote the generator, so results describe the value formats and layouts listed above rather than every possible desktop. Concurrent CPU inference excludes queue wait; resumed samples retain their original measured timestamps."
 }
